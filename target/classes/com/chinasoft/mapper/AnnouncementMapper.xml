@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.mapper.AnnouncementMapper">
+
+	<insert id="insertAnnouncement" parameterType="com.chinasoft.pojo.Announcement">
+		insert into announcement(name,content,creatTime,userID) values (#{name},#{content},#{creatTime},#{userID})
+	</insert>
+	
+	<delete id="deleteAnnouncement" parameterType="String">
+		delete from announcement where announcementID in (
+		<foreach collection="announcementIDs"  separator=","  item="id">
+            #{id}
+        </foreach>
+        )
+	</delete>
+	
+	<select id="selectAnnouncement" parameterType="com.chinasoft.pojo.Announcement" resultType="com.chinasoft.pojo.Announcement">
+		select * from announcement 
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test='name != null and name!=""'>
+			    name = #{name}
+			</if>
+			<if test='content != null and content!=""'>
+				and content like #{content}
+			</if>
+			order by creatTime
+		</trim>
+	</select>
+	
+	<select id="selectByid" parameterType="com.chinasoft.pojo.Announcement" resultType="com.chinasoft.pojo.Announcement">
+		select * from announcement where announcementID = #{announcementID}
+	</select>
+
+	<update id="updateAnnouncement" parameterType="com.chinasoft.pojo.Announcement">
+		update announcement set 
+		<if test='name != null and name!=""'>
+			name = #{name}
+		</if>
+		<if test='content != null and content!=""'>
+			, content = #{content}
+		</if>
+		where announcementID = #{announcementID}
+	</update>
+</mapper>

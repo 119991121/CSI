@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.mapper.FileMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache />
+
+	<!-- 插入一条file数据 -->
+	<insert id="insertFile" parameterType="file">
+		insert into
+		file(name,date,userID,des,herf)
+		values(#{name},#{date},#{userID},#{des},#{herf})
+	</insert>
+
+	<!-- 按照fileId从file表删除数据 -->
+	<delete id="deleteFile" parameterType="int">
+		delete from file where
+		fileID = #{fileId}
+	</delete>
+
+	<!-- 更新某一个file的信息 -->
+	<update id="updateFile" parameterType="file">
+		update file set date=#{date}
+		<if test="name != null">
+			,name=#{name}
+		</if>
+		<if test="des != null">
+			,des=#{des}
+		</if>
+		<if test="name != null">
+			,herf=#{herf}
+		</if>
+		where fileID=#{fileID};
+	</update>
+
+	<!-- 通过fileId查询herf  -->
+	<select id="selectFileByID" resultType="file" parameterType="int">
+		select * from file where fileID=#{fileId};
+	</select>
+	
+	<!-- 通过name查询file表 -->
+	<select id="selectFileByName" resultType="file" parameterType="String">
+		select * from file where name like concat('%',#{name},'%');
+	</select>
+	
+	<!-- 查询file表全部信息 -->
+	<select id="selectFileAll" resultType="file">
+		select * from file;
+	</select>
+
+</mapper>

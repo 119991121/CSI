@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.mapper.UserMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache />
+	
+	<insert id="insertUser"
+		parameterType="com.chinasoft.pojo.User">
+		insert into user
+		(username,password,groupId,createdDate)
+		values(#{username},#{password},#{groupId},#{createdDate})
+	</insert>
+	
+	<delete id="deleteUser" parameterType="String">
+		delete  from user where user_id in (
+		<foreach collection="user_id"  separator=","  item="id">
+            #{id}
+        </foreach>
+        )
+	</delete>
+	
+	<select id="selectByName" parameterType="String" resultType="User">
+		select * from user where username=#{username}
+	</select>
+	
+	<select id="selectByid" parameterType="int" resultType="User">
+		select * from user where user_id=#{user_id}
+	</select>
+	
+	<select resultType="User" id="selectUser" parameterType="User">
+		select * from user u
+			left join department d on u.department_id = d.departmentID
+			left join position p on u.position_id = p.positionID
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test='positionName != null and positionName!=""'>
+			    p.positionName = #{positionName}
+			</if>
+			<if test='user_id != 0 and user_id!=""'>
+				and u.user_id = #{user_id}
+			</if>
+			<if test='idCardNo != null and idCardNo!=""'>
+				and u.idCardNo = #{idCardNo}
+			</if>
+			<if test='name != null and name!=""'>
+				and u.name = #{name}
+			</if>
+			<if test='departmentName != null and departmentName!=""'>
+				and d.departmentName = #{departmentName}
+			</if>
+		</trim>
+	</select>
+	
+	<update id="updateUser" parameterType="com.chinasoft.pojo.User">
+		update user
+		set username = #{username},password = #{password}
+		<if test='phone != null and phone!=""'>
+			,phone = #{phone}
+		</if>
+		<if test='groupId != null and groupId!=""'>
+			,groupId = #{groupId}
+		</if>
+		<if test='name != null and name!=""'>
+			,name = #{name}
+			</if>
+		<if test='sex != null and sex!=""'>
+			,sex = #{sex}
+			</if>
+		<if test='email != null and email!=""'>
+			,email = #{email}
+			</if>
+		<if test='position_id != 0'>
+			,position_id = #{position_id}
+			</if>
+		<if test='education != null and education!=""'>
+			,education = #{education}
+			</if>
+		<if test='idCardNo != null and idCardNo!=""'>
+			,idCardNo = #{idCardNo}
+			</if>
+		<if test='department_id != 0'>
+			,department_id = #{department_id}
+			</if>
+		<if test='address != null and address!=""'>
+			,address = #{address}
+			</if>
+		<if test='createdDate != null'>
+			,createdDate = #{createdDate}
+			</if>
+		where user_id = #{user_id}
+	</update>
+	
+	<select id="getGroupId" parameterType="int" resultType="int">
+		select groupId from user where  user_id = #{user_id}
+	</select>
+	
+	<select id="getPosition_id" parameterType="String" resultType="int">
+		select positionID from position where  positionName = #{positionName}
+	</select>
+	
+	<select id="getDepartment_id" parameterType="String" resultType="int">
+		select departmentID from department where  departmentName = #{departmentName}
+	</select>
+</mapper>
