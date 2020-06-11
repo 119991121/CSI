@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.mapper.DepartmentMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache />
+	
+	<insert id="insertDepartment"
+		parameterType="Department">
+		insert into department
+		(departmentName,departmentMessage)
+		values
+		<if test="departmentName!=null">
+			(#{departmentName},
+		</if>
+		<if test="departmentMessage!=null">
+			#{departmentMessage})
+		</if>
+	</insert>
+	
+	<delete id="deleteDepartment">
+		delete  from department where departmentID =  #{departmentID}
+	</delete>
+
+	<select resultType="Department" id="selectAll">
+		select * from department
+	</select>
+	
+	<select resultType="Department" id="selectByname" parameterType="String">
+		select * from department where departmentName = #{departmentName}
+	</select>
+	
+	<select resultType="Department" id="selectBymessage" parameterType="String">
+		select * from department where departmentMessage like concat('%', #{departmentMessage}, '%')
+	</select>
+	
+	<select resultType="Department" id="selectByid" parameterType="Integer">
+		select * from department where departmentID = #{departmentID}
+	</select>
+	
+	<update id="updateDepartment" parameterType="Department">
+		update department set
+		<if test="departmentName != null">
+			departmentName = #{departmentName}
+		</if>
+		<if test="departmentMessage != null">
+			,departmentMessage = #{departmentMessage}
+		</if>
+		where departmentID = #{departmentID}
+	</update>
+</mapper>

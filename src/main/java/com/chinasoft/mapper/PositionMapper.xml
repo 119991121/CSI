@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.mapper.PositionMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache />
+	
+	<insert id="insertPosition" parameterType="Position">
+		insert into position
+		(departmentID,positionName,positionMessage)
+		values
+		<if test="departmentID!=null">
+			(#{departmentID},
+		</if>
+		<if test="positionName!=null">
+			#{positionName},
+		</if>
+		<if test="positionMessage!=null">
+			#{positionMessage})
+		</if>
+	</insert>
+	
+	<delete id="deletePosition">
+		delete  from position where positionID =  #{positionID}
+	</delete>
+
+	<select resultType="Position" id="selectAll">
+		select * from position
+	</select>
+	
+	<select resultType="Position" id="selectByname" parameterType="String">
+		select * from position where positionName = #{positionName}
+	</select>
+	
+	<select resultType="Position" id="selectBymessage" parameterType="String">
+		select * from position where positionMessage like concat('%', #{positionMessage}, '%')
+	</select>
+	
+	<select resultType="Position" id="selectByid" parameterType="Integer">
+		select * from position where positionID = #{positionID}
+	</select>
+	
+	<update id="updatePosition" parameterType="Position">
+		update position set
+		<if test="departmentID != null">
+			departmentID = #{departmentID}
+		</if>
+		<if test="positionName != null">
+			,positionName = #{positionName}
+		</if>
+		<if test="positionMessage != null">
+			,positionMessage = #{positionMessage}
+		</if>
+		where positionID = #{positionID}
+	</update>
+</mapper>
