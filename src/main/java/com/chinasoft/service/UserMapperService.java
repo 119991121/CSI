@@ -27,4 +27,12 @@ public interface UserMapperService {
 	int getDepartment_id(String departmentName);
 	
 	int registerface(String user_id,String faceid);
+
+	List<User> selectAll();
+
+	User login(User user);
+
+	int editPassword(String newPassword, String username);
+
+	User selectDetail(String username);
 }

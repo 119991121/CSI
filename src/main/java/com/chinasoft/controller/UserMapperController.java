@@ -32,9 +32,9 @@ public class UserMapperController {
 	public Object Insert(@RequestBody Map<String,Object> request) {
 		String username=(String) request.get("username");
 		String password=(String) request.get("password");
-		String S_groupId=(String)request.get("groupid");
+		int groupId=(int)request.get("groupid");
 		Map<String,Object> rs = new HashMap<>();	
-		if(username ==null || password ==null||username.equals("") || password.equals("")||S_groupId==null|| S_groupId.equals("")) {
+		if(username ==null || password ==null||username.equals("") || password.equals("")||groupId==0) {
 			rs.put("data",null);
 			rs.put("message", "数据不完整");
 			rs.put("error_code",1);
@@ -45,7 +45,6 @@ public class UserMapperController {
 				rs.put("error_code",2);
 			}
 			else {
-				int groupId=Integer.parseInt(S_groupId);
 				User user = new User();
 				user.setUsername(username);
 				user.setPassword(password);
@@ -65,12 +64,12 @@ public class UserMapperController {
 	@RequestMapping(value="/delete",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Delete(@RequestBody Map<String,Object> request) throws IOException {
-		List<String> user_id=(List) request.get("user_id");
+		List<String> username=(List) request.get("username");
 		Map<String,Object> rs = new HashMap<>();
-		if(service.delete(user_id)!=0) {
-			for(String userid : user_id) {
+		if(service.delete(username)!=0) {
+			for(String username1 : username) {
 				try {
-					UserFaceController.deleteuser(userid);
+					UserFaceController.deleteuser(username1);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -93,13 +92,9 @@ public class UserMapperController {
 		String name=(String) request.get("name");
 		String idCardNo=(String) request.get("idCardNo");
 		String positionName=(String) request.get("positionName");
-		String S_user_id=(String) request.get("user_id");
-		if(S_user_id==null|| S_user_id.equals("")) {
-			S_user_id="0";
-		}
-		int user_id=Integer.parseInt(S_user_id);
+		String username=(String) request.get("username");
 		String departmentName=(String) request.get("departmentName");
-		user.setUser_id(user_id);
+		user.setUsername(username);
 		user.setIdCardNo(idCardNo);
 		user.setName(name);
 		user.setPositionName(positionName);
@@ -117,38 +112,60 @@ public class UserMapperController {
         return rs;
 	}
 	
+	@RequestMapping(value="/detail",method= RequestMethod.POST)
+	@ResponseBody
+	public Object selectDetail(@RequestBody Map<String,Object> request) {
+
+		String username=(String) request.get("username");
+		User user =service.selectDetail(username);
+		Map<String,Object> rs = new HashMap<>();	
+		if(user!=null) {
+			rs.put("error_code", 0);
+			rs.put("message", "查询成功");
+			rs.put("data", user);
+		}else {
+			rs.put("error_code", 1);
+			rs.put("message", "查询失败");
+		}
+        return rs;
+	}
+	
+	@RequestMapping(value="/showall",method= RequestMethod.POST)
+	@ResponseBody
+	public Object selectAll() {
+		Map<String,Object> rs = new HashMap<>();
+		List<User> users= service.selectAll();
+		if(users!=null&&users.size()!=0) {
+			rs.put("error_code", 0);
+			rs.put("message", "查询成功");
+			rs.put("data", users);
+			return rs;
+		}else {
+			rs.put("error_code", 1);
+			rs.put("message", "查询失败");
+			return rs;
+		}
+	}
+	
 	@RequestMapping(value="/update",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Update(@RequestBody Map<String,Object> request) {
-		String S_user_id=(String) request.get("user_id");
-		if(S_user_id==null|| S_user_id.equals("")) {
-			S_user_id="0";
-		}
-		int user_id=Integer.parseInt(S_user_id);
-		
-		String S_groupId=(String) request.get("groupId");
-		if(S_groupId==null|| S_groupId.equals("")) {
-			S_groupId="0";
-		}
-		int groupId=Integer.parseInt(S_groupId);
-		
+		int user_id=(int) request.get("user_id");	
+		int groupId=(int) request.get("groupId");	
 		String positionName=(String) request.get("positionName");
 		String departmentName=(String) request.get("departmentName");		
-		
 		int position_id=service.getPosition_id(positionName);
-		int department_id=service.getDepartment_id(departmentName);;
-		
+		int department_id=service.getDepartment_id(departmentName);;	
 		String username=(String) request.get("username");
 		String password=(String) request.get("password");
 		String phone=(String) request.get("phone");
 		String name=(String) request.get("name");
-		String sex=(String) request.get("sex");
+		int sex=(int) request.get("sex");
 		String email=(String) request.get("email");
 		String education=(String) request.get("education");
 		String idCardNo=(String) request.get("idCardNo");
 		String address=(String) request.get("address");
 		Date createdDate=new Date();
-		
 		
 		User user = new User();
 		user.setUser_id(user_id);
@@ -189,5 +206,57 @@ public class UserMapperController {
         return rs;
 	}
 	
+	@RequestMapping(value="/login",method= RequestMethod.POST)
+	@ResponseBody
+	public Object Login(@RequestBody Map<String,Object> request) {
+		Map<String,Object> rs = new HashMap<>();
+		String username=(String) request.get("username");
+		String password=(String) request.get("password");
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		User user1=service.login(user);
+		if(user1!=null) {
+			rs.put("error_code", 0);
+			rs.put("message", "请求成功");
+			rs.put("data", user);
+		}else {
+			user1=service.selectByName(username);
+			if(user1!=null) {
+				rs.put("error_code", 201);
+				rs.put("message", "密码错误");
+			}
+			else{
+				rs.put("error_code", 202);
+				rs.put("message", "未注册");
+			}
+		}
+		return rs;
+	}
 	
+	@RequestMapping(value="/editPassword",method= RequestMethod.POST)
+	@ResponseBody
+	public Object EditPassword(@RequestBody Map<String,Object> request) {
+		Map<String,Object> rs = new HashMap<>();
+		String newPassword=(String) request.get("newPassword");
+		String oldPassword=(String) request.get("oldPassword");
+		String username=(String) request.get("username");
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(oldPassword);
+		if(service.login(user)==null) {
+			rs.put("error_code", 203);
+			rs.put("message", "旧的密码输入错误");
+		}else {
+			if(service.editPassword(newPassword,username)==1) {
+				rs.put("error_code", 0);
+				rs.put("message", "请求成功");
+			}
+			else{
+				rs.put("error_code", 1);
+				rs.put("message", "请求失败");
+			}		
+		}
+		return rs;
+	}
 }

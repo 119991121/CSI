@@ -15,9 +15,9 @@
 	</insert>
 	
 	<delete id="deleteUser" parameterType="String">
-		delete  from user where user_id in (
-		<foreach collection="user_id"  separator=","  item="id">
-            #{id}
+		delete  from user where username in (
+		<foreach collection="username"  separator=","  item="username">
+            #{username}
         </foreach>
         )
 	</delete>
@@ -38,8 +38,8 @@
 			<if test='positionName != null and positionName!=""'>
 			    p.positionName = #{positionName}
 			</if>
-			<if test='user_id != 0 and user_id!=""'>
-				and u.user_id = #{user_id}
+			<if test='username != null and username !=""'>
+				and u.username = #{username}
 			</if>
 			<if test='idCardNo != null and idCardNo!=""'>
 				and u.idCardNo = #{idCardNo}
@@ -51,6 +51,16 @@
 				and d.departmentName = #{departmentName}
 			</if>
 		</trim>
+	</select>
+	
+	<select id="selectAll" resultType="User">
+		select * from user u
+			left join department d on u.department_id = d.departmentID
+			left join position p on u.position_id = p.positionID
+	</select>
+	
+	<select id="login" parameterType="String" resultType="User">
+		select * from user where username = #{username} and password = #{password}
 	</select>
 	
 	<update id="updateUser" parameterType="com.chinasoft.pojo.User">
@@ -109,4 +119,16 @@
 		set face_id = #{faceid}
 		where user_id = #{user_id}
 	</update>
+	
+	<update id="editPassword" parameterType="String">
+		update user set password = #{newPassword} where username = #{username}
+	</update>
+	
+	<select id="selectDetail" parameterType="String" resultType="User">
+		select * from user u
+			left join department d on u.department_id = d.departmentID
+			left join position p on u.position_id = p.positionID 
+			where  username = #{username}
+	</select>
+	
 </mapper>

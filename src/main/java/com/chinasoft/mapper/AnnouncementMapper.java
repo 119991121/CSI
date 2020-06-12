@@ -16,4 +16,6 @@ public interface AnnouncementMapper {
 	int updateAnnouncement(Announcement announcement);
 
 	Announcement selectByid(int id);
+
+	List<Announcement> selectAll();
 }

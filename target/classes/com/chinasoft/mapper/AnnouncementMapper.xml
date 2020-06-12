@@ -23,7 +23,7 @@
 			    name = #{name}
 			</if>
 			<if test='content != null and content!=""'>
-				and content like #{content}
+				and content like concat('%', #{content}, '%')
 			</if>
 			order by creatTime
 		</trim>
@@ -31,6 +31,10 @@
 	
 	<select id="selectByid" parameterType="com.chinasoft.pojo.Announcement" resultType="com.chinasoft.pojo.Announcement">
 		select * from announcement where announcementID = #{announcementID}
+	</select>
+	
+	<select id="selectAll" resultType="com.chinasoft.pojo.Announcement">
+		select * from announcement order by creatTime
 	</select>
 
 	<update id="updateAnnouncement" parameterType="com.chinasoft.pojo.Announcement">

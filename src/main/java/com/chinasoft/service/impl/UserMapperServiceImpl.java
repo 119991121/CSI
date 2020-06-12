@@ -22,8 +22,8 @@ public class UserMapperServiceImpl implements UserMapperService {
 	}
 	
 	@Override
-	public int delete(List<String> user_id) {
-		int result=mapper.deleteUser(user_id);
+	public int delete(List<String> username) {
+		int result=mapper.deleteUser(username);
 		return result;
 	}
 	
@@ -73,6 +73,30 @@ public class UserMapperServiceImpl implements UserMapperService {
 	public int registerface(String user_id, String faceid) {
 		int result = mapper.registerface(user_id,faceid);
 		return result;
+	}
+
+	@Override
+	public List<User> selectAll() {
+		List<User> users = mapper.selectAll();
+		return users;
+	}
+
+	@Override
+	public User login(User user) {
+		User user1 = mapper.login(user);
+		return user1;
+	}
+
+	@Override
+	public int editPassword(String newPassword, String username) {
+		int result = mapper.editPassword(newPassword,username);
+		return result;
+	}
+
+	@Override
+	public User selectDetail(String username) {
+		User user1 = mapper.selectDetail(username);
+		return user1;
 	}
 
 }

@@ -13,7 +13,7 @@ public class User  implements Serializable{
 	private int groupId;
 	private Date createdDate;
 	private String phone;
-	private String sex;
+	private int sex;
 	private String email;
 	private int position_id;
 	private String positionName;
@@ -68,10 +68,10 @@ public class User  implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getSex() {
+	public int getSex() {
 		return sex;
 	}
-	public void setSex(String sex) {
+	public void setSex(int sex) {
 		this.sex = sex;
 	}
 	public String getEmail() {
@@ -145,7 +145,7 @@ public class User  implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	public User(int user_id, String username, String password, String name, int groupId, Date createdDate, String phone,
-			String sex, String email, int position_id, String positionName, String positionMessage, String education,
+			int sex, String email, int position_id, String positionName, String positionMessage, String education,
 			String idCardNo, int department_id, String departmentName, String departmentMessage, String address,
 			int face_id) {
 		super();

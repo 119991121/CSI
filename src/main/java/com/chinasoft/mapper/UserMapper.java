@@ -10,7 +10,7 @@ import com.chinasoft.pojo.User;
 public interface UserMapper {
 	int insertUser(User user);
 
-	int deleteUser(@Param("user_id")List<String> user_id);
+	int deleteUser(@Param("username")List<String> username);
 	
 	List<User> selectUser(User user);
 	
@@ -27,5 +27,13 @@ public interface UserMapper {
 	int getDepartment_id(String departmentName);
 	
 	int registerface(@Param("user_id") String user_id,@Param("faceid") String faceid);
+
+	List<User> selectAll();
+
+	User login(User user);
+
+	int editPassword(@Param("newPassword") String newPassword, @Param("username") String username);
+
+	User selectDetail(String username);
 	
 }

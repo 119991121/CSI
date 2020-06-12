@@ -29,11 +29,7 @@ public class AnnouncementMapperController {
 		Map<String,Object> rs = new HashMap<>();
 		String name=(String) request.get("name");
 		String content=(String) request.get("content");
-		String S_userID=(String) request.get("userID");
-		if(S_userID==null|| S_userID.equals("")) {
-			S_userID="0";
-		}
-		int userID=Integer.parseInt(S_userID);
+		int userID=(int) request.get("userID");
 		if(name ==null || content ==null||name.equals("") || content.equals("")||userID==0) {
 			rs.put("data",null);
 			rs.put("message", "数据不完整");
@@ -77,7 +73,7 @@ public class AnnouncementMapperController {
 		String content=(String) request.get("content");
 		Announcement announcement = new Announcement();
 		announcement.setName(name);
-		announcement.setContent("%"+content+"%");
+		announcement.setContent(content);
 		System.out.println(announcement);
 		List<Announcement> announcements = service.selectAnnouncement(announcement);
 		System.out.println("announcements:"+announcements);
@@ -93,16 +89,30 @@ public class AnnouncementMapperController {
         return rs;
 	}
 	
+	@RequestMapping(value="/selectAll",method= RequestMethod.POST)
+	@ResponseBody
+	public Object selectAll() {
+		Map<String,Object> rs = new HashMap<>();
+		List<Announcement> announcements= service.selectAll();
+		System.out.println(announcements);
+		if(announcements!=null&&announcements.size()!=0) {
+			rs.put("error_code", 0);
+			rs.put("message", "查询成功");
+			rs.put("data", announcements);
+			return rs;
+		}else {
+			rs.put("error_code", 1);
+			rs.put("message", "查询失败");
+			return rs;
+		}
+	}
+	
 	@RequestMapping(value="/updateAnnouncement",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Update(@RequestBody Map<String,Object> request) {
 		String name=(String) request.get("name");
 		String content=(String) request.get("content");
-		String S_announcementID=(String) request.get("announcementID");
-		if(S_announcementID==null|| S_announcementID.equals("")) {
-			S_announcementID="0";
-		}
-		int announcementID=Integer.parseInt(S_announcementID);
+		int announcementID=(int) request.get("announcementID");
 		Announcement announcement = new Announcement();
 		announcement.setName(name);
 		announcement.setContent(content);

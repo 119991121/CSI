@@ -27,8 +27,8 @@ public class AnnouncementMapperServiceImpl implements AnnouncementMapperService 
 	}
 	@Override
 	public List<Announcement> selectAnnouncement(Announcement announcement) {
-		List<Announcement> announce1 = mapper.selectAnnouncement(announcement);
-		return announce1;
+		List<Announcement> announcement1 = mapper.selectAnnouncement(announcement);
+		return announcement1;
 	}
 	@Override
 	public int updateAnnouncement(Announcement announcement) {
@@ -40,5 +40,11 @@ public class AnnouncementMapperServiceImpl implements AnnouncementMapperService 
 	public Announcement selectByid(int id) {
 		Announcement result = mapper.selectByid(id);
 		return result;
+	}
+	
+	@Override
+	public List<Announcement> selectAll() {
+		List<Announcement> announcements = mapper.selectAll();
+		return announcements;
 	}
 }
