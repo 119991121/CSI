@@ -69,4 +69,10 @@ public class UserMapperServiceImpl implements UserMapperService {
 		return department_id;
 	}
 
+	@Override
+	public int registerface(String user_id, String faceid) {
+		int result = mapper.registerface(user_id,faceid);
+		return result;
+	}
+
 }

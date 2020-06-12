@@ -26,4 +26,6 @@ public interface UserMapper {
 
 	int getDepartment_id(String departmentName);
 	
+	int registerface(@Param("user_id") String user_id,@Param("faceid") String faceid);
+	
 }

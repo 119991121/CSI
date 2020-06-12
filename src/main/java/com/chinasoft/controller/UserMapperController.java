@@ -1,34 +1,38 @@
 package com.chinasoft.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.chinasoft.AiFace.FaceDetect;
 import com.chinasoft.pojo.Announcement;
 import com.chinasoft.pojo.User;
 import com.chinasoft.service.impl.UserMapperServiceImpl;
 
 @Controller
+@CrossOrigin
 @RequestMapping("/user")
 public class UserMapperController {
 	
 	@Autowired
 	UserMapperServiceImpl service;
-	
-	@RequestMapping(value="/addUser",method= RequestMethod.POST)
+	@RequestMapping(value="/adduser",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Insert(@RequestBody Map<String,Object> request) {
 		String username=(String) request.get("username");
 		String password=(String) request.get("password");
-		String S_groupId=(String)request.get("groupId");
+		String S_groupId=(String)request.get("groupid");
 		Map<String,Object> rs = new HashMap<>();	
 		if(username ==null || password ==null||username.equals("") || password.equals("")||S_groupId==null|| S_groupId.equals("")) {
 			rs.put("data",null);
@@ -48,6 +52,7 @@ public class UserMapperController {
 				user.setGroupId(groupId);
 				user.setCreatedDate(new Date());
 				if(service.insert(user)==1) {
+					user = service.selectByName(username);
 					rs.put("data",user);
 					rs.put("message", "新增成功");
 					rs.put("error_code",0);
@@ -59,10 +64,18 @@ public class UserMapperController {
 	
 	@RequestMapping(value="/delete",method= RequestMethod.POST)
 	@ResponseBody
-	public Object Delete(@RequestBody Map<String,Object> request) {
+	public Object Delete(@RequestBody Map<String,Object> request) throws IOException {
 		List<String> user_id=(List) request.get("user_id");
 		Map<String,Object> rs = new HashMap<>();
 		if(service.delete(user_id)!=0) {
+			for(String userid : user_id) {
+				try {
+					UserFaceController.deleteuser(userid);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			rs.put("message","数据删除成功");
 			rs.put("error_code",0);
 		}else {

@@ -25,4 +25,6 @@ public interface UserMapperService {
 	int getPosition_id(String positionName);
 
 	int getDepartment_id(String departmentName);
+	
+	int registerface(String user_id,String faceid);
 }

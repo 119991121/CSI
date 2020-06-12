@@ -103,4 +103,10 @@
 	<select id="getDepartment_id" parameterType="String" resultType="int">
 		select departmentID from department where  departmentName = #{departmentName}
 	</select>
+	
+	<update id="registerface" parameterType="String">
+		update user
+		set face_id = #{faceid}
+		where user_id = #{user_id}
+	</update>
 </mapper>
