@@ -35,4 +35,6 @@ public interface UserMapperService {
 	int editPassword(String newPassword, String username);
 
 	User selectDetail(String username);
+	
+	String selectNameById(int user_id);
 }

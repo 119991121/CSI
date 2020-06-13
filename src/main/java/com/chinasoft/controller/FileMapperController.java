@@ -23,6 +23,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.chinasoft.pojo.File;
 import com.chinasoft.service.impl.FileMapperServiceImpl;
+import com.chinasoft.service.impl.UserMapperServiceImpl;
 import com.chinasoft.util.COSClientUtil;
 import com.chinasoft.util.COS.MyCOSClient;
 import com.qcloud.cos.COSClient;
@@ -36,6 +37,9 @@ public class FileMapperController {
 
 	@Autowired
 	FileMapperServiceImpl service;
+	
+	@Autowired
+	UserMapperServiceImpl userservice;
 
 	public MyCOSClient client = new MyCOSClient();
 
@@ -209,9 +213,19 @@ public class FileMapperController {
 		
 		List<File> files = service.selectByName(name);
 		
+		Map<Integer, String> id_name = new HashMap<>();
+		
+		for (File file : files) {
+			if(!id_name.containsKey(file.getUserID())) {
+				String user_name = userservice.selectNameById(file.getUserID());
+				id_name.put(file.getUserID(), user_name);
+			}
+		}
+		
 		results.put("message", "查询成功");
 		results.put("error_code", 0);
 		results.put("data", files);
+		results.put("userIDtoName",id_name);
 
 		return results; 
 	}
@@ -223,6 +237,12 @@ public class FileMapperController {
 		Map<String, Object> results = new HashMap<>();
 		
 		List<File> files = service.selectFileAll();
+		
+		
+		for (File file : files) {
+			String user_name = userservice.selectNameById(file.getUserID());
+			file.setUser_name(user_name);
+		}
 		
 		results.put("message", "查询成功");
 		results.put("error_code", 0);
