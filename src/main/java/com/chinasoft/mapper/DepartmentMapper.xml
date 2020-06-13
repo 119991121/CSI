@@ -21,11 +21,15 @@
 	</insert>
 	
 	<delete id="deleteDepartment">
-		delete  from department where departmentID =  #{departmentID}
+		delete  from department where departmentName in(
+		<foreach collection="dept_name"  separator=","  item="index">
+            #{index}
+        </foreach>
+        )
 	</delete>
 
 	<select resultType="Department" id="selectAll">
-		select * from department
+		select * from department order by departmentName
 	</select>
 	
 	<select resultType="Department" id="selectByname" parameterType="String">
@@ -33,14 +37,18 @@
 	</select>
 	
 	<select resultType="Department" id="selectBymessage" parameterType="String">
-		select * from department where departmentMessage like concat('%', #{departmentMessage}, '%')
+		select * from department 
+		where 
+			departmentName like concat('%', #{departmentMessage}, '%') 
+			or departmentMessage like concat('%', #{departmentMessage}, '%')
+		order by departmentName
 	</select>
 	
 	<select resultType="Department" id="selectByid" parameterType="Integer">
 		select * from department where departmentID = #{departmentID}
 	</select>
 	
-	<update id="updateDepartment" parameterType="Department">
+	<update id="updateDepartment" parameterType="String">
 		update department set
 		<if test="departmentName != null">
 			departmentName = #{departmentName}
@@ -48,6 +56,6 @@
 		<if test="departmentMessage != null">
 			,departmentMessage = #{departmentMessage}
 		</if>
-		where departmentID = #{departmentID}
+		where departmentName = #{departmentNameOld}
 	</update>
 </mapper>

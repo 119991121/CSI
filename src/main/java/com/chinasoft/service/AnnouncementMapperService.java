@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 public interface AnnouncementMapperService {
 	int insertAnnouncement(Announcement announcement);
 	
-	int deleteAnnouncement(List<String> announcementIDs);
+	int deleteAnnouncement(List<String> names);
 	
 	List<Announcement> selectAnnouncement(Announcement announcement);
 
@@ -18,4 +18,8 @@ public interface AnnouncementMapperService {
 	Announcement selectByid(int id);
 
 	List<Announcement> selectAll();
+
+	Announcement selectByName(String name);
+
+	int getIdByUsername(String username);
 }

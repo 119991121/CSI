@@ -10,7 +10,7 @@ public interface DepartmentMapperService {
 
 	int insert(Department department);
 	
-	int delete(int DepartmentID);
+	int delete(List<String> dept_name);
 	
 	List<Department> selectAll();
 	
@@ -20,5 +20,5 @@ public interface DepartmentMapperService {
 	
 	List<Department> selectBymessage(String message);
 	
-	int update(Department department);
+	int update(String departmentNameOld, String departmentName, String departmentMessage);
 }

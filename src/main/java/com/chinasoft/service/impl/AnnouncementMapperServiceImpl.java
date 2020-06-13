@@ -21,8 +21,8 @@ public class AnnouncementMapperServiceImpl implements AnnouncementMapperService 
 	}
 	
 	@Override
-	public int deleteAnnouncement(List<String> announcementIDs) {
-		int result=mapper.deleteAnnouncement(announcementIDs);
+	public int deleteAnnouncement(List<String> names) {
+		int result=mapper.deleteAnnouncement(names);
 		return  result;
 	}
 	@Override
@@ -46,5 +46,17 @@ public class AnnouncementMapperServiceImpl implements AnnouncementMapperService 
 	public List<Announcement> selectAll() {
 		List<Announcement> announcements = mapper.selectAll();
 		return announcements;
+	}
+
+	@Override
+	public Announcement selectByName(String name) {
+		Announcement result = mapper.selectByName(name);
+		return result;
+	}
+
+	@Override
+	public int getIdByUsername(String username) {
+		int result = mapper.getIdByUsername(username);
+		return result;
 	}
 }

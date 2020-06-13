@@ -17,28 +17,29 @@ import com.chinasoft.service.impl.PositionMapperServiceImpl;
 
 @Controller
 @CrossOrigin
-@RequestMapping("/position")
+@RequestMapping("/pos")
 public class PositionMapperController {
 	
 	@Autowired
 	PositionMapperServiceImpl service;
 	
-	@RequestMapping(value="/add",method= RequestMethod.POST)
+	@RequestMapping(value="/addPos",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Insert(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
 		System.out.println(request);
-		int departmentID = (int) request.get("departmentID");
-		String positionName = (String) request.get("positionName");
-		String positionMessage = (String) request.get("positionMessage");
-		if(positionMessage==null || positionName==null|| String.valueOf(departmentID)==null || String.valueOf(departmentID).equals("") ||positionMessage.equals("") || positionName.equals("")) {
+		String subordinate_dept = (String) request.get("subordinate_dept");
+		String positionName = (String) request.get("pos_name");
+		String positionMessage = (String) request.get("pos_desc");
+		int departmentID = service.getIdByname(subordinate_dept);
+		if(positionMessage==null || positionName==null||positionMessage.equals("") || positionName.equals("")||subordinate_dept==null || subordinate_dept.equals("")) {
 			rs.put("data",null);
 			rs.put("message", "信息不完整");
 			rs.put("error_code",1);
 		}else {
 			if(service.selectByname(positionName)!=null) {
 				rs.put("data",null);
-				rs.put("message", "用户已存在");
+				rs.put("message", "职位已存在");
 				rs.put("error_code",2);
 			}else {
 				Position position= new Position();
@@ -60,13 +61,13 @@ public class PositionMapperController {
         return rs;
 	}
 	
-	@RequestMapping(value="/delete",method= RequestMethod.POST)
+	@RequestMapping(value="/deletePos",method= RequestMethod.POST)
 	@ResponseBody
 	public Object elete(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
 		
-		int id = (int) request.get("positionID");
-		if(service.delete(id)==1) {
+		List<String> names = (List) request.get("pos_name");
+		if(service.delete(names)!=0) {
 			rs.put("error_code", 0);
 			rs.put("message", "删除成功");
 			return rs;
@@ -77,7 +78,7 @@ public class PositionMapperController {
 		}
 	}
 	
-	@RequestMapping(value="/selectByName",method= RequestMethod.GET)
+	@RequestMapping(value="/selectByName",method= RequestMethod.POST)
 	@ResponseBody
 	public Object SelectByName(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
@@ -96,12 +97,12 @@ public class PositionMapperController {
 		}
 	}
 	
-	@RequestMapping(value="/selectByMessage",method= RequestMethod.GET)
+	@RequestMapping(value="/selectPosResult",method= RequestMethod.POST)
 	@ResponseBody
 	public Object selectByMessage(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
 		
-		String message= (String) request.get("positionMessage");
+		String message= (String) request.get("select_key");
 		List<Position> positions= service.selectBymessage(message);
 		if(positions!=null) {
 			rs.put("error_code", 0);
@@ -115,11 +116,10 @@ public class PositionMapperController {
 		}
 	}
 	
-	@RequestMapping(value="/selectAll",method= RequestMethod.GET)
+	@RequestMapping(value="/showAllPos",method= RequestMethod.POST)
 	@ResponseBody
 	public Object selectAll() {
 		Map<String,Object> rs = new HashMap<>();
-		
 		List<Position> positions= service.selectAll();
 		if(positions!=null) {
 			rs.put("error_code", 0);
@@ -133,27 +133,27 @@ public class PositionMapperController {
 		}
 	}
 	
-	@RequestMapping(value="/update",method= RequestMethod.POST)
+	@RequestMapping(value="/updatePos",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Update(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
-		System.out.println(request);
-		if(request.get("positionID")==null||request.get("positionID").equals("")) {
+		String positionName = (String) request.get("pos_name");
+		if(positionName==null||positionName.equals("")) {
 			rs.put("data",null);
 			rs.put("message", "信息不全");
 			rs.put("error_code",1);
 		}else {
-			int positionID = (int) request.get("positionID");
-			int departmentID = (int) request.get("departmentID");
-			String positionName = (String) request.get("positionName");
-			String positionMessage = (String) request.get("positionMessage");
-			if(service.selectByid(positionID)==null) {
+			String new_subordinate_dept = (String) request.get("new_subordinate_dept");
+			int departmentID = service.getIdByname(new_subordinate_dept);
+			String new_pos_name = (String) request.get("new_pos_name");
+			String new_pos_desc = (String) request.get("new_pos_desc");
+			if(service.selectByname(positionName)==null) {
 				rs.put("data",null);
-				rs.put("message", "用户不存在");
+				rs.put("message", "职位不存在");
 				rs.put("error_code",2);
 			}else {
-				Position position= new Position(positionID, departmentID, positionName, positionMessage);
-				if(service.update(position)==1) {
+				if(service.update(positionName,departmentID+"",new_pos_name,new_pos_desc)==1) {
+					Position position = service.selectByname(new_pos_name);
 					rs.put("data",position);
 					rs.put("message", "更新成功");
 					rs.put("error_code",0);

@@ -18,18 +18,19 @@ import com.chinasoft.service.impl.AnnouncementMapperServiceImpl;
 
 @Controller
 @CrossOrigin
-@RequestMapping("/announcement")
+@RequestMapping("/announce")
 public class AnnouncementMapperController {
 	@Autowired
 	AnnouncementMapperServiceImpl service;
 	
-	@RequestMapping(value="/addAnnouncement",method= RequestMethod.POST)
+	@RequestMapping(value="/add",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Insert(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
 		String name=(String) request.get("name");
 		String content=(String) request.get("content");
-		int userID=(int) request.get("userID");
+		String username=(String) request.get("username");
+		int userID=service.getIdByUsername(username);
 		if(name ==null || content ==null||name.equals("") || content.equals("")||userID==0) {
 			rs.put("data",null);
 			rs.put("message", "数据不完整");
@@ -41,6 +42,7 @@ public class AnnouncementMapperController {
 			announcement.setCreatTime(new Date());
 			announcement.setUserID(userID);	
 				if(service.insertAnnouncement(announcement)==1) {
+					announcement=service.selectByName(name);
 					rs.put("data",announcement);
 					rs.put("message", "新增成功");
 					rs.put("error_code",0);
@@ -50,12 +52,12 @@ public class AnnouncementMapperController {
 	}
 	
 	
-	@RequestMapping(value="/deleteAnnouncement",method= RequestMethod.POST)
+	@RequestMapping(value="/delete",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Delete(@RequestBody Map<String,Object> request) {
-		List<String> announcementIDs = (List) request.get("announcementID");	
+		List<String> names = (List) request.get("name");	
 		Map<String,Object> rs = new HashMap<>();
-		if(service.deleteAnnouncement(announcementIDs)!=0) {
+		if(service.deleteAnnouncement(names)!=0) {
 			rs.put("error_code", 0);
 			rs.put("message", "删除成功");
 		}else {
@@ -112,23 +114,23 @@ public class AnnouncementMapperController {
 	public Object Update(@RequestBody Map<String,Object> request) {
 		String name=(String) request.get("name");
 		String content=(String) request.get("content");
-		int announcementID=(int) request.get("announcementID");
 		Announcement announcement = new Announcement();
 		announcement.setName(name);
 		announcement.setContent(content);
-		announcement.setAnnouncementID(announcementID);
+		announcement.setCreatTime(new Date());
 		Map<String,Object> rs = new HashMap<>();	
-		if(name==null||name.equals("")||announcementID==0||content==null||content.equals("")) {
+		if(name==null||name.equals("")||content==null||content.equals("")) {
 			rs.put("data",null);
 			rs.put("message", "数据不完整");
 			rs.put("error_code",1);
 		}else {
-			if(service.selectByid(announcementID)==null) {
+			if(service.selectByName(name)==null) {
 				rs.put("data",null);
 				rs.put("message", "公告不存在");
 				rs.put("error_code",2);
 			}else 
 				if(service.updateAnnouncement(announcement)==1) {
+					announcement=service.selectByName(name);
 					rs.put("data",announcement);
 					rs.put("message", "修改成功");
 					rs.put("error_code",0);

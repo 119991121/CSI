@@ -23,11 +23,15 @@
 	</insert>
 	
 	<delete id="deletePosition">
-		delete  from position where positionID =  #{positionID}
+		delete  from position where positionName in (
+		<foreach collection="names"  separator=","  item="name">
+            #{name}
+        </foreach>
+        )
 	</delete>
 
 	<select resultType="Position" id="selectAll">
-		select * from position
+		select * from position natural join department order by positionName
 	</select>
 	
 	<select resultType="Position" id="selectByname" parameterType="String">
@@ -35,11 +39,15 @@
 	</select>
 	
 	<select resultType="Position" id="selectBymessage" parameterType="String">
-		select * from position where positionMessage like concat('%', #{positionMessage}, '%')
+		select * from position natural join department where positionMessage like concat('%', #{positionMessage}, '%') order by positionName
 	</select>
 	
 	<select resultType="Position" id="selectByid" parameterType="Integer">
 		select * from position where positionID = #{positionID}
+	</select>
+	
+	<select id="getIdByname" parameterType="String" resultType="int">
+		select departmentID from department where departmentName = #{subordinate_dept}
 	</select>
 	
 	<update id="updatePosition" parameterType="Position">
@@ -47,12 +55,12 @@
 		<if test="departmentID != null">
 			departmentID = #{departmentID}
 		</if>
-		<if test="positionName != null">
-			,positionName = #{positionName}
+		<if test="new_pos_name != null">
+			,positionName = #{new_pos_name}
 		</if>
-		<if test="positionMessage != null">
-			,positionMessage = #{positionMessage}
+		<if test="new_pos_desc != null">
+			,positionMessage = #{new_pos_desc}
 		</if>
-		where positionID = #{positionID}
+		where positionName = #{positionName}
 	</update>
 </mapper>
