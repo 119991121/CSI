@@ -213,19 +213,14 @@ public class FileMapperController {
 		
 		List<File> files = service.selectByName(name);
 		
-		Map<Integer, String> id_name = new HashMap<>();
-		
 		for (File file : files) {
-			if(!id_name.containsKey(file.getUserID())) {
-				String user_name = userservice.selectNameById(file.getUserID());
-				id_name.put(file.getUserID(), user_name);
-			}
+			String user_name = userservice.selectNameById(file.getUserID());
+			file.setUser_name(user_name);
 		}
 		
 		results.put("message", "查询成功");
 		results.put("error_code", 0);
 		results.put("data", files);
-		results.put("userIDtoName",id_name);
 
 		return results; 
 	}
