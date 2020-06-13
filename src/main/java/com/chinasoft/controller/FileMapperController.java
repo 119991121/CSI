@@ -69,7 +69,7 @@ public class FileMapperController {
 		String name = (String)request.get("name");
 		List<File> files = service.selectByName(name);
 		if(!files.isEmpty()) {
-			reults.put("message", "文件名重复，请输入其他名字");
+			reults.put("message", "已存在名为该name的文件，请重新命名");
 			reults.put("error_code", 2);
 
 			return reults;
@@ -85,11 +85,11 @@ public class FileMapperController {
 
 		// 将File插入到数据库
 		if(service.insert(file)==1) {
-			reults.put("message", "添加成功");
+			reults.put("message", "上传成功");
 			reults.put("error_code", 0);
 			return reults;
 		}else {
-			reults.put("message", "添加失败");
+			reults.put("message", "上传失败");
 			reults.put("error_code", 1);
 			return reults;
 		}
@@ -108,7 +108,7 @@ public class FileMapperController {
 		
 		List<File> file = service.selectWithID(fileId);
 		if(file.isEmpty()) {
-			results.put("message", "不存在该fileID的文件.");
+			results.put("message", "数据库中不存在该fileID的文件.");
 			results.put("error_code", 2);
 	
 			return results;
@@ -139,7 +139,7 @@ public class FileMapperController {
 		List<File> fileBefore = service.selectWithID(fileId);
 		
 		if(fileBefore.isEmpty()) {
-			results.put("message", "该文件在数据库中不存在");
+			results.put("message", "没有在数据库中找到要修改的文件");
 			results.put("error_code", 1);
 			
 			return results;
@@ -209,10 +209,9 @@ public class FileMapperController {
 		
 		List<File> files = service.selectByName(name);
 		
-		System.out.println(files==null);
-		
 		results.put("message", "查询成功");
 		results.put("error_code", 0);
+		results.put("data", files);
 
 		return results; 
 	}
@@ -225,12 +224,9 @@ public class FileMapperController {
 		
 		List<File> files = service.selectFileAll();
 		
-		for (File file : files) {
-			System.out.println(file);
-		}
-		
 		results.put("message", "查询成功");
 		results.put("error_code", 0);
+		results.put("data", files);
 		return results;
 		
 	}
