@@ -30,9 +30,9 @@ public class FileMapperServiceImpl implements FileMapperService{
 	}
 
 	@Override
-	public List<File> selectByName(String name) {
+	public List<File> select(File file) {
 		// TODO select file table with name.
-		List<File> files = mapper.selectFileByName(name);
+		List<File> files = mapper.selectFile(file);
 		return files;
 	}
 
@@ -56,7 +56,13 @@ public class FileMapperServiceImpl implements FileMapperService{
 		List<File> files = mapper.selectFileAll();
 		return files;
 	}
-	
+
+	@Override
+	public List<File> selectByName(String name) {
+		// TODO 
+		List<File> files = mapper.selectFileByName(name);
+		return files;
+	}
 	
 
 }

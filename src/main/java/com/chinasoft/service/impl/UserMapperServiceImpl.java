@@ -99,4 +99,13 @@ public class UserMapperServiceImpl implements UserMapperService {
 		return user1;
 	}
 
+	@Override
+	public String selectNameById(int user_id) {
+		// TODO select name by id.
+		String name = mapper.selectNameById(user_id);
+		return name;
+	}
+	
+	
+
 }

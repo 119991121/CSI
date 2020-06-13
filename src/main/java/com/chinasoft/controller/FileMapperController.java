@@ -23,6 +23,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.chinasoft.pojo.File;
 import com.chinasoft.service.impl.FileMapperServiceImpl;
+import com.chinasoft.service.impl.UserMapperServiceImpl;
 import com.chinasoft.util.COSClientUtil;
 import com.chinasoft.util.COS.MyCOSClient;
 import com.qcloud.cos.COSClient;
@@ -36,6 +37,9 @@ public class FileMapperController {
 
 	@Autowired
 	FileMapperServiceImpl service;
+	
+	@Autowired
+	UserMapperServiceImpl userservice;
 
 	public MyCOSClient client = new MyCOSClient();
 
@@ -69,7 +73,7 @@ public class FileMapperController {
 		String name = (String)request.get("name");
 		List<File> files = service.selectByName(name);
 		if(!files.isEmpty()) {
-			reults.put("message", "文件名重复，请输入其他名字");
+			reults.put("message", "已存在名为该name的文件，请重新命名");
 			reults.put("error_code", 2);
 
 			return reults;
@@ -85,11 +89,11 @@ public class FileMapperController {
 
 		// 将File插入到数据库
 		if(service.insert(file)==1) {
-			reults.put("message", "添加成功");
+			reults.put("message", "上传成功");
 			reults.put("error_code", 0);
 			return reults;
 		}else {
-			reults.put("message", "添加失败");
+			reults.put("message", "上传失败");
 			reults.put("error_code", 1);
 			return reults;
 		}
@@ -108,7 +112,7 @@ public class FileMapperController {
 		
 		List<File> file = service.selectWithID(fileId);
 		if(file.isEmpty()) {
-			results.put("message", "不存在该fileID的文件.");
+			results.put("message", "数据库中不存在该fileID的文件.");
 			results.put("error_code", 2);
 	
 			return results;
@@ -139,7 +143,7 @@ public class FileMapperController {
 		List<File> fileBefore = service.selectWithID(fileId);
 		
 		if(fileBefore.isEmpty()) {
-			results.put("message", "该文件在数据库中不存在");
+			results.put("message", "没有在数据库中找到要修改的文件");
 			results.put("error_code", 1);
 			
 			return results;
@@ -193,26 +197,39 @@ public class FileMapperController {
 	}
 
 	
-	@RequestMapping(value = "/selectFileByName", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectFile", method = RequestMethod.POST)
 	@ResponseBody
-	public Object Select(@RequestBody Map<String, Object> request) throws ParseException {
+	public Object selectFile(@RequestBody Map<String, Object> request) throws ParseException {
 	
 		Map<String, Object> results = new HashMap<>();
 		//初始化file
 		String name = (String)request.get("name");
+		String des = (String)request.get("des");
 		
-		if(name==null||name.equals("")) {
-			results.put("message", "传入参数name为空");
-			request.put("errod_code", "1");
-			return request;
+		if((name==null||name.equals(""))&&(des==null||des.equals(""))) {
+			results.put("message", "未传入参数");
+			results.put("errod_code", "1");
+			return results;
 		}
 		
-		List<File> files = service.selectByName(name);
+		File fileValue = new File();
+		if(name!=null&&!name.equals("")) {
+			fileValue.setName(name);
+		}
+		if(des!=null&&!des.equals("")) {
+			fileValue.setDes(des);
+		}
 		
-		System.out.println(files==null);
+		List<File> files = service.select(fileValue);
+		
+		for (File file : files) {
+			String user_name = userservice.selectNameById(file.getUserID());
+			file.setUser_name(user_name);
+		}
 		
 		results.put("message", "查询成功");
 		results.put("error_code", 0);
+		results.put("data", files);
 
 		return results; 
 	}
@@ -225,12 +242,15 @@ public class FileMapperController {
 		
 		List<File> files = service.selectFileAll();
 		
+		
 		for (File file : files) {
-			System.out.println(file);
+			String user_name = userservice.selectNameById(file.getUserID());
+			file.setUser_name(user_name);
 		}
 		
 		results.put("message", "查询成功");
 		results.put("error_code", 0);
+		results.put("data", files);
 		return results;
 		
 	}
@@ -261,14 +281,14 @@ public class FileMapperController {
 		
 		ObjectMetadata success = client.downloadFile(herf, localpath);
 		if(success==null) {
-			request.put("message", "下载失败");
-			request.put("error_code", "3");
-			return request;
+			results.put("message", "下载失败");
+			results.put("error_code", "3");
+			return results;
 		}
 		
-		request.put("message", "下载成功");
-		request.put("error_code", "0");
-		return request;
+		results.put("message", "下载成功");
+		results.put("error_code", "0");
+		return results;
 	}
 	
 }

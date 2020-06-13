@@ -36,4 +36,6 @@ public interface UserMapper {
 
 	User selectDetail(String username);
 	
+	String selectNameById(int user_id);
+	
 }

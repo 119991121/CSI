@@ -12,7 +12,14 @@ public class File implements Serializable{
 	@DateTimeFormat(pattern = "yyyy-MM-dd ")
 	private Date date;
 	private int userID;
+	private String user_name;
 	private String des;
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 	private String herf;
 	public int getFileID() {
 		return fileID;
@@ -52,11 +59,7 @@ public class File implements Serializable{
 	public void setHerf(String herf) {
 		this.herf = herf;
 	}
-	@Override
-	public String toString() {
-		return "File [fileID=" + fileID + ", name=" + name + ", date=" + date + ", userID=" + userID + ", des="
-				+ des + ", herf=" + herf + "]";
-	}
+	
 	public File(int fileID, String name, Date date, int userID, String des, String herf) {
 		super();
 		this.fileID = fileID;
@@ -65,6 +68,11 @@ public class File implements Serializable{
 		this.userID = userID;
 		this.des = des;
 		this.herf = herf;
+	}
+	@Override
+	public String toString() {
+		return "File [fileID=" + fileID + ", name=" + name + ", date=" + date + ", userID=" + userID + ", user_name="
+				+ user_name + ", des=" + des + ", herf=" + herf + "]";
 	}
 	public File() {
 		super();

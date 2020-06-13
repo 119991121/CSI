@@ -11,6 +11,8 @@ public interface FileMapper {
 
 	int deleteFile(int fileId);
 	
+	List<File> selectFile(File file);
+	
 	List<File> selectFileByName(String name);
 	
 	List<File> selectFileAll();
