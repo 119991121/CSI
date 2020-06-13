@@ -11,9 +11,9 @@ public interface AnnouncementMapperService {
 	
 	int deleteAnnouncement(List<String> names);
 	
-	List<Announcement> selectAnnouncement(Announcement announcement);
+	List<Announcement> selectAnnouncement(String select_key);
 
-	int updateAnnouncement(Announcement announcement);
+	int updateAnnouncement(String name,String new_name,String content);
 	
 	Announcement selectByid(int id);
 

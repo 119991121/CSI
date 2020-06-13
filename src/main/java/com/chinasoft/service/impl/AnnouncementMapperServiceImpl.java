@@ -26,13 +26,13 @@ public class AnnouncementMapperServiceImpl implements AnnouncementMapperService 
 		return  result;
 	}
 	@Override
-	public List<Announcement> selectAnnouncement(Announcement announcement) {
-		List<Announcement> announcement1 = mapper.selectAnnouncement(announcement);
+	public List<Announcement> selectAnnouncement(String select_key) {
+		List<Announcement> announcement1 = mapper.selectAnnouncement(select_key);
 		return announcement1;
 	}
 	@Override
-	public int updateAnnouncement(Announcement announcement) {
-		int result=mapper.updateAnnouncement(announcement);
+	public int updateAnnouncement(String name,String new_name,String content) {
+		int result=mapper.updateAnnouncement(name,new_name,content);
 		return result;
 	}
 
