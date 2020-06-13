@@ -56,6 +56,13 @@ public class FileMapperServiceImpl implements FileMapperService{
 		List<File> files = mapper.selectFileAll();
 		return files;
 	}
+
+	@Override
+	public List<File> selectByDes(String des) {
+		// TODO select file table with des.
+		List<File> files = mapper.selectFileByDes(des);
+		return files;
+	}
 	
 	
 

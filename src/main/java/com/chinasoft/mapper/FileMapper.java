@@ -13,6 +13,8 @@ public interface FileMapper {
 	
 	List<File> selectFileByName(String name);
 	
+	List<File> selectFileByDes(String des);
+	
 	List<File> selectFileAll();
 	
 	int updateFile(File file);

@@ -12,6 +12,8 @@ public interface FileMapperService {
 	
 	List<File> selectByName(String name);
 	
+	List<File> selectByDes(String des);
+	
 	List<File> selectFileAll();
 	
 	int update(File file);

@@ -45,6 +45,11 @@
 		select * from file where name like concat('%',#{name},'%');
 	</select>
 	
+	<!-- 通过des模糊查询file表  -->
+	<select id="selectFileByDes" resultType="file" parameterType="String">
+		select * from file where des like concat('%',#{des},'%');
+	</select>
+	
 	<!-- 查询file表全部信息 -->
 	<select id="selectFileAll" resultType="file">
 		select * from file;

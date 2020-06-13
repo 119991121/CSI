@@ -199,7 +199,7 @@ public class FileMapperController {
 	
 	@RequestMapping(value = "/selectFileByName", method = RequestMethod.POST)
 	@ResponseBody
-	public Object Select(@RequestBody Map<String, Object> request) throws ParseException {
+	public Object selectFileByName(@RequestBody Map<String, Object> request) throws ParseException {
 	
 		Map<String, Object> results = new HashMap<>();
 		//初始化file
@@ -212,6 +212,34 @@ public class FileMapperController {
 		}
 		
 		List<File> files = service.selectByName(name);
+		
+		for (File file : files) {
+			String user_name = userservice.selectNameById(file.getUserID());
+			file.setUser_name(user_name);
+		}
+		
+		results.put("message", "查询成功");
+		results.put("error_code", 0);
+		results.put("data", files);
+
+		return results; 
+	}
+	
+	@RequestMapping(value = "/selectFileByDes", method = RequestMethod.POST)
+	@ResponseBody
+	public Object selectFileByDes(@RequestBody Map<String, Object> request) throws ParseException {
+	
+		Map<String, Object> results = new HashMap<>();
+		//初始化file
+		String des = (String)request.get("des");
+		
+		if(des==null||des.equals("")) {
+			results.put("message", "传入参数des为空");
+			request.put("errod_code", "1");
+			return request;
+		}
+		
+		List<File> files = service.selectByDes(des);
 		
 		for (File file : files) {
 			String user_name = userservice.selectNameById(file.getUserID());
