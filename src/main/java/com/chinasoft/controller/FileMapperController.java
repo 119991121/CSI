@@ -197,49 +197,30 @@ public class FileMapperController {
 	}
 
 	
-	@RequestMapping(value = "/selectFileByName", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectFile", method = RequestMethod.POST)
 	@ResponseBody
-	public Object selectFileByName(@RequestBody Map<String, Object> request) throws ParseException {
+	public Object selectFile(@RequestBody Map<String, Object> request) throws ParseException {
 	
 		Map<String, Object> results = new HashMap<>();
 		//初始化file
 		String name = (String)request.get("name");
-		
-		if(name==null||name.equals("")) {
-			results.put("message", "传入参数name为空");
-			request.put("errod_code", "1");
-			return request;
-		}
-		
-		List<File> files = service.selectByName(name);
-		
-		for (File file : files) {
-			String user_name = userservice.selectNameById(file.getUserID());
-			file.setUser_name(user_name);
-		}
-		
-		results.put("message", "查询成功");
-		results.put("error_code", 0);
-		results.put("data", files);
-
-		return results; 
-	}
-	
-	@RequestMapping(value = "/selectFileByDes", method = RequestMethod.POST)
-	@ResponseBody
-	public Object selectFileByDes(@RequestBody Map<String, Object> request) throws ParseException {
-	
-		Map<String, Object> results = new HashMap<>();
-		//初始化file
 		String des = (String)request.get("des");
 		
-		if(des==null||des.equals("")) {
-			results.put("message", "传入参数des为空");
-			request.put("errod_code", "1");
-			return request;
+		if((name==null||name.equals(""))&&(des==null||des.equals(""))) {
+			results.put("message", "未传入参数");
+			results.put("errod_code", "1");
+			return results;
 		}
 		
-		List<File> files = service.selectByDes(des);
+		File fileValue = new File();
+		if(name!=null&&!name.equals("")) {
+			fileValue.setName(name);
+		}
+		if(des!=null&&!des.equals("")) {
+			fileValue.setDes(des);
+		}
+		
+		List<File> files = service.select(fileValue);
 		
 		for (File file : files) {
 			String user_name = userservice.selectNameById(file.getUserID());
@@ -300,14 +281,14 @@ public class FileMapperController {
 		
 		ObjectMetadata success = client.downloadFile(herf, localpath);
 		if(success==null) {
-			request.put("message", "下载失败");
-			request.put("error_code", "3");
-			return request;
+			results.put("message", "下载失败");
+			results.put("error_code", "3");
+			return results;
 		}
 		
-		request.put("message", "下载成功");
-		request.put("error_code", "0");
-		return request;
+		results.put("message", "下载成功");
+		results.put("error_code", "0");
+		return results;
 	}
 	
 }

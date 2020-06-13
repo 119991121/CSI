@@ -35,21 +35,31 @@
 		where fileID=#{fileID};
 	</update>
 
-	<!-- 通过fileId查询herf  -->
-	<select id="selectFileByID" resultType="file" parameterType="int">
+	<!-- 通过fileId查询herf -->
+	<select id="selectFileByID" resultType="file"
+		parameterType="int">
 		select * from file where fileID=#{fileId};
 	</select>
 	
+	<select id="selectFileByName" resultType="file"
+		parameterType="String">
+		select * from file where name=#{name};
+	</select>
+
 	<!-- 通过name查询file表 -->
-	<select id="selectFileByName" resultType="file" parameterType="String">
-		select * from file where name like concat('%',#{name},'%');
+	<select id="selectFile" resultType="file" parameterType="file">
+		select * from file
+		<trim prefix="WHERE" prefixOverrides="and">
+			<if test='name != null and name!=""'>
+				name like concat('%', #{name}, '%')
+			</if>
+			<if test='des != null and des!=""'>
+				and des like concat('%', #{des}, '%')
+			</if>
+			<!-- order by date -->
+		</trim>
 	</select>
-	
-	<!-- 通过des模糊查询file表  -->
-	<select id="selectFileByDes" resultType="file" parameterType="String">
-		select * from file where des like concat('%',#{des},'%');
-	</select>
-	
+
 	<!-- 查询file表全部信息 -->
 	<select id="selectFileAll" resultType="file">
 		select * from file;

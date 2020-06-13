@@ -10,9 +10,9 @@ public interface FileMapperService {
 	
 	int delete(int fileId);
 	
-	List<File> selectByName(String name);
+	List<File> select(File file);
 	
-	List<File> selectByDes(String des);
+	List<File> selectByName(String name);
 	
 	List<File> selectFileAll();
 	
