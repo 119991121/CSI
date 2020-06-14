@@ -50,4 +50,27 @@
 	
 
 
+	<insert id="addMenu" parameterType="Menu">
+		insert into menu (dishName,time,date) values (#{dishName},#{time},#{date})
+	</insert>
+
+	<delete id="deleteAll" >
+		delete from menu 
+	</delete>
+
+	<select id="getLunchs" resultType="String">
+		select dishName from menu where time=0
+	</select>
+	
+	<select id="getDinners" resultType="String">
+		select dishName from menu where time=1
+	</select>
+	
+	<select id="getSum" parameterType="String" resultType="int">
+		select count(orderingID) from ordering where dishName = #{dishName}  and time = #{time}
+	</select>
+	
+	<select id="selectByTime" parameterType="String" resultType="int">
+		select count(menuID) from menu where date = #{date}
+	</select>
 </mapper>

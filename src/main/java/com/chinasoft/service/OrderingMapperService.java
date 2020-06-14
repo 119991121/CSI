@@ -3,6 +3,7 @@ package com.chinasoft.service;
 import java.util.List;
 
 import com.chinasoft.pojo.Ordering;
+import com.chinasoft.pojo.Menu;
 
 public interface OrderingMapperService {
 
@@ -19,4 +20,18 @@ public interface OrderingMapperService {
 	List<Ordering> selectAll();
 	
 	List<Ordering> selectByUserName(String username);
+	
+	int deleteAll();
+
+	int addMenu(Menu menu);
+
+	List<String> getLunchs();
+
+	List<String> getDinners();
+
+	int getSum(String time, String dishName);
+
+	int selectByTime(String date);
+
+
 }

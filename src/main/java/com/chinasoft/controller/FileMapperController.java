@@ -2,13 +2,11 @@ package com.chinasoft.controller;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,17 +14,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.chinasoft.pojo.File;
 import com.chinasoft.service.impl.FileMapperServiceImpl;
 import com.chinasoft.service.impl.UserMapperServiceImpl;
-import com.chinasoft.util.COSClientUtil;
 import com.chinasoft.util.COS.MyCOSClient;
-import com.qcloud.cos.COSClient;
 import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.model.PutObjectResult;
 
@@ -103,7 +97,7 @@ public class FileMapperController {
 
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	@ResponseBody
-	//fileId
+	//filename
 	public Object Delete(@RequestBody Map<String, Object> request) {
 		
 		Map<String, Object> results = new HashMap<>();
