@@ -71,7 +71,9 @@ public class UserFaceController {
             		return result;
             	}else {
 					//注册人脸
-            		String id = String.valueOf(service.selectByName(username).getUser_id());
+            		User selectuser = service.selectByName(username);
+            		System.out.println(selectuser);
+            		String id = String.valueOf(selectuser.getUser_id());
             		JSONObject add = FaceRegister.adduser(client, image, id);
                 	if(add.get("error_code").toString().equals(String.valueOf(0))) {
                 		result.put("error_code", 0);
@@ -108,6 +110,10 @@ public class UserFaceController {
 
 		String image = (String )map.get("file");
 		
+		System.out.println("准备登录");
+		
+		System.out.println(map);
+		
 		Map<String,Object> result = new HashMap<>();
 
         
@@ -125,11 +131,12 @@ public class UserFaceController {
             	
 				//人脸搜索
             	JSONObject search = FaceSearch.Facecomparison(client, image);
-            	if(search.get("error_code").toString().equals(String.valueOf(222207))) {
+            	String code = search.get("error_code").toString();
+            	if(code.equals(String.valueOf(222207))) {
             		result.put("error_code", 3);
-            		result.put("messege", "人脸不存在");
+            		result.put("messege", "人脸未注册");
             		return result;
-            	}else {
+            	}else if(code.equals(String.valueOf(0))){
             		result.put("error_code", 0);
                 	result.put("messege", "登录成功");
                 	JSONObject json1 = (JSONObject) search.get("result");
@@ -138,18 +145,12 @@ public class UserFaceController {
                 	int user_id = Integer.valueOf((String) json2.get("user_id"));
                 	System.out.println(user_id);
                 	User user = service.selectByid(user_id);
-                	JSONObject data = new JSONObject();
-                	data.append("userid", user.getFace_id());
-                	data.append("username", user.getUsername());
-                	data.append("password", user.getPassword());
-                	data.append("name", user.getName());
-                	data.append("phone", user.getPhone());
-                	data.append("position", user.getPositionName());
-                	data.append("department", user.getDepartmentName());
-                	data.append("groupid", user.getGroupId());
-                	data.append("faceid", user.getFace_id());
-                	result.put("data",data);
+                	result.put("data",user);
                 	return result;
+            	}else {
+            		result.put("error_code", 4);
+            		result.put("messege", "登录失败，请重新扫描");
+            		return result;
             	}
             }else {
             	result.put("error_code", 2);

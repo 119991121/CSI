@@ -68,7 +68,7 @@ public class DepartmentMapperController {
 	public Object Delete(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
 		List<String> dept_name = (List) request.get("dept_name");
-		if(dept_name==null||dept_name.size()!=0) {
+		if(dept_name==null||dept_name.size()==0) {
 			rs.put("error_code", 1);
 			rs.put("message", "部门名称为空");
 		}
