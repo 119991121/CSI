@@ -51,12 +51,14 @@
 				and d.departmentName = #{departmentName}
 			</if>
 		</trim>
+		order by u.username
 	</select>
 	
 	<select id="selectAll" resultType="User">
 		select * from user u
 			left join department d on u.department_id = d.departmentID
 			left join position p on u.position_id = p.positionID
+		order by username
 	</select>
 	
 	<select id="login" parameterType="String" resultType="User">
@@ -65,17 +67,17 @@
 	
 	<update id="updateUser" parameterType="com.chinasoft.pojo.User">
 		update user
-		set username = #{username},password = #{password}
+		set password = #{password}
 		<if test='phone != null and phone!=""'>
 			,phone = #{phone}
 		</if>
-		<if test='groupId != null and groupId!=""'>
+		<if test='groupId != 0'>
 			,groupId = #{groupId}
 		</if>
 		<if test='name != null and name!=""'>
 			,name = #{name}
 			</if>
-		<if test='sex != null and sex!=""'>
+		<if test='sex != 0'>
 			,sex = #{sex}
 			</if>
 		<if test='email != null and email!=""'>
@@ -99,7 +101,7 @@
 		<if test='createdDate != null'>
 			,createdDate = #{createdDate}
 			</if>
-		where user_id = #{user_id}
+		where username = #{username}
 	</update>
 	
 	<select id="getGroupId" parameterType="int" resultType="int">

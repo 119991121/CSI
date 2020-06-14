@@ -8,7 +8,7 @@ public interface PositionMapperService {
 
 	int insert(Position position);
 	
-	int delete(int positionID);
+	int delete(List<String> names);
 	
 	List<Position> selectAll();
 	
@@ -18,5 +18,7 @@ public interface PositionMapperService {
 	
 	List<Position> selectBymessage(String message);
 	
-	int update(Position position);
+	int update(String positionName,String departmentID,String new_pos_name,String new_pos_desc );
+
+	int getIdByname(String subordinate_dept);
 }

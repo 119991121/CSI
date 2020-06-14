@@ -149,18 +149,36 @@ public class UserMapperController {
 	
 	@RequestMapping(value="/update",method= RequestMethod.POST)
 	@ResponseBody
-	public Object Update(@RequestBody Map<String,Object> request) {
-		int user_id=(int) request.get("user_id");	
-		int groupId=(int) request.get("groupId");	
+	public Object Update(@RequestBody Map<String,Object> request) {	
+		String S_groupId=(String) request.get("groupid");
+		System.out.println(S_groupId);
+		if(S_groupId==null||S_groupId.equals("")) {
+			S_groupId="0";
+		}
+		int groupId = Integer.parseInt(S_groupId);
+		
 		String positionName=(String) request.get("positionName");
-		String departmentName=(String) request.get("departmentName");		
-		int position_id=service.getPosition_id(positionName);
-		int department_id=service.getDepartment_id(departmentName);;	
+		String departmentName=(String) request.get("departmentName");
+		
+		int position_id=0;
+		if(positionName!=null&&!positionName.equals("")) {
+			position_id=service.getPosition_id(positionName);
+		}
+		int department_id=0;
+		if(positionName!=null&&!positionName.equals("")) {
+			service.getDepartment_id(departmentName);	
+		}
 		String username=(String) request.get("username");
 		String password=(String) request.get("password");
 		String phone=(String) request.get("phone");
 		String name=(String) request.get("name");
-		int sex=(int) request.get("sex");
+		
+		String S_sex=(String) request.get("sex");
+		if(S_sex==null||S_sex.equals("")) {
+			S_sex="0";
+		}
+		int sex= Integer.parseInt(S_sex);
+		
 		String email=(String) request.get("email");
 		String education=(String) request.get("education");
 		String idCardNo=(String) request.get("idCardNo");
@@ -168,7 +186,6 @@ public class UserMapperController {
 		Date createdDate=new Date();
 		
 		User user = new User();
-		user.setUser_id(user_id);
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setPhone(phone);
@@ -182,18 +199,20 @@ public class UserMapperController {
 		user.setDepartment_id(department_id);
 		user.setAddress(address);
 		user.setCreatedDate(createdDate);
+		System.out.println(user);
 		Map<String,Object> rs = new HashMap<>();
-		if(username==null||password.equals("")||username==null||password.equals("")||user_id==0) {
+		if(username==null||password.equals("")||username==null||password.equals("")) {
 			rs.put("data",null);
 			rs.put("message", "数据不完整");
 			rs.put("error_code",1);
 		}else {
-			if(service.selectByid(user_id)==null) {
+			if(service.selectByName(username)==null) {
 				rs.put("data",null);
 				rs.put("message", "用户不存在");
 				rs.put("error_code",2);
 			}else 
 				if(service.update(user)!=0) {
+					user = service.selectByName(username);
 					rs.put("data",user);
 					rs.put("message", "修改成功");
 					rs.put("error_code",0);
@@ -219,7 +238,7 @@ public class UserMapperController {
 		if(user1!=null) {
 			rs.put("error_code", 0);
 			rs.put("message", "请求成功");
-			rs.put("data", user);
+			rs.put("data", user1);
 		}else {
 			user1=service.selectByName(username);
 			if(user1!=null) {

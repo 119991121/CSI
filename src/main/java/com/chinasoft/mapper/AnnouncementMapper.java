@@ -9,13 +9,17 @@ import com.chinasoft.pojo.Announcement;
 public interface AnnouncementMapper {
 	int insertAnnouncement(Announcement announcement);
 
-	int deleteAnnouncement(@Param("announcementIDs")List<String> announcementIDs);
+	int deleteAnnouncement(@Param("names")List<String> names);
 
-	List<Announcement> selectAnnouncement(Announcement announcement);
+	List<Announcement> selectAnnouncement(String select_key);
 	
-	int updateAnnouncement(Announcement announcement);
+	int updateAnnouncement(@Param("name")String name,@Param("new_name")String new_name,@Param("content")String content);
 
 	Announcement selectByid(int id);
 
 	List<Announcement> selectAll();
+
+	Announcement selectByName(String name);
+
+	int getIdByUsername(String username);
 }

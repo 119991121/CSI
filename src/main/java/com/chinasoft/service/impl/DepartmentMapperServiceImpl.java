@@ -22,8 +22,8 @@ public class DepartmentMapperServiceImpl implements DepartmentMapperService {
 	}
 	
 	@Override
-	public int delete(int DepartmentID) {
-		int result = mapper.deleteDepartment(DepartmentID);
+	public int delete(List<String> dept_name) {
+		int result = mapper.deleteDepartment(dept_name);
 		return result;
 	}
 	
@@ -34,9 +34,10 @@ public class DepartmentMapperServiceImpl implements DepartmentMapperService {
 	}
 	
 	@Override
-	public int update(Department department){
-		int result = mapper.updateDepartment(department);
+	public int update(String departmentNameOld, String departmentName, String departmentMessage) {
+		int result = mapper.updateDepartment(departmentNameOld, departmentName, departmentMessage);
 		return result;
+
 	}
 
 	@Override

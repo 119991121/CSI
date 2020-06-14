@@ -25,27 +25,26 @@ import com.chinasoft.service.impl.DepartmentMapperServiceImpl;
 
 @Controller
 @CrossOrigin
-@RequestMapping("/department")
+@RequestMapping("/dept")
 public class DepartmentMapperController {
 	
 	@Autowired
 	DepartmentMapperServiceImpl service;
 	
-	@RequestMapping(value="/add",method= RequestMethod.POST)
+	@RequestMapping(value="/addDept",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Insert(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
 		System.out.println(request);
-		String departmentName = (String) request.get("departmentName");
-		String departmentMessage = (String) request.get("departmentMessage");
+		String departmentName = (String) request.get("dept_name");
+		String departmentMessage = (String) request.get("dept_desc");
 		if(departmentMessage ==null || departmentName ==null||departmentMessage.equals("") || departmentName.equals("")) {
 			rs.put("data",null);
 			rs.put("message", "信息不全");
 			rs.put("error_code",1);
 		}else {
 			if(service.selectByname(departmentName)!=null) {
-				rs.put("data",null);
-				rs.put("message", "用户已存在");
+				rs.put("message", "部门已存在");
 				rs.put("error_code",2);
 			}else {
 				Department department= new Department();
@@ -53,11 +52,9 @@ public class DepartmentMapperController {
 				department.setDepartmentMessage(departmentMessage);
 				if(service.insert(department)==1) {
 					department = service.selectByname(departmentName);
-					rs.put("data",department);
 					rs.put("message", "添加成功");
 					rs.put("error_code",0);
 				}else {
-					rs.put("data",null);
 					rs.put("message", "添加失败");
 					rs.put("error_code",3);
 				}
@@ -66,24 +63,28 @@ public class DepartmentMapperController {
         return rs;
 	}
 	
-	@RequestMapping(value="/delete",method= RequestMethod.POST)
+	@RequestMapping(value="/deleteDept",method= RequestMethod.POST)
 	@ResponseBody
-	public Object elete(@RequestBody Map<String,Object> request) {
+	public Object Delete(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
-		
-		int id = (int) request.get("departmentID");
-		if(service.delete(id)==1) {
-			rs.put("error_code", 0);
-			rs.put("message", "删除成功");
-			return rs;
-		}else {
+		List<String> dept_name = (List) request.get("dept_name");
+		if(dept_name==null||dept_name.size()!=0) {
 			rs.put("error_code", 1);
-			rs.put("message", "删除失败");
-			return rs;
+			rs.put("message", "部门名称为空");
 		}
+		else{
+			if(service.delete(dept_name)!=0) {
+				rs.put("error_code", 0);
+				rs.put("message", "删除成功");			
+			}else {
+				rs.put("error_code", 2);
+				rs.put("message", "删除失败");
+			}
+		}
+		return rs;
 	}
 	
-	@RequestMapping(value="/selectByName",method= RequestMethod.GET)
+	@RequestMapping(value="/selectByName",method= RequestMethod.POST)
 	@ResponseBody
 	public Object SelectByName(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
@@ -102,32 +103,35 @@ public class DepartmentMapperController {
 		}
 	}
 	
-	@RequestMapping(value="/selectByMessage",method= RequestMethod.GET)
+	@RequestMapping(value="/selectDeptResult",method= RequestMethod.POST)
 	@ResponseBody
 	public Object selectByMessage(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
-		
-		String message= (String) request.get("departmentMessage");
-		List<Department> department = service.selectBymessage(message);
-		if(department!=null) {
+		String select_key= (String) request.get("select_key");
+		if(select_key==null&&select_key.equals("")) {
+			rs.put("error_code", 1);
+			rs.put("message", "关键字为空");
+			return rs;
+		}
+		List<Department> department = service.selectBymessage(select_key);
+		if(department!=null&&department.size()!=0) {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");
 			rs.put("data", department);
 			return rs;
 		}else {
-			rs.put("error_code", 1);
-			rs.put("message", "查询失败");
+			rs.put("error_code", 2);
+			rs.put("message", "查询信息不存在");
 			return rs;
 		}
 	}
 	
-	@RequestMapping(value="/selectAll",method= RequestMethod.GET)
+	@RequestMapping(value="/showAllDept",method= RequestMethod.POST)
 	@ResponseBody
 	public Object selectAll() {
 		Map<String,Object> rs = new HashMap<>();
-		
 		List<Department> department = service.selectAll();
-		if(department!=null) {
+		if(department!=null&&department.size()!=0) {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");
 			rs.put("data", department);
@@ -139,31 +143,25 @@ public class DepartmentMapperController {
 		}
 	}
 	
-	@RequestMapping(value="/update",method= RequestMethod.POST)
+	@RequestMapping(value="/updateDept",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Update(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
-		System.out.println(request);
-		if(request.get("departmentID")==null||request.get("departmentID").equals("")) {
-			rs.put("data",null);
+		String departmentNameOld = (String) request.get("dept_name");
+		String departmentName = (String) request.get("new_dept_name");
+		String departmentMessage = (String) request.get("new_dept_desc");
+		if(departmentNameOld==null||departmentNameOld.equals("")||departmentName==null||departmentName.equals("")||departmentMessage==null||departmentMessage.equals("")) {
 			rs.put("message", "信息不全");
 			rs.put("error_code",1);
 		}else {
-			int departmentID = (int) request.get("departmentID");
-			String departmentName = (String) request.get("departmentName");
-			String departmentMessage = (String) request.get("departmentMessage");
-			if(service.selectByid(departmentID)==null) {
-				rs.put("data",null);
-				rs.put("message", "用户不存在");
+			if(service.selectByname(departmentNameOld)==null) {
+				rs.put("message", "部门不存在");
 				rs.put("error_code",2);
 			}else {
-				Department department= new Department(departmentID, departmentName, departmentMessage);
-				if(service.update(department)==1) {
-					rs.put("data",department);
+				if(service.update(departmentNameOld, departmentName, departmentMessage)==1) {
 					rs.put("message", "更新成功");
 					rs.put("error_code",0);
 				}else {
-					rs.put("data",null);
 					rs.put("message", "更新失败");
 					rs.put("error_code",3);
 				}

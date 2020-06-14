@@ -24,7 +24,7 @@ public class User  implements Serializable{
 	private String departmentName;
 	private String departmentMessage;
 	private String address;
-	private int face_id;
+	private String face_id;
 	public int getUser_id() {
 		return user_id;
 	}
@@ -134,10 +134,10 @@ public class User  implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getFace_id() {
+	public String getFace_id() {
 		return face_id;
 	}
-	public void setFace_id(int face_id) {
+	public void setFace_id(String face_id) {
 		this.face_id = face_id;
 	}
 	public User() {
@@ -147,7 +147,7 @@ public class User  implements Serializable{
 	public User(int user_id, String username, String password, String name, int groupId, Date createdDate, String phone,
 			int sex, String email, int position_id, String positionName, String positionMessage, String education,
 			String idCardNo, int department_id, String departmentName, String departmentMessage, String address,
-			int face_id) {
+			String face_id) {
 		super();
 		this.user_id = user_id;
 		this.username = username;

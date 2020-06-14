@@ -22,8 +22,8 @@ public class PositionMapperServiceImpl implements PositionMapperService {
 	}
 	
 	@Override
-	public int delete(int positionID) {
-		int result = mapper.deletePosition(positionID);
+	public int delete(List<String> names) {
+		int result = mapper.deletePosition(names);
 		return result;
 	}
 	
@@ -34,8 +34,8 @@ public class PositionMapperServiceImpl implements PositionMapperService {
 	}
 	
 	@Override
-	public int update(Position position){
-		int result = mapper.updatePosition(position);
+	public int update(String positionName,String departmentID,String new_pos_name,String new_pos_desc ){
+		int result = mapper.updatePosition(positionName,departmentID,new_pos_name,new_pos_desc);
 		return result;
 	}
 
@@ -54,6 +54,12 @@ public class PositionMapperServiceImpl implements PositionMapperService {
 	@Override
 	public List<Position> selectBymessage(String message) {
 		List<Position> result = mapper.selectBymessage(message);
+		return result;
+	}
+
+	@Override
+	public int getIdByname(String subordinate_dept) {
+		int result = mapper.getIdByname(subordinate_dept);
 		return result;
 	}
 
