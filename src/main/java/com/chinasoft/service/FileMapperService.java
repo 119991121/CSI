@@ -8,7 +8,7 @@ public interface FileMapperService {
 
 	int insert(File file);
 	
-	int delete(int fileId);
+	int delete(String name);
 	
 	List<File> select(File file);
 	
