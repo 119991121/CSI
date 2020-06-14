@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasoft.mapper.OrderingMapper">
+
+	<!-- 开启二级缓存 -->
+	<cache />
+
+	<!-- 插入一条ordering数据 -->
+	<insert id="insertOrdering" parameterType="ordering">
+		insert into
+		ordering(username,dishName,time,date)
+		values(#{username},#{dishName},#{time},#{date})
+	</insert>
+	
+	<!-- 通过id来删除ordering -->
+	<delete id="deleteOrdering" parameterType="int">
+		delete from ordering where orderingID = #{orderingID};
+	</delete>
+	
+	<!-- 修改ordering -->
+	<update id="updateOrdering" parameterType="ordering">
+		update ordering set date=#{date}
+		<if test="time != -1">
+			,time=#{time}
+		</if>
+		<if test="dishName != null">
+			,dishName=#{dishName}
+		</if>
+		where orderingID=#{orderingID};
+	</update>
+	
+	<!-- 搜索在某个时间段内预约就餐的人数 -->
+	<select id="nowTimeNum" parameterType="int" resultType="int">
+		select count(distinct username) from ordering where time = #{time} and date = date_format(now(),'%Y-%m-%d');
+	</select>
+	
+	<select id="selectByID" parameterType="int" resultType="ordering">
+		select * from ordering where orderingID = #{orderingID};
+	</select>
+	
+	<select id="selectAll" resultType="ordering">
+		select * from ordering;
+	</select>
+	
+	<select id="selectByUserName" parameterType="String" resultType="ordering">
+		select * from ordering where username = #{username};
+	</select>
+	
+
+
+</mapper>

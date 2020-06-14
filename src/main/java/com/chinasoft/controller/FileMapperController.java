@@ -48,7 +48,7 @@ public class FileMapperController {
 	//String name, String des, int userId, MultipartFile fileUpload
 	public Object Insert(@RequestBody Map<String, Object> request, MultipartFile fileUpload) throws IOException {
 
-		Map<String, Object> reults = new HashMap<>();
+		Map<String, Object> results = new HashMap<>();
 		
 		// 将MultiperFile类型转化为java.io.File类型准备上传 method1:不需要本地文件进行暂存，这里无法使用
 //		CommonsMultipartFile common = (CommonsMultipartFile)fileUpload;
@@ -56,9 +56,9 @@ public class FileMapperController {
 //		java.io.File filelocal = dis.getStoreLocation();
 		// method2:需要一个本地文件进行暂存，path:/WEB-INF/file/filetemp
 		if(fileUpload.isEmpty()) {
-			reults.put("message", "传入文件为空");
-			reults.put("error_code", 3);
-			return reults;
+			results.put("message", "传入文件为空");
+			results.put("error_code", 3);
+			return results;
 		}
 		java.io.File filetemp = new java.io.File("/WEB-INF/file/filetemp");
 		FileUtils.copyInputStreamToFile(fileUpload.getInputStream(), filetemp);
@@ -73,10 +73,10 @@ public class FileMapperController {
 		String name = (String)request.get("name");
 		List<File> files = service.selectByName(name);
 		if(!files.isEmpty()) {
-			reults.put("message", "已存在名为该name的文件，请重新命名");
-			reults.put("error_code", 2);
+			results.put("message", "已存在名为该name的文件，请重新命名");
+			results.put("error_code", 2);
 
-			return reults;
+			return results;
 		}
 		file.setName(name);
 		Date date = new Date();
@@ -89,13 +89,13 @@ public class FileMapperController {
 
 		// 将File插入到数据库
 		if(service.insert(file)==1) {
-			reults.put("message", "上传成功");
-			reults.put("error_code", 0);
-			return reults;
+			results.put("message", "上传成功");
+			results.put("error_code", 0);
+			return results;
 		}else {
-			reults.put("message", "上传失败");
-			reults.put("error_code", 1);
-			return reults;
+			results.put("message", "上传失败");
+			results.put("error_code", 1);
+			return results;
 		}
 		
 	}
