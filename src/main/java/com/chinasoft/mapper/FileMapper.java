@@ -9,7 +9,7 @@ public interface FileMapper {
 
 	int insertFile(File file);
 
-	int deleteFile(int fileId);
+	int deleteFile(String name);
 	
 	List<File> selectFile(File file);
 	

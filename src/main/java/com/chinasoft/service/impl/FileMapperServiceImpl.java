@@ -23,9 +23,9 @@ public class FileMapperServiceImpl implements FileMapperService{
 	}
 
 	@Override
-	public int delete(int file_id) {
+	public int delete(String name) {
 		// TODO delete file table with value = file_id.
-		int result = mapper.deleteFile(file_id);
+		int result = mapper.deleteFile(name);
 		return result;
 	}
 

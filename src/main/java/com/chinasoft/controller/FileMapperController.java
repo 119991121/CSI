@@ -108,17 +108,17 @@ public class FileMapperController {
 		
 		Map<String, Object> results = new HashMap<>();
 		
-		int fileId = (int)request.get("fileID");
+		String fileName = (String)request.get("filename");
 		
-		List<File> file = service.selectWithID(fileId);
+		List<File> file = service.selectByName(fileName);
 		if(file.isEmpty()) {
-			results.put("message", "数据库中不存在该fileID的文件.");
+			results.put("message", "数据库中不存在该名字的文件.");
 			results.put("error_code", 2);
 	
 			return results;
 		}
 		
-		if(service.delete(fileId)==1) {
+		if(service.delete(fileName)==1) {
 			results.put("message", "删除成功");
 			results.put("error_code", 0);
 	
@@ -134,13 +134,13 @@ public class FileMapperController {
 
 	@RequestMapping(value = "/updateFile", method = RequestMethod.POST)
 	@ResponseBody
-	//int fileId, String name, String des, MultipartFile fileUpload
-	public Object Update(@RequestBody Map<String, Object> request,MultipartFile fileUpload) throws IOException {
+	// String name,String new_doc_name, String new_doc_des, MultipartFile fileUpload
+	public Object Update(@RequestBody Map<String, Object> request, MultipartFile fileUpload) throws IOException {
 
 		Map<String, Object> results = new HashMap<>();
 		
-		int fileId = (int)request.get("fileID");
-		List<File> fileBefore = service.selectWithID(fileId);
+		String name = (String)request.get("name");
+		List<File> fileBefore = service.selectByName(name);
 		
 		if(fileBefore.isEmpty()) {
 			results.put("message", "没有在数据库中找到要修改的文件");
@@ -149,17 +149,19 @@ public class FileMapperController {
 			return results;
 		}
 		
-		String name = (String)request.get("name");
-		String des = (String)request.get("des");
+		File old_file = fileBefore.get(0);
+		
+		String new_doc_name = (String)request.get("new_doc_name");
+		String new_doc_des = (String)request.get("new_doc_des");
 		
 		File file = new File();
-		file.setFileID(fileId);
-		if (name!=null&&!name.equals("")) {
-			file.setName(name);
+		file.setFileID(old_file.getFileID());
+		if (new_doc_name!=null&&!new_doc_name.equals("")) {
+			file.setName(new_doc_name);
 		}
 		file.setDate(new Date());
-		if (des!=null&&!des.equals("")) {
-			file.setDes(des);
+		if (new_doc_des!=null&&!new_doc_des.equals("")) {
+			file.setDes(new_doc_des);
 		}
 		if (!fileUpload.isEmpty()) {
 			// 将MultipartFile转化为File
