@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,16 +40,17 @@ public class FileMapperController {
 
 	@RequestMapping(value = "/addFile", method = RequestMethod.POST)
 	@ResponseBody
-	//String name, String des, int userId, MultipartFile fileUpload
-	public Object Insert(@RequestBody Map<String, Object> request, MultipartFile fileUpload) throws IOException {
+	public Object Insert(@RequestParam("fileUpload") MultipartFile fileUpload, String name, String des, Integer userID) throws IOException {
 
 		Map<String, Object> results = new HashMap<>();
 		
-		// 将MultiperFile类型转化为java.io.File类型准备上传 method1:不需要本地文件进行暂存，这里无法使用
-//		CommonsMultipartFile common = (CommonsMultipartFile)fileUpload;
-//		DiskFileItem dis = (DiskFileItem)common.getFileItem();
-//		java.io.File filelocal = dis.getStoreLocation();
-		// method2:需要一个本地文件进行暂存，path:/WEB-INF/file/filetemp
+		/*
+		 * 将MultiperFile类型转化为java.io.File类型准备上传 method1:不需要本地文件进行暂存，这里无法使用
+		 * CommonsMultipartFile common = (CommonsMultipartFile)fileUpload;
+		 * DiskFileItem dis = (DiskFileItem)common.getFileItem();
+		 * java.io.File filelocal = dis.getStoreLocation();
+		 * method2:需要一个本地文件进行暂存，path:/WEB-INF/file/filetemp
+		 */
 		if(fileUpload.isEmpty()) {
 			results.put("message", "传入文件为空");
 			results.put("error_code", 3);
@@ -59,12 +61,10 @@ public class FileMapperController {
 
 		// 将文件上传到腾讯云
 		client.uploadFile(filetemp, fileUpload.getOriginalFilename());
-		
-		
 
 		// 初始化File
 		File file = new File();
-		String name = (String)request.get("name");
+		//String name = (String)request.get("name");
 		List<File> files = service.selectByName(name);
 		if(!files.isEmpty()) {
 			results.put("message", "已存在名为该name的文件，请重新命名");
@@ -76,9 +76,16 @@ public class FileMapperController {
 		Date date = new Date();
 		// 输出时注意格式
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+		/*
 		file.setUserID((int)request.get("userID"));
 		file.setDate(date);
 		file.setDes((String)request.get("des"));
+		file.setHerf(fileUpload.getOriginalFilename());
+		*/
+		
+		file.setUserID(userID);
+		file.setDate(date);
+		file.setDes(des);
 		file.setHerf(fileUpload.getOriginalFilename());
 
 		// 将File插入到数据库
@@ -130,8 +137,9 @@ public class FileMapperController {
 			return results;
 		}
 
-	}
-
+	}	
+	
+	/*
 	@RequestMapping(value = "/updateFile", method = RequestMethod.POST)
 	@ResponseBody
 	// String name,String new_doc_name, String new_doc_des, MultipartFile fileUpload
@@ -189,6 +197,63 @@ public class FileMapperController {
 			}
 			
 			file.setHerf(fileUpload.getOriginalFilename());
+		}
+		
+		if(service.update(file)==1) {
+			results.put("message", "修改成功");
+			results.put("error_code", 0);
+
+			return results;
+		}else {
+			results.put("message", "修改失败");
+			results.put("error_code", 4);
+
+			return results;
+		}
+
+		
+	}
+	*/
+	
+	@RequestMapping(value = "/updateFile", method = RequestMethod.POST)
+	@ResponseBody
+	// String name,String new_doc_name, String new_doc_des, MultipartFile fileUpload
+	public Object Update(@RequestBody Map<String, Object> request) throws IOException {
+
+		Map<String, Object> results = new HashMap<>();
+		
+		String name = (String)request.get("name");
+		List<File> fileBefore = service.selectByName(name);
+		
+		if(fileBefore.isEmpty()) {
+			results.put("message", "没有在数据库中找到要修改的文件");
+			results.put("error_code", 1);
+			
+			return results;
+		}
+		
+		File old_file = fileBefore.get(0);
+		
+		String new_doc_name = (String)request.get("new_doc_name");
+		String new_doc_des = (String)request.get("new_doc_des");
+		int userid = Integer.valueOf((String) request.get("userID"));
+		
+		File file = new File();
+		file.setFileID(old_file.getFileID());
+		if (new_doc_name!=null&&!new_doc_name.equals("")) {
+			file.setName(new_doc_name);
+		}
+		file.setDate(new Date());
+		if (new_doc_des!=null&&!new_doc_des.equals("")) {
+			file.setDes(new_doc_des);
+		}
+		file.setUserID(userid);
+		
+		List<File> files = service.selectByName(new_doc_name);
+		if(!files.isEmpty()&&files.get(0).equals(name)) {
+			results.put("message", "文件名重复");
+			results.put("error_code", 3);
+			return results;
 		}
 		
 		if(service.update(file)==1) {
