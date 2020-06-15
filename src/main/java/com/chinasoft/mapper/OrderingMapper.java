@@ -37,5 +37,5 @@ public interface OrderingMapper {
 
 	int selectByTime(String date);
 
-
+	int deleteAllByName(String username);
 }
