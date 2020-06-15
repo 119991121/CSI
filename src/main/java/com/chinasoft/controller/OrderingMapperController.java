@@ -46,28 +46,31 @@ public class OrderingMapperController {
 	// String user_name,int time,List<String> dishName
 	public Object insertOrdering(@RequestBody Map<String, Object> request) {
 		Map<String, Object> results = new HashMap<>();
-
+		//获取前端传递参数user_name并检验合法性
 		String user_name = (String) request.get("user_name");
 		if(user_name==null||user_name.equals("")) {
 			results.put("errod_code", 2);
 			results.put("message", "没有输入user_name");
 			return results;
 		}
+		//在新增订单之前，先将该用户的订单全部删除
 		service.deleteAllByName(user_name);
+		//获取前端传递参数time并检验合法性
 		int time = (int) request.get("time");
 		if(!timeList.contains(time)) {
 			results.put("errod_code", 3);
 			results.put("message", "输入时间段不在已知范围内");
 			return results;
 		}
+		//获取当前时间段内预约就餐的人数
 		int now_time_num = service.nowTimeNum(time);
 		if (now_time_num >= 50) {
 			results.put("errod_code", 1);
 			results.put("message", "该时间段预约人数达到上限，请另选时间段");
 			return results;
 		}
+		//获取前端传递参数dishName并将每条数据插入到订单
 		List<String> dishNames = (List<String>) request.get("dishName");
-		// 这里要判断一下有没有菜...
 		Ordering ordering = new Ordering();
 		ordering.setUsername(user_name);
 		ordering.setTime(time);
@@ -90,15 +93,14 @@ public class OrderingMapperController {
 	// String user_name
 	public Object deleteOrdering(@RequestBody Map<String, Object> request) {
 		Map<String, Object> results = new HashMap<>();
-
+		//获取前端传递参数user_name并检验合法性
 		String user_name = (String) request.get("user_name");
-		
 		if(user_name==null||user_name.equals("")) {
 			results.put("errod_code", 3);
 			results.put("message", "输入user_name为空");
 			return results;
 		}
-
+		//判断该用户是否有订单
 		List<Ordering> lists = service.selectByUserName(user_name);
 		if (lists.isEmpty()) {
 			results.put("errod_code", 1);
@@ -122,7 +124,7 @@ public class OrderingMapperController {
 	@ResponseBody
 	// int orderingID, String new_dishName,int new_time.
 	public Object updateOrdering(@RequestBody Map<String, Object> request) {
-
+		//该功能已经合并到添加订单
 		Map<String, Object> results = new HashMap<>();
 
 		int orderingID = (int) request.get("orderingID");
@@ -177,6 +179,7 @@ public class OrderingMapperController {
 	@RequestMapping(value = "/selectAll", method = RequestMethod.POST)
 	@ResponseBody
 	public Object selectAll() {
+		//获取全部的订单预约信息
 		Map<String, Object> results = new HashMap<>();
 		
 		List<Ordering> orderings = service.selectAll();
@@ -193,15 +196,23 @@ public class OrderingMapperController {
 	public Object selectByUserName(@RequestBody Map<String, Object> request) {
 		
 		Map<String, Object> results = new HashMap<>();
-		
+		//获取前端传递参数timecode并检验合法性
 		int timecode = (int)request.get("timecode");
 		if(timecode != 0&& timecode !=1) {
 			results.put("errod_code", 1);
 			results.put("message", "输入的timecode有误");
 		}
+		//获取前端传递参数username并检验合法性
 		String username = (String)request.get("username");
+		if(username == null||username.equals("")) {
+			results.put("errod_code", 3);
+			results.put("message", "输入username为空");
+			return results;
+		}
+		//获取用户全部订单
 		List<Ordering> orderings = service.selectByUserName(username);
 		List<Ordering> orderingsInTime = new ArrayList<>();
+		//按照timecode进行分类
 		for (Ordering ordering : orderings) {
 			if(timecode == 0&&timeListTime0.contains(ordering.getTime())) {
 				orderingsInTime.add(ordering);
@@ -215,6 +226,7 @@ public class OrderingMapperController {
 			results.put("message", "该时间段内没有预约");
 			return results;
 		}else {
+			//将获取到的数据进行包装并传递
 			Map<String, Object> data = new HashMap<>();
 			Ordering orderingTemp = orderingsInTime.get(0);
 			data.put("username", orderingTemp.getUsername());
