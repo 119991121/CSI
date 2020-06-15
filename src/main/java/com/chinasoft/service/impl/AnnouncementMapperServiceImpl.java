@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.chinasoft.mapper.AnnouncementMapper;
 import com.chinasoft.pojo.Announcement;
+import com.chinasoft.pojo.User;
 import com.chinasoft.service.AnnouncementMapperService;
 
 @Service
@@ -55,8 +56,14 @@ public class AnnouncementMapperServiceImpl implements AnnouncementMapperService 
 	}
 
 	@Override
-	public int getIdByUsername(String username) {
-		int result = mapper.getIdByUsername(username);
+	public Integer getIdByUsername(String username) {
+		Integer result = mapper.getIdByUsername(username);
+		return result;
+	}
+
+	@Override
+	public User checkUsername(String username) {
+		User result = mapper.checkUsername(username);
 		return result;
 	}
 }

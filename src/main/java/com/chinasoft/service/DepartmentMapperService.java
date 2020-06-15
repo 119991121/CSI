@@ -21,4 +21,8 @@ public interface DepartmentMapperService {
 	List<Department> selectBymessage(String message);
 	
 	int update(String departmentNameOld, String departmentName, String departmentMessage);
+
+	int deleteRelated(List<String> departmentID);
+
+	List<String> getIdByName(List<String> dept_name);
 }

@@ -21,4 +21,8 @@ public interface DepartmentMapper {
 
 	List<Department> selectBymessage(String departmentMessage);
 
+	int deleteRelated(@Param("departmentID") List<String> departmentID);
+
+	List<String> getIdByName(@Param("dept_name") List<String> dept_name);
+
 }

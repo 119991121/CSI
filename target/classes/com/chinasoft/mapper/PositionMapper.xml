@@ -39,7 +39,10 @@
 	</select>
 	
 	<select resultType="Position" id="selectBymessage" parameterType="String">
-		select * from position natural join department where positionMessage like concat('%', #{positionMessage}, '%') order by positionName
+		select * from position natural join department where 
+		positionName like concat('%', #{positionMessage}, '%') 
+		or positionMessage like concat('%', #{positionMessage}, '%') 
+		order by positionName
 	</select>
 	
 	<select resultType="Position" id="selectByid" parameterType="Integer">

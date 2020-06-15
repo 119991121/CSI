@@ -17,7 +17,11 @@
 	</delete>
 	
 	<select id="selectAnnouncement" parameterType="com.chinasoft.pojo.Announcement" resultType="com.chinasoft.pojo.Announcement">
-		select * from announcement where name like concat('%', #{select_key}, '%') or content like concat('%', #{select_key}, '%') order by creatTime
+		select * from 
+		announcement a left join user u on user_id=userID
+		where a.name like concat('%', #{select_key}, '%') 
+		or content like concat('%', #{select_key}, '%') 
+		order by creatTime
 	</select>
 	
 	<select id="selectByid" parameterType="com.chinasoft.pojo.Announcement" resultType="com.chinasoft.pojo.Announcement">
@@ -29,7 +33,13 @@
 	</select>
 	
 	<select id="selectAll" resultType="com.chinasoft.pojo.Announcement">
-		select * from announcement order by creatTime
+		select * from 
+		announcement left join user on user_id=userID
+		order by creatTime
+	</select>
+	
+	<select id="checkUsername" parameterType="String" resultType="User">
+		select * from user where username = #{username}
 	</select>
 	
 	<select id="getIdByUsername" parameterType="String" resultType="int">

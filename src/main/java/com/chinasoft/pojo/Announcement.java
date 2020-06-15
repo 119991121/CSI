@@ -10,6 +10,7 @@ public class Announcement {
 	private String content;
 	private Date creatTime;
 	private int userID;
+	private String username;
 	public int getAnnouncementID() {
 		return announcementID;
 	}
@@ -28,10 +29,10 @@ public class Announcement {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	@JsonFormat(pattern="yy:MM:dd",timezone="GMT+8")
 	public Date getCreatTime() {
 		return creatTime;
 	}
+	@JsonFormat(pattern="yy:MM:dd",timezone="GMT+8")
 	public void setCreatTime(Date creatTime) {
 		this.creatTime = creatTime;
 	}
@@ -41,22 +42,30 @@ public class Announcement {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public Announcement() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Announcement(int announcementID, String name, String content, Date creatTime, int userID) {
+	public Announcement(int announcementID, String name, String content, Date creatTime, int userID, String username) {
 		super();
 		this.announcementID = announcementID;
 		this.name = name;
 		this.content = content;
 		this.creatTime = creatTime;
 		this.userID = userID;
+		this.username = username;
 	}
 	@Override
 	public String toString() {
 		return "Announcement [announcementID=" + announcementID + ", name=" + name + ", content=" + content
-				+ ", creatTime=" + creatTime + ", userID=" + userID + "]";
+				+ ", creatTime=" + creatTime + ", userID=" + userID + ", username=" + username + "]";
 	}
+	
 	
 }

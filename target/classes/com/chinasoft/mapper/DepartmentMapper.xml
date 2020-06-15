@@ -20,13 +20,32 @@
 		</if>
 	</insert>
 	
-	<delete id="deleteDepartment">
+	<delete id="deleteDepartment" parameterType="String">
 		delete  from department where departmentName in(
 		<foreach collection="dept_name"  separator=","  item="index">
             #{index}
         </foreach>
         )
 	</delete>
+	
+	<delete id="deleteRelated" parameterType="String">
+		delete  from position where departmentID in
+		(
+			<foreach collection="departmentID"  separator=","  item="index">
+           	 	#{index}
+        	</foreach>
+        )
+		
+	</delete>
+	
+	<select id="getIdByName" parameterType="String" resultType="String">
+		select departmentID from department where departmentName in
+			(
+				<foreach collection="dept_name"  separator=","  item="index">
+           	 		#{index}
+        		</foreach>
+        	)
+	</select>
 
 	<select resultType="Department" id="selectAll">
 		select * from department order by departmentName

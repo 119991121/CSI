@@ -58,4 +58,16 @@ public class DepartmentMapperServiceImpl implements DepartmentMapperService {
 		return result;
 	}
 
+	@Override
+	public int deleteRelated(List<String> departmentID) {
+		int result = mapper.deleteRelated(departmentID);
+		return result;
+	}
+
+	@Override
+	public List<String> getIdByName(List<String> dept_name) {
+		List<String> result = mapper.getIdByName(dept_name);
+		return result;
+	}
+
 }

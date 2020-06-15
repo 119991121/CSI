@@ -30,21 +30,32 @@ public class AnnouncementMapperController {
 		String name=(String) request.get("name");
 		String content=(String) request.get("content");
 		String username=(String) request.get("username");
-		int userID=service.getIdByUsername(username);
-		System.out.println(name+"  "+content+"  "+userID+"  "+username);
-		if(name ==null || content ==null||name.equals("") || content.equals("")||userID==0) {
+		if(name ==null || content ==null||name.equals("") || content.equals("")||username==null ||username.equals("")) {
 			rs.put("message", "数据不完整");
 			rs.put("error_code",1);
 		}else {
-			Announcement announcement = new Announcement();
-			announcement.setName(name);
-			announcement.setContent(content);
-			announcement.setCreatTime(new Date());
-			announcement.setUserID(userID);	
-				if(service.insertAnnouncement(announcement)==1) {
-					rs.put("message", "新增成功");
-					rs.put("error_code",0);
+			if(service.selectByName(name)!=null) {
+				rs.put("message", "公告名重复");
+				rs.put("error_code",3);
+			}
+			else{
+				Integer userID=service.getIdByUsername(username);
+				if(userID==null) {
+					rs.put("message", "用户不存在");
+					rs.put("error_code",2);
 				}
+				else {
+					Announcement announcement = new Announcement();
+					announcement.setName(name);
+					announcement.setContent(content);
+					announcement.setCreatTime(new Date());
+					announcement.setUserID(userID);	
+					if(service.insertAnnouncement(announcement)==1) {
+						rs.put("message", "发布成功");
+						rs.put("error_code",0);
+					}
+				}
+			}
 		}
         return rs;
 	}
@@ -113,18 +124,25 @@ public class AnnouncementMapperController {
 		}else {
 			if(service.selectByName(name)==null) {
 				rs.put("message", "公告不存在");
-				rs.put("error_code",2);
-			}else 
-				if(service.updateAnnouncement(name,new_name,content)==1) {
-					Announcement announcement =service.selectByName(name);
-					rs.put("data",announcement);
-					rs.put("message", "修改成功");
-					rs.put("error_code",0);
-				}else {
-					rs.put("data",null);
-					rs.put("message", "修改失败");
+				rs.put("error_code",3);
+			}else {
+				if(service.selectByName(new_name)!=null) {
+					rs.put("message", "新公告名已存在");
 					rs.put("error_code",3);
 				}
+				else {
+					if(service.updateAnnouncement(name,new_name,content)==1) {
+						Announcement announcement =service.selectByName(name);
+						rs.put("data",announcement);
+						rs.put("message", "修改成功");
+						rs.put("error_code",0);
+					}else {
+						rs.put("data",null);
+						rs.put("message", "修改失败");
+						rs.put("error_code",3);
+					}
+				}
+			}
 		}
         return rs;
 	}

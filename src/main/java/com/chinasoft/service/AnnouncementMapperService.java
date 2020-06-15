@@ -1,10 +1,9 @@
 package com.chinasoft.service;
 
-import com.chinasoft.pojo.Announcement;
-
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
+import com.chinasoft.pojo.Announcement;
+import com.chinasoft.pojo.User;
 
 public interface AnnouncementMapperService {
 	int insertAnnouncement(Announcement announcement);
@@ -21,5 +20,7 @@ public interface AnnouncementMapperService {
 
 	Announcement selectByName(String name);
 
-	int getIdByUsername(String username);
+	Integer getIdByUsername(String username);
+
+	User checkUsername(String username);
 }

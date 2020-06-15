@@ -68,12 +68,13 @@ public class DepartmentMapperController {
 	public Object Delete(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
 		List<String> dept_name = (List) request.get("dept_name");
+		List<String> departmentID = service.getIdByName(dept_name);
 		if(dept_name==null||dept_name.size()==0) {
 			rs.put("error_code", 1);
 			rs.put("message", "部门名称为空");
 		}
 		else{
-			if(service.delete(dept_name)!=0) {
+			if(service.delete(dept_name)!=0&&service.deleteRelated(departmentID)!=0) {
 				rs.put("error_code", 0);
 				rs.put("message", "删除成功");			
 			}else {
@@ -138,7 +139,7 @@ public class DepartmentMapperController {
 			return rs;
 		}else {
 			rs.put("error_code", 1);
-			rs.put("message", "查询失败");
+			rs.put("message", "无信息");
 			return rs;
 		}
 	}
@@ -152,18 +153,24 @@ public class DepartmentMapperController {
 		String departmentMessage = (String) request.get("new_dept_desc");
 		if(departmentNameOld==null||departmentNameOld.equals("")||departmentName==null||departmentName.equals("")||departmentMessage==null||departmentMessage.equals("")) {
 			rs.put("message", "信息不全");
-			rs.put("error_code",1);
+			rs.put("error_code",3);
 		}else {
 			if(service.selectByname(departmentNameOld)==null) {
 				rs.put("message", "部门不存在");
-				rs.put("error_code",2);
+				rs.put("error_code",4);
 			}else {
-				if(service.update(departmentNameOld, departmentName, departmentMessage)==1) {
-					rs.put("message", "更新成功");
-					rs.put("error_code",0);
-				}else {
-					rs.put("message", "更新失败");
-					rs.put("error_code",3);
+				if(service.selectByname(departmentName)!=null) {
+					rs.put("message", "部门名称已存在");
+					rs.put("error_code",2);
+				}
+				else {
+					if(service.update(departmentNameOld, departmentName, departmentMessage)==1) {
+						rs.put("message", "修改成功");
+						rs.put("error_code",0);
+					}else {
+						rs.put("message", "修改失败");
+						rs.put("error_code",1);
+					}
 				}
 			}
 		}

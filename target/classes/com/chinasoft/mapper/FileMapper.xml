@@ -15,9 +15,9 @@
 	</insert>
 
 	<!-- 按照fileId从file表删除数据 -->
-	<delete id="deleteFile" parameterType="int">
+	<delete id="deleteFile" parameterType="String">
 		delete from file where
-		fileID = #{fileId}
+		name = #{name}
 	</delete>
 
 	<!-- 更新某一个file的信息 -->
