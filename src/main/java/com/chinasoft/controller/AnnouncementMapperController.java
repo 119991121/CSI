@@ -126,7 +126,7 @@ public class AnnouncementMapperController {
 				rs.put("message", "公告不存在");
 				rs.put("error_code",3);
 			}else {
-				if(service.selectByName(new_name)!=null) {
+				if(service.selectByName(new_name)!=null&&!new_name.equals(name)) {
 					rs.put("message", "新公告名已存在");
 					rs.put("error_code",3);
 				}

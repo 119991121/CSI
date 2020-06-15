@@ -12,13 +12,13 @@ public interface PositionMapperService {
 	
 	List<Position> selectAll();
 	
-	Position selectByname(String positionName);
+	List<Position> selectByname(String positionName);
 	
-	Position selectByid(int id);
+	String selectByid(int id);
 	
 	List<Position> selectBymessage(String message);
 	
-	int update(String positionName,String departmentID,String new_pos_name,String new_pos_desc );
+	int update(int pos_id,String departmentID,String new_pos_name,String new_pos_desc );
 
-	int getIdByname(String subordinate_dept);
+	Integer getIdByname(String subordinate_dept);
 }

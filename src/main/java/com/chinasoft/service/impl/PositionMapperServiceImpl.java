@@ -34,20 +34,20 @@ public class PositionMapperServiceImpl implements PositionMapperService {
 	}
 	
 	@Override
-	public int update(String positionName,String departmentID,String new_pos_name,String new_pos_desc ){
-		int result = mapper.updatePosition(positionName,departmentID,new_pos_name,new_pos_desc);
+	public int update(int pos_id,String departmentID,String new_pos_name,String new_pos_desc ){
+		int result = mapper.updatePosition(pos_id,departmentID,new_pos_name,new_pos_desc);
 		return result;
 	}
 
 	@Override
-	public Position selectByname(String positionName) {
-		Position result = mapper.selectByname(positionName);
+	public List<Position> selectByname(String positionName) {
+		List<Position> result = mapper.selectByname(positionName);
 		return result;
 	}
 
 	@Override
-	public Position selectByid(int id) {
-		Position result = mapper.selectByid(id);
+	public String selectByid(int id) {
+		String result = mapper.selectByid(id);
 		return result;
 	}
 
@@ -58,8 +58,8 @@ public class PositionMapperServiceImpl implements PositionMapperService {
 	}
 
 	@Override
-	public int getIdByname(String subordinate_dept) {
-		int result = mapper.getIdByname(subordinate_dept);
+	public Integer getIdByname(String subordinate_dept) {
+		Integer result = mapper.getIdByname(subordinate_dept);
 		return result;
 	}
 

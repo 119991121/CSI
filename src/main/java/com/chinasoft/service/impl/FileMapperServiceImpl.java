@@ -23,16 +23,16 @@ public class FileMapperServiceImpl implements FileMapperService{
 	}
 
 	@Override
-	public int delete(String name) {
+	public int delete(List<String> name) {
 		// TODO delete file table with value = file_id.
 		int result = mapper.deleteFile(name);
 		return result;
 	}
 
 	@Override
-	public List<File> select(File file) {
+	public List<File> select(String select_key) {
 		// TODO select file table with name.
-		List<File> files = mapper.selectFile(file);
+		List<File> files = mapper.selectFile(select_key);
 		return files;
 	}
 

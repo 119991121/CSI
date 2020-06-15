@@ -13,14 +13,14 @@ public interface PositionMapper {
 	
 	List<Position> selectAll();
 	
-	int updatePosition(@Param("positionName") String positionName,@Param("departmentID")String departmentID,@Param("new_pos_name")String new_pos_name,@Param("new_pos_desc")String new_pos_desc );
+	int updatePosition(@Param("pos_id") int pos_id,@Param("departmentID")String departmentID,@Param("new_pos_name")String new_pos_name,@Param("new_pos_desc")String new_pos_desc );
 	
-	Position selectByname(String positionName);
+	List<Position> selectByname(String positionName);
 	
-	Position selectByid(int positionID);
+	String selectByid(int positionID);
 
 	List<Position> selectBymessage(String positionMessage);
 
-	int getIdByname(String subordinate_dept);
+	Integer getIdByname(String subordinate_dept);
 	
 }

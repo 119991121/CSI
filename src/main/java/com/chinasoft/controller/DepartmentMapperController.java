@@ -74,7 +74,10 @@ public class DepartmentMapperController {
 			rs.put("message", "部门名称为空");
 		}
 		else{
-			if(service.delete(dept_name)!=0&&service.deleteRelated(departmentID)!=0) {
+			if(departmentID.size()!=0&&departmentID!=null) {
+				service.deleteRelated(departmentID);
+			}
+			if(service.delete(dept_name)!=0) {
 				rs.put("error_code", 0);
 				rs.put("message", "删除成功");			
 			}else {
@@ -159,7 +162,7 @@ public class DepartmentMapperController {
 				rs.put("message", "部门不存在");
 				rs.put("error_code",4);
 			}else {
-				if(service.selectByname(departmentName)!=null) {
+				if(service.selectByname(departmentName)!=null&&!departmentNameOld.equals(departmentName)) {
 					rs.put("message", "部门名称已存在");
 					rs.put("error_code",2);
 				}

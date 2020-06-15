@@ -23,7 +23,7 @@
 	</insert>
 	
 	<delete id="deletePosition">
-		delete  from position where positionName in (
+		delete  from position where positionID in (
 		<foreach collection="names"  separator=","  item="name">
             #{name}
         </foreach>
@@ -45,8 +45,8 @@
 		order by positionName
 	</select>
 	
-	<select resultType="Position" id="selectByid" parameterType="Integer">
-		select * from position where positionID = #{positionID}
+	<select resultType="String" id="selectByid" parameterType="Integer">
+		select positionName from position where positionID = #{positionID}
 	</select>
 	
 	<select id="getIdByname" parameterType="String" resultType="int">
@@ -64,6 +64,6 @@
 		<if test="new_pos_desc != null">
 			,positionMessage = #{new_pos_desc}
 		</if>
-		where positionName = #{positionName}
+		where positionID = #{pos_id}
 	</update>
 </mapper>

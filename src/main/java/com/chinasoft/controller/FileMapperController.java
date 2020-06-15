@@ -102,17 +102,23 @@ public class FileMapperController {
 		
 		Map<String, Object> results = new HashMap<>();
 		
-		String fileName = (String)request.get("filename");
-		
-		List<File> file = service.selectByName(fileName);
-		if(file.isEmpty()) {
-			results.put("message", "数据库中不存在该名字的文件.");
+		List<String> fileName = (List)request.get("filename");
+		StringBuffer msg = new StringBuffer("以下文件不存在：");
+		int flag=0;
+		for(int i=0;i<fileName.size();i++) {
+			if(service.selectByName(fileName.get(i)).size()==0) {
+				msg.insert(msg.length(), fileName.get(i)+"  ");
+				flag=1;
+			}
+		}
+		if(flag==1) {
+			results.put("message", msg);
 			results.put("error_code", 2);
 	
 			return results;
 		}
 		
-		if(service.delete(fileName)==1) {
+		if(service.delete(fileName)!=0) {
 			results.put("message", "删除成功");
 			results.put("error_code", 0);
 	
@@ -157,6 +163,14 @@ public class FileMapperController {
 		if (new_doc_des!=null&&!new_doc_des.equals("")) {
 			file.setDes(new_doc_des);
 		}
+		
+		List<File> files = service.selectByName(new_doc_name);
+		if(!files.isEmpty()&&files.get(0).equals(name)) {
+			results.put("message", "文件名重复");
+			results.put("error_code", 3);
+			return results;
+		}
+		
 		if (!fileUpload.isEmpty()) {
 			// 将MultipartFile转化为File
 			java.io.File filetemp = new java.io.File("/WEB-INF/file/filetemp");
@@ -184,7 +198,7 @@ public class FileMapperController {
 			return results;
 		}else {
 			results.put("message", "修改失败");
-			results.put("error_code", 3);
+			results.put("error_code", 4);
 
 			return results;
 		}
@@ -199,33 +213,26 @@ public class FileMapperController {
 	
 		Map<String, Object> results = new HashMap<>();
 		//初始化file
-		String name = (String)request.get("name");
-		String des = (String)request.get("des");
+		String select_key = (String)request.get("select_key");
 		
-		if((name==null||name.equals(""))&&(des==null||des.equals(""))) {
-			results.put("message", "未传入参数");
+		if((select_key==null||select_key.equals(""))) {
+			results.put("message", "传入参数为空");
 			results.put("errod_code", "1");
 			return results;
 		}
-		
-		File fileValue = new File();
-		if(name!=null&&!name.equals("")) {
-			fileValue.setName(name);
+		else {
+			List<File> files = service.select(select_key);
+			if(files!=null&&files.size()!=0) {
+				results.put("message", "查询成功");
+				results.put("error_code", 0);
+				results.put("data", files);
+			}
+			else {
+				results.put("message", "查询失败");
+				results.put("error_code", 2);
+				results.put("data", files);
+			}
 		}
-		if(des!=null&&!des.equals("")) {
-			fileValue.setDes(des);
-		}
-		
-		List<File> files = service.select(fileValue);
-		
-		for (File file : files) {
-			String user_name = userservice.selectNameById(file.getUserID());
-			file.setUser_name(user_name);
-		}
-		
-		results.put("message", "查询成功");
-		results.put("error_code", 0);
-		results.put("data", files);
 
 		return results; 
 	}

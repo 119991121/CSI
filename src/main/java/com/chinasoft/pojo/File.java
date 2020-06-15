@@ -5,11 +5,13 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class File implements Serializable{
 	private int fileID;
 	private String name;
 	//在我的电脑上，这里的注解映射是用在构造器上的，所以直接选择注解属性而不是选择注解set方法，需要注意.
-	@DateTimeFormat(pattern = "yyyy-MM-dd ")
+	@JsonFormat(pattern = "yyyy-MM-dd ",timezone="GMT+8")
 	private Date date;
 	private int userID;
 	private String user_name;
@@ -33,11 +35,11 @@ public class File implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	@DateTimeFormat(pattern = "yyyy-MM-dd ")
+	@JsonFormat(pattern = "yyyy-MM-dd ",timezone="GMT+8")
 	public Date getDate() {
 		return date;
 	}
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd ",timezone="GMT+8")
 	public void setDate(Date date) {
 		this.date = date;
 	}

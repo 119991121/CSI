@@ -27,18 +27,25 @@ public class PositionMapperController {
 	@ResponseBody
 	public Object Insert(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
-		System.out.println(request);
 		String subordinate_dept = (String) request.get("subordinate_dept");
 		String positionName = (String) request.get("pos_name");
 		String positionMessage = (String) request.get("pos_desc");
 		int departmentID = service.getIdByname(subordinate_dept);
 		if(positionMessage==null || positionName==null||positionMessage.equals("") || positionName.equals("")||subordinate_dept==null || subordinate_dept.equals("")) {
-			rs.put("data",null);
 			rs.put("message", "信息不完整");
 			rs.put("error_code",1);
 		}else {
-			if(service.selectByname(positionName)!=null) {
-				rs.put("data",null);
+			List<Position> p = service.selectByname(positionName);
+			int flag=0;
+			if(p!=null&&p.size()!=0) {
+				for(int i=0;i<p.size();i++) {
+					if(p.get(i).getDepartmentID()==departmentID) {
+						flag=1;	
+						break;
+					}
+				}
+			}
+			if(flag==1) {
 				rs.put("message", "职位已存在");
 				rs.put("error_code",2);
 			}else {
@@ -47,12 +54,9 @@ public class PositionMapperController {
 				position.setPositionName(positionName);
 				position.setPositionMessage(positionMessage);
 				if(service.insert(position)==1) {
-					position = service.selectByname(positionName);
-					rs.put("data",position);
 					rs.put("message", "添加成功");
 					rs.put("error_code",0);
 				}else {
-					rs.put("data",null);
 					rs.put("message", "添加失败");
 					rs.put("error_code",3);
 				}
@@ -65,9 +69,8 @@ public class PositionMapperController {
 	@ResponseBody
 	public Object elete(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
-		
-		List<String> names = (List) request.get("pos_name");
-		if(service.delete(names)!=0) {
+		List<String> pos_ids = (List) request.get("pos_id");
+		if(service.delete(pos_ids)!=0) {
 			rs.put("error_code", 0);
 			rs.put("message", "删除成功");
 			return rs;
@@ -78,24 +81,7 @@ public class PositionMapperController {
 		}
 	}
 	
-	@RequestMapping(value="/selectByName",method= RequestMethod.POST)
-	@ResponseBody
-	public Object SelectByName(@RequestBody Map<String,Object> request) {
-		Map<String,Object> rs = new HashMap<>();
-		
-		String name= (String) request.get("positionName");
-		Position position= service.selectByname(name);
-		if(position!=null) {
-			rs.put("error_code", 0);
-			rs.put("message", "查询成功");
-			rs.put("data", position);
-			return rs;
-		}else {
-			rs.put("error_code", 1);
-			rs.put("message", "查询失败");
-			return rs;
-		}
-	}
+
 	
 	@RequestMapping(value="/selectPosResult",method= RequestMethod.POST)
 	@ResponseBody
@@ -137,30 +123,52 @@ public class PositionMapperController {
 	@ResponseBody
 	public Object Update(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
-		String positionName = (String) request.get("pos_name");
-		if(positionName==null||positionName.equals("")) {
-			rs.put("data",null);
+		Integer pos_id = (Integer) request.get("pos_id");
+		System.out.println();
+		if(pos_id==null||pos_id==0) {
 			rs.put("message", "信息不全");
 			rs.put("error_code",1);
 		}else {
 			String new_subordinate_dept = (String) request.get("new_subordinate_dept");
-			int departmentID = service.getIdByname(new_subordinate_dept);
+			Integer departmentID = service.getIdByname(new_subordinate_dept);
 			String new_pos_name = (String) request.get("new_pos_name");
 			String new_pos_desc = (String) request.get("new_pos_desc");
-			if(service.selectByname(positionName)==null) {
-				rs.put("data",null);
-				rs.put("message", "职位不存在");
-				rs.put("error_code",2);
-			}else {
-				if(service.update(positionName,departmentID+"",new_pos_name,new_pos_desc)==1) {
-					Position position = service.selectByname(new_pos_name);
-					rs.put("data",position);
-					rs.put("message", "更新成功");
-					rs.put("error_code",0);
-				}else {
-					rs.put("data",null);
-					rs.put("message", "更新失败");
+			String pos_name=service.selectByid(pos_id);
+			if(pos_name==null||departmentID==null) {
+				if(pos_name==null) {
+					rs.put("message", "职位不存在");
 					rs.put("error_code",3);
+				}
+				else {
+					rs.put("message", "部门不存在");
+					rs.put("error_code",3);
+				}
+			}else {
+				List<Position> p=service.selectByname(new_pos_name);
+				int flag=0;
+				if(p!=null&&p.size()!=0) {
+					for(int i=0;i<p.size();i++) {
+						if(p.get(i).getDepartmentID()==departmentID&&p.get(i).getPositionID()!=pos_id) {
+							flag=1;	
+							break;
+						}
+					}
+				}
+				if(flag==1) {
+					rs.put("message", "职位已存在");
+					rs.put("error_code",2);
+				}
+				else {
+					if(service.update(pos_id,departmentID+"",new_pos_name,new_pos_desc)==1) {
+						List<Position> position = service.selectByname(new_pos_name);
+						rs.put("data",position);
+						rs.put("message", "更新成功");
+						rs.put("error_code",0);
+					}else {
+						rs.put("data",null);
+						rs.put("message", "更新失败");
+						rs.put("error_code",3);
+					}
 				}
 			}
 		}

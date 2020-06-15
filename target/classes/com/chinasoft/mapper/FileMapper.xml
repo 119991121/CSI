@@ -16,8 +16,13 @@
 
 	<!-- 按照fileId从file表删除数据 -->
 	<delete id="deleteFile" parameterType="String">
-		delete from file where
-		name = #{name}
+		delete from file where name in
+		(
+			<foreach collection="name"  separator=","  item="index">
+            	#{index}
+        	</foreach>
+		)
+
 	</delete>
 
 	<!-- 更新某一个file的信息 -->
@@ -47,17 +52,11 @@
 	</select>
 
 	<!-- 通过name查询file表 -->
-	<select id="selectFile" resultType="file" parameterType="file">
-		select * from file
-		<trim prefix="WHERE" prefixOverrides="and">
-			<if test='name != null and name!=""'>
-				name like concat('%', #{name}, '%')
-			</if>
-			<if test='des != null and des!=""'>
-				and des like concat('%', #{des}, '%')
-			</if>
-			<!-- order by date -->
-		</trim>
+	<select id="selectFile" resultType="file" parameterType="String">
+		select * from file where
+			name like concat('%', #{select_key}, '%')
+			or des like concat('%', #{select_key}, '%')
+			order by date
 	</select>
 
 	<!-- 查询file表全部信息 -->
