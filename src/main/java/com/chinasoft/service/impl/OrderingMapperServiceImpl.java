@@ -102,4 +102,11 @@ public class OrderingMapperServiceImpl implements OrderingMapperService {
 		return result;
 	}
 
+	@Override
+	public int deleteAllByName(String username) {
+		// TODO delete from ordering by username
+		int result = mapper.deleteAllByName(username);
+		return result;
+	}
+
 }

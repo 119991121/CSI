@@ -33,7 +33,13 @@ public class OrderingMapperController {
 	@Autowired
 	OrderingMapperServiceImpl service;
 	
+	//所有时间段
 	List<Integer> timeList = Arrays.asList(0,1,2,3,4,5,6,7);
+	//第一个时间段
+	List<Integer> timeListTime0 = Arrays.asList(0,1,2,3);
+	//第二个时间段
+	List<Integer> timeListTime1 = Arrays.asList(4,5,6,7);
+	
 	
 	@RequestMapping(value = "/addOrdering", method = RequestMethod.POST)
 	@ResponseBody
@@ -42,6 +48,12 @@ public class OrderingMapperController {
 		Map<String, Object> results = new HashMap<>();
 
 		String user_name = (String) request.get("user_name");
+		if(user_name==null||user_name.equals("")) {
+			results.put("errod_code", 2);
+			results.put("message", "没有输入user_name");
+			return results;
+		}
+		service.deleteAllByName(user_name);
 		int time = (int) request.get("time");
 		if(!timeList.contains(time)) {
 			results.put("errod_code", 3);
@@ -49,7 +61,6 @@ public class OrderingMapperController {
 			return results;
 		}
 		int now_time_num = service.nowTimeNum(time);
-		System.out.println(now_time_num);
 		if (now_time_num >= 50) {
 			results.put("errod_code", 1);
 			results.put("message", "该时间段预约人数达到上限，请另选时间段");
@@ -76,20 +87,26 @@ public class OrderingMapperController {
 
 	@RequestMapping(value = "/deleteOrdering", method = RequestMethod.POST)
 	@ResponseBody
-	// int orderingID
+	// String user_name
 	public Object deleteOrdering(@RequestBody Map<String, Object> request) {
 		Map<String, Object> results = new HashMap<>();
 
-		int orderingID = (int) request.get("orderingID");
-
-		List<Ordering> lists = service.selectByID(orderingID);
-		if (lists.isEmpty()) {
-			results.put("errod_code", 1);
-			results.put("message", "没有找到该订单，可能已经删除。");
+		String user_name = (String) request.get("user_name");
+		
+		if(user_name==null||user_name.equals("")) {
+			results.put("errod_code", 3);
+			results.put("message", "输入user_name为空");
 			return results;
 		}
 
-		if (service.delete(orderingID) == 1) {
+		List<Ordering> lists = service.selectByUserName(user_name);
+		if (lists.isEmpty()) {
+			results.put("errod_code", 1);
+			results.put("message", "该用户没有下单,可能已经删除。");
+			return results;
+		}
+
+		if (service.deleteAllByName(user_name) == lists.size()) {
 			results.put("errod_code", 0);
 			results.put("message", "取消预约成功");
 			return results;
@@ -172,18 +189,47 @@ public class OrderingMapperController {
 	
 	@RequestMapping(value = "/selectByUserName", method = RequestMethod.POST)
 	@ResponseBody
-	//String username
+	//int timecode String username
 	public Object selectByUserName(@RequestBody Map<String, Object> request) {
 		
 		Map<String, Object> results = new HashMap<>();
 		
+		int timecode = (int)request.get("timecode");
+		if(timecode != 0&& timecode !=1) {
+			results.put("errod_code", 1);
+			results.put("message", "输入的timecode有误");
+		}
 		String username = (String)request.get("username");
 		List<Ordering> orderings = service.selectByUserName(username);
-		results.put("errod_code", 0);
-		results.put("message", "搜索成功");
-		results.put("data", orderings);
+		List<Ordering> orderingsInTime = new ArrayList<>();
+		for (Ordering ordering : orderings) {
+			if(timecode == 0&&timeListTime0.contains(ordering.getTime())) {
+				orderingsInTime.add(ordering);
+			}else if(timecode == 1&&timeListTime1.contains(ordering.getTime())) {
+				orderingsInTime.add(ordering);
+			}
+		}
 		
-		return results;
+		if(orderingsInTime.isEmpty()) {
+			results.put("errod_code", 2);
+			results.put("message", "该时间段内没有预约");
+			return results;
+		}else {
+			Map<String, Object> data = new HashMap<>();
+			Ordering orderingTemp = orderingsInTime.get(0);
+			data.put("username", orderingTemp.getUsername());
+			data.put("date", orderingTemp.getDate());
+			data.put("time", orderingTemp.getTime());
+			List<String> dishName = new ArrayList<String>();
+			for (Ordering ordering : orderingsInTime) {
+				dishName.add(ordering.getDishName());
+			}
+			data.put("dishName", dishName);
+			results.put("errod_code", 0);
+			results.put("message", "搜索成功");
+			results.put("data", data);
+			return results;
+		}
 		
 	}
 

@@ -19,6 +19,11 @@
 		delete from ordering where orderingID = #{orderingID};
 	</delete>
 	
+	<!-- 通过username来删除ordering  -->
+	<delete id="deleteAllByName" parameterType="String">
+		delete from ordering where username = #{username};
+	</delete>
+	
 	<!-- 修改ordering -->
 	<update id="updateOrdering" parameterType="ordering">
 		update ordering set date=#{date}
