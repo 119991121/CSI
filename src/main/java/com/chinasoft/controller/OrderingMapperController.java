@@ -211,13 +211,23 @@ public class OrderingMapperController {
 		}
 		
 		if(orderingsInTime.isEmpty()) {
-			results.put("errod_code", 0);
+			results.put("errod_code", 2);
 			results.put("message", "该时间段内没有预约");
 			return results;
 		}else {
+			Map<String, Object> data = new HashMap<>();
+			Ordering orderingTemp = orderingsInTime.get(0);
+			data.put("username", orderingTemp.getUsername());
+			data.put("date", orderingTemp.getDate());
+			data.put("time", orderingTemp.getTime());
+			List<String> dishName = new ArrayList<String>();
+			for (Ordering ordering : orderingsInTime) {
+				dishName.add(ordering.getDishName());
+			}
+			data.put("dishName", dishName);
 			results.put("errod_code", 0);
 			results.put("message", "搜索成功");
-			results.put("data", orderingsInTime);
+			results.put("data", data);
 			return results;
 		}
 		
