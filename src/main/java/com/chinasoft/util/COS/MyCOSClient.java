@@ -120,4 +120,11 @@ public class MyCOSClient {
 		} while (objectListing.isTruncated());
 	}
 	
+	public String getUrlByKey(String key) {
+		
+		String url = "https://filebed-1259719447.cos.ap-chengdu.myqcloud.com/"+key;
+		return url;
+		
+	}
+	
 }

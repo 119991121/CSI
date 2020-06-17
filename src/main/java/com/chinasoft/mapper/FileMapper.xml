@@ -34,9 +34,6 @@
 		<if test="des != null">
 			,des=#{des}
 		</if>
-		<if test="name != null">
-			,herf=#{herf}
-		</if>
 		where fileID=#{fileID};
 	</update>
 
