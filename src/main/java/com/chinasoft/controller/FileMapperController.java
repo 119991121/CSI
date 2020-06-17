@@ -226,7 +226,6 @@ Map<String, Object> results = new HashMap<>();
 	public Object Update(@RequestBody Map<String, Object> request) throws IOException {
 
 		Map<String, Object> results = new HashMap<>();
-		
 		String name = (String)request.get("name");
 		List<File> fileBefore = service.selectByName(name);
 		
@@ -255,7 +254,7 @@ Map<String, Object> results = new HashMap<>();
 		file.setUserID(userid);
 		
 		List<File> files = service.selectByName(new_doc_name);
-		if(!files.isEmpty()||files.get(0).getName().equals(name)) {
+		if(!files.isEmpty()) {
 			results.put("message", "文件名重复");
 			results.put("error_code", 3);
 			return results;
@@ -267,6 +266,7 @@ Map<String, Object> results = new HashMap<>();
 
 			return results;
 		}else {
+			System.out.println("fail");
 			results.put("message", "修改失败");
 			results.put("error_code", 4);
 
