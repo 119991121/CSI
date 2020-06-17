@@ -16,7 +16,7 @@ public interface PositionMapperService {
 	
 	String selectByid(int id);
 	
-	List<Position> selectBymessage(String message);
+	List<Position> selectBymessage(String message,String departmentName);
 	
 	int update(int pos_id,String departmentID,String new_pos_name,String new_pos_desc );
 

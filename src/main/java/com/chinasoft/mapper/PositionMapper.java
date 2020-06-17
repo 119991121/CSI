@@ -19,7 +19,7 @@ public interface PositionMapper {
 	
 	String selectByid(int positionID);
 
-	List<Position> selectBymessage(String positionMessage);
+	List<Position> selectBymessage(@Param("positionMessage")String positionMessage,@Param("departmentName")String departmentName);
 
 	Integer getIdByname(String subordinate_dept);
 	

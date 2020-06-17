@@ -157,13 +157,15 @@ public class UserMapperController {
 		String positionName=(String) request.get("positionName");
 		String departmentName=(String) request.get("departmentName");
 		
+		System.out.println(departmentName);
+		
 		int position_id=0;
 		if(positionName!=null&&!positionName.equals("")) {
 			position_id=service.getPosition_id(positionName);
 		}
 		int department_id=0;
 		if(positionName!=null&&!positionName.equals("")) {
-			service.getDepartment_id(departmentName);	
+			department_id=service.getDepartment_id(departmentName);	
 		}
 		String username=(String) request.get("username");
 		String password=(String) request.get("password");

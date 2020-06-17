@@ -37,8 +37,11 @@
 	
 	<select resultType="Position" id="selectBymessage" parameterType="String">
 		select * from position natural join department where 
-		positionName like concat('%', #{positionMessage}, '%') 
-		or positionMessage like concat('%', #{positionMessage}, '%') 
+		(positionName like concat('%', #{positionMessage}, '%') 
+		or positionMessage like concat('%', #{positionMessage}, '%') )
+		<if test='departmentName !=null and departmentName !="" '>
+			and departmentName = #{departmentName}
+		</if>
 		order by positionName
 	</select>
 	

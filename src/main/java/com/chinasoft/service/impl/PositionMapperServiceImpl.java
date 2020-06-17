@@ -52,8 +52,8 @@ public class PositionMapperServiceImpl implements PositionMapperService {
 	}
 
 	@Override
-	public List<Position> selectBymessage(String message) {
-		List<Position> result = mapper.selectBymessage(message);
+	public List<Position> selectBymessage(String message,String departmentName) {
+		List<Position> result = mapper.selectBymessage(message,departmentName);
 		return result;
 	}
 

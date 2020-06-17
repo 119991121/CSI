@@ -89,7 +89,9 @@ public class PositionMapperController {
 		Map<String,Object> rs = new HashMap<>();
 		
 		String message= (String) request.get("select_key");
-		List<Position> positions= service.selectBymessage(message);
+		String departmentName= (String) request.get("departmentName");
+		System.out.println(departmentName+"           "+message);
+		List<Position> positions= service.selectBymessage(message,departmentName);
 		if(positions!=null) {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");

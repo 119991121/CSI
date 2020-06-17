@@ -65,7 +65,9 @@ public class UserMapperServiceImpl implements UserMapperService {
 
 	@Override
 	public int getDepartment_id(String departmentName) {
+		System.out.println(departmentName);
 		int department_id = mapper.getDepartment_id(departmentName);
+		System.out.println(department_id);
 		return department_id;
 	}
 
