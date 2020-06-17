@@ -49,7 +49,7 @@ public class OrderingMapperController {
 		//获取前端传递参数user_name并检验合法性
 		String user_name = (String) request.get("user_name");
 		if(user_name==null||user_name.equals("")) {
-			results.put("errod_code", 2);
+			results.put("error_code", 2);
 			results.put("message", "没有输入user_name");
 			return results;
 		}
@@ -58,14 +58,14 @@ public class OrderingMapperController {
 		//获取前端传递参数time并检验合法性
 		int time = (int) request.get("time");
 		if(!timeList.contains(time)) {
-			results.put("errod_code", 3);
+			results.put("error_code", 3);
 			results.put("message", "输入时间段不在已知范围内");
 			return results;
 		}
 		//获取当前时间段内预约就餐的人数
 		int now_time_num = service.nowTimeNum(time);
 		if (now_time_num >= 50) {
-			results.put("errod_code", 1);
+			results.put("error_code", 1);
 			results.put("message", "该时间段预约人数达到上限，请另选时间段");
 			return results;
 		}
@@ -78,12 +78,12 @@ public class OrderingMapperController {
 		for (String dishName : dishNames) {
 			ordering.setDishName(dishName);
 			if (service.insert(ordering) != 1) {
-				results.put("errod_code", 4);
+				results.put("error_code", 4);
 				results.put("message", "预约失败");
 				return results;
 			}
 		}
-		results.put("errod_code", 0);
+		results.put("error_code", 0);
 		results.put("message", "预约成功");
 		return results;
 	}
@@ -96,24 +96,24 @@ public class OrderingMapperController {
 		//获取前端传递参数user_name并检验合法性
 		String user_name = (String) request.get("user_name");
 		if(user_name==null||user_name.equals("")) {
-			results.put("errod_code", 3);
+			results.put("error_code", 3);
 			results.put("message", "输入user_name为空");
 			return results;
 		}
 		//判断该用户是否有订单
 		List<Ordering> lists = service.selectByUserName(user_name);
 		if (lists.isEmpty()) {
-			results.put("errod_code", 1);
+			results.put("error_code", 1);
 			results.put("message", "该用户没有下单,可能已经删除。");
 			return results;
 		}
 
 		if (service.deleteAllByName(user_name) == lists.size()) {
-			results.put("errod_code", 0);
+			results.put("error_code", 0);
 			results.put("message", "取消预约成功");
 			return results;
 		} else {
-			results.put("errod_code", 2);
+			results.put("error_code", 2);
 			results.put("message", "取消预约失败");
 			return results;
 		}
@@ -131,7 +131,7 @@ public class OrderingMapperController {
 		List<Ordering> oldOrderings = service.selectByID(orderingID);
 
 		if (oldOrderings.isEmpty()) {
-			results.put("errod_code", 1);
+			results.put("error_code", 1);
 			results.put("message", "该订单已经不存在，请重新选择。");
 			return results;
 		}
@@ -144,12 +144,12 @@ public class OrderingMapperController {
 		int time = (int) request.get("new_time");
 		if (oldOrdering.getTime() != time) {
 			if(!timeList.contains(time)) {
-				results.put("errod_code", 3);
+				results.put("error_code", 3);
 				results.put("message", "输入时间段不在已知范围内");
 				return results;
 			}
 			if (service.nowTimeNum(time) >= 50) {
-				results.put("errod_code", 2);
+				results.put("error_code", 2);
 				results.put("message", "该时间段预约人数达到上限，请另选时间段");
 				return results;
 			}
@@ -165,11 +165,11 @@ public class OrderingMapperController {
 		}
 		
 		if(service.updateOrdering(ordering)==1) {
-			results.put("errod_code", 0);
+			results.put("error_code", 0);
 			results.put("message", "修改成功");
 			return results;
 		}else {
-			results.put("errod_code", 4);
+			results.put("error_code", 4);
 			results.put("message", "修改失败");
 			return results;
 		}
@@ -183,7 +183,7 @@ public class OrderingMapperController {
 		Map<String, Object> results = new HashMap<>();
 		
 		List<Ordering> orderings = service.selectAll();
-		results.put("errod_code", 0);
+		results.put("error_code", 0);
 		results.put("message", "搜索成功");
 		results.put("data", orderings);
 		
@@ -199,13 +199,13 @@ public class OrderingMapperController {
 		//获取前端传递参数timecode并检验合法性
 		int timecode = (int)request.get("timecode");
 		if(timecode != 0&& timecode !=1) {
-			results.put("errod_code", 1);
+			results.put("error_code", 1);
 			results.put("message", "输入的timecode有误");
 		}
 		//获取前端传递参数username并检验合法性
 		String username = (String)request.get("username");
 		if(username == null||username.equals("")) {
-			results.put("errod_code", 3);
+			results.put("error_code", 3);
 			results.put("message", "输入username为空");
 			return results;
 		}
@@ -222,7 +222,7 @@ public class OrderingMapperController {
 		}
 		
 		if(orderingsInTime.isEmpty()) {
-			results.put("errod_code", 2);
+			results.put("error_code", 2);
 			results.put("message", "该时间段内没有预约");
 			return results;
 		}else {
@@ -237,7 +237,7 @@ public class OrderingMapperController {
 				dishName.add(ordering.getDishName());
 			}
 			data.put("dishName", dishName);
-			results.put("errod_code", 0);
+			results.put("error_code", 0);
 			results.put("message", "搜索成功");
 			results.put("data", data);
 			return results;
