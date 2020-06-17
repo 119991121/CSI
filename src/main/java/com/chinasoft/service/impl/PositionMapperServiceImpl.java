@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.chinasoft.mapper.PositionMapper;
 import com.chinasoft.pojo.Position;
+import com.chinasoft.pojo.User;
 import com.chinasoft.service.PositionMapperService;
 
 @Service
@@ -60,6 +61,18 @@ public class PositionMapperServiceImpl implements PositionMapperService {
 	@Override
 	public Integer getIdByname(String subordinate_dept) {
 		Integer result = mapper.getIdByname(subordinate_dept);
+		return result;
+	}
+
+	@Override
+	public Integer getNum(int positionID) {
+		Integer result = mapper.getNum(positionID);
+		return result;
+	}
+
+	@Override
+	public List<User> checkUser(List<String> pos_ids) {
+		List<User> result = mapper.checkUser(pos_ids);
 		return result;
 	}
 

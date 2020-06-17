@@ -3,9 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinasoft.mapper.DepartmentMapper">
-
-	<!-- 开启二级缓存 -->
-	<cache />
 	
 	<insert id="insertDepartment"
 		parameterType="Department">
@@ -45,6 +42,19 @@
            	 		#{index}
         		</foreach>
         	)
+	</select>
+	
+	<select id="checkUser" parameterType="String" resultType="User">
+		select * from user u left join department d on u.department_id = d.departmentID where d.departmentName in
+			(
+				<foreach collection="dept_name"  separator=","  item="index">
+           	 		#{index}
+        		</foreach>
+        	)
+	</select>
+
+	<select id="getNum" parameterType="int" resultType="int">
+		select count(department_id) from user where  department_id=#{departmentID}
 	</select>
 
 	<select resultType="Department" id="selectAll">

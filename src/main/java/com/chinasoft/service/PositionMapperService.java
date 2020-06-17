@@ -3,6 +3,7 @@ package com.chinasoft.service;
 import java.util.List;
 
 import com.chinasoft.pojo.Position;
+import com.chinasoft.pojo.User;
 
 public interface PositionMapperService {
 
@@ -21,4 +22,8 @@ public interface PositionMapperService {
 	int update(int pos_id,String departmentID,String new_pos_name,String new_pos_desc );
 
 	Integer getIdByname(String subordinate_dept);
+
+	Integer getNum(int positionID);
+
+	List<User> checkUser(List<String> pos_ids);
 }

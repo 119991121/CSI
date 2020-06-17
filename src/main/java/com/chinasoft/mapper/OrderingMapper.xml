@@ -4,9 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinasoft.mapper.OrderingMapper">
 
-	<!-- 开启二级缓存 -->
-	<cache />
-
 	<!-- 插入一条ordering数据 -->
 	<insert id="insertOrdering" parameterType="ordering">
 		insert into

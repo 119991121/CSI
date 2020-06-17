@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Position implements Serializable{
 	private int positionID;
 	private int departmentID;
+	private int positionNum;
 	private String departmentName;
 	private String positionName;
 	private String positionMessage;
@@ -19,6 +20,12 @@ public class Position implements Serializable{
 	}
 	public void setDepartmentID(int departmentID) {
 		this.departmentID = departmentID;
+	}
+	public int getPositionNum() {
+		return positionNum;
+	}
+	public void setPositionNum(int positionNum) {
+		this.positionNum = positionNum;
 	}
 	public String getDepartmentName() {
 		return departmentName;
@@ -42,21 +49,21 @@ public class Position implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Position(int positionID, int departmentID, String departmentName, String positionName,
+	public Position(int positionID, int departmentID, int positionNum, String departmentName, String positionName,
 			String positionMessage) {
 		super();
 		this.positionID = positionID;
 		this.departmentID = departmentID;
+		this.positionNum = positionNum;
 		this.departmentName = departmentName;
 		this.positionName = positionName;
 		this.positionMessage = positionMessage;
 	}
 	@Override
 	public String toString() {
-		return "Position [positionID=" + positionID + ", departmentID=" + departmentID + ", departmentName="
-				+ departmentName + ", positionName=" + positionName + ", positionMessage=" + positionMessage + "]";
+		return "Position [positionID=" + positionID + ", departmentID=" + departmentID + ", positionNum=" + positionNum
+				+ ", departmentName=" + departmentName + ", positionName=" + positionName + ", positionMessage="
+				+ positionMessage + "]";
 	}
-	
-	
 	
 }

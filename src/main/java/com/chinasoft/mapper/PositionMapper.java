@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.chinasoft.pojo.Position;
+import com.chinasoft.pojo.User;
 
 public interface PositionMapper {
 	int insertPosition(Position position);
@@ -22,5 +23,9 @@ public interface PositionMapper {
 	List<Position> selectBymessage(@Param("positionMessage")String positionMessage,@Param("departmentName")String departmentName);
 
 	Integer getIdByname(String subordinate_dept);
+
+	Integer getNum(int positionID);
+
+	List<User> checkUser(@Param("pos_ids") List<String> pos_ids);
 	
 }

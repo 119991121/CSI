@@ -35,6 +35,15 @@
 		select * from position where positionName = #{positionName}
 	</select>
 	
+	<select id="checkUser" parameterType="int" resultType="User">
+		select * from user u left join position p on u.position_id = p.positionID where p.positionID in
+			(
+				<foreach collection="pos_ids"  separator=","  item="index">
+           	 		#{index}
+        		</foreach>
+        	)
+	</select>
+	
 	<select resultType="Position" id="selectBymessage" parameterType="String">
 		select * from position natural join department where 
 		(positionName like concat('%', #{positionMessage}, '%') 
@@ -43,6 +52,10 @@
 			and departmentName = #{departmentName}
 		</if>
 		order by positionName
+	</select>
+	
+	<select id="getNum" parameterType="int" resultType="int">
+		select count(position_id) from user where  position_id=#{positionID}
 	</select>
 	
 	<select resultType="String" id="selectByid" parameterType="Integer">

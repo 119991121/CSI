@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.chinasoft.mapper.DepartmentMapper;
 import com.chinasoft.pojo.Department;
+import com.chinasoft.pojo.User;
 import com.chinasoft.service.DepartmentMapperService;
 
 @Service
@@ -67,6 +68,18 @@ public class DepartmentMapperServiceImpl implements DepartmentMapperService {
 	@Override
 	public List<String> getIdByName(List<String> dept_name) {
 		List<String> result = mapper.getIdByName(dept_name);
+		return result;
+	}
+
+	@Override
+	public Integer getNum(int departmentID) {
+		Integer result = mapper.getNum(departmentID);
+		return result;
+	}
+
+	@Override
+	public List<User> checkUser(List<String> dept_name) {
+		List<User> result = mapper.checkUser(dept_name);
 		return result;
 	}
 

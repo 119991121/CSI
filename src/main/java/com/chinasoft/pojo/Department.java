@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Department implements Serializable{
 	private int departmentID;
+	private int departmentNum;
 	private String departmentName;
 	private String departmentMessage;
 	public int getDepartmentID() {
@@ -11,6 +12,12 @@ public class Department implements Serializable{
 	}
 	public void setDepartmentID(int departmentID) {
 		this.departmentID = departmentID;
+	}
+	public int getDepartmentNum() {
+		return departmentNum;
+	}
+	public void setDepartmentNum(int departmentNum) {
+		this.departmentNum = departmentNum;
 	}
 	public String getDepartmentName() {
 		return departmentName;
@@ -28,15 +35,17 @@ public class Department implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Department(int departmentID, String departmentName, String departmentMessage) {
+	public Department(int departmentID, int departmentNum, String departmentName, String departmentMessage) {
 		super();
 		this.departmentID = departmentID;
+		this.departmentNum = departmentNum;
 		this.departmentName = departmentName;
 		this.departmentMessage = departmentMessage;
 	}
 	@Override
 	public String toString() {
-		return "Department [departmentID=" + departmentID + ", departtmentName=" + departmentName + ", departmentMessage="
-				+ departmentMessage + "]";
+		return "Department [departmentID=" + departmentID + ", departmentNum=" + departmentNum + ", departmentName="
+				+ departmentName + ", departmentMessage=" + departmentMessage + "]";
 	}
+	
 }

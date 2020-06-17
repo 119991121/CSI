@@ -68,6 +68,13 @@ public class DepartmentMapperController {
 	public Object Delete(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
 		List<String> dept_name = (List) request.get("dept_name");
+		int userNum=service.checkUser(dept_name).size();
+		System.out.println(userNum);
+		if(userNum!=0) {
+			rs.put("error_code", 3);
+			rs.put("message", "该部门尚有员工");	
+			return rs;
+		}
 		List<String> departmentID = service.getIdByName(dept_name);
 		if(dept_name==null||dept_name.size()==0) {
 			rs.put("error_code", 1);
@@ -118,6 +125,10 @@ public class DepartmentMapperController {
 			return rs;
 		}
 		List<Department> department = service.selectBymessage(select_key);
+		for(int i=0;i<department.size();i++) {
+			department.get(i).setDepartmentNum(service.getNum(department.get(i).getDepartmentID()));
+		}
+		System.out.println("1"+department);
 		if(department!=null&&department.size()!=0) {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");
@@ -135,6 +146,10 @@ public class DepartmentMapperController {
 	public Object selectAll() {
 		Map<String,Object> rs = new HashMap<>();
 		List<Department> department = service.selectAll();
+		for(int i=0;i<department.size();i++) {
+			department.get(i).setDepartmentNum(service.getNum(department.get(i).getDepartmentID()));
+		}
+		System.out.println("1"+department);
 		if(department!=null&&department.size()!=0) {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");

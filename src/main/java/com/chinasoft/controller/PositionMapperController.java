@@ -70,6 +70,13 @@ public class PositionMapperController {
 	public Object elete(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
 		List<String> pos_ids = (List) request.get("pos_id");
+		int userNum=service.checkUser(pos_ids).size();
+		System.out.println(userNum);
+		if(userNum!=0) {
+			rs.put("error_code", 3);
+			rs.put("message", "该部门尚有员工");	
+			return rs;
+		}
 		if(service.delete(pos_ids)!=0) {
 			rs.put("error_code", 0);
 			rs.put("message", "删除成功");
@@ -90,8 +97,11 @@ public class PositionMapperController {
 		
 		String message= (String) request.get("select_key");
 		String departmentName= (String) request.get("departmentName");
-		System.out.println(departmentName+"           "+message);
 		List<Position> positions= service.selectBymessage(message,departmentName);
+		for(int i=0;i<positions.size();i++) {
+			positions.get(i).setPositionNum(service.getNum(positions.get(i).getPositionID()));
+		}
+		System.out.println("1"+positions);
 		if(positions!=null) {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");
@@ -109,6 +119,10 @@ public class PositionMapperController {
 	public Object selectAll() {
 		Map<String,Object> rs = new HashMap<>();
 		List<Position> positions= service.selectAll();
+		for(int i=0;i<positions.size();i++) {
+			positions.get(i).setPositionNum(service.getNum(positions.get(i).getPositionID()));
+		}
+		System.out.println("1"+positions);
 		if(positions!=null) {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.chinasoft.pojo.Department;
+import com.chinasoft.pojo.User;
 
 public interface DepartmentMapperService {
 
@@ -25,4 +26,8 @@ public interface DepartmentMapperService {
 	int deleteRelated(List<String> departmentID);
 
 	List<String> getIdByName(List<String> dept_name);
+
+	Integer getNum(int departmentID);
+
+	List<User> checkUser(List<String> dept_name);
 }
