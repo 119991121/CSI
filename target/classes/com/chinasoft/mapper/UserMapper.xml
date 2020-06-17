@@ -6,7 +6,6 @@
 
 	<!-- 开启二级缓存 -->
 	<cache />
-	
 	<insert id="insertUser"
 		parameterType="com.chinasoft.pojo.User">
 		insert into user

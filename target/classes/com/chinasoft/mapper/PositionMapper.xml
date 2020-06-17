@@ -4,9 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chinasoft.mapper.PositionMapper">
 
-	<!-- 开启二级缓存 -->
-	<cache />
-	
 	<insert id="insertPosition" parameterType="Position">
 		insert into position
 		(departmentID,positionName,positionMessage)

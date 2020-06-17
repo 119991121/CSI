@@ -306,51 +306,37 @@ public class OrderingMapperController {
 		return rs;
 	}
 	
-	@RequestMapping(value="/showOrdering",method= RequestMethod.POST)
+	@RequestMapping(value = "/showOrdering", method = RequestMethod.POST)
 	@ResponseBody
 	public Object showOrdering() {
-		Map<String,Object> rs = new HashMap<>();
-		Map<String,Object> tem0 = new HashMap<>();
-		Map<String,Object> tem1 = new HashMap<>();
-		Map<String,Object> tem2 = new HashMap<>();
-		Map<String,Object> tem3 = new HashMap<>();
-		Map<String,Object> tem4 = new HashMap<>();
-		Map<String,Object> tem5 = new HashMap<>();
-		Map<String,Object> tem6 = new HashMap<>();
-		Map<String,Object> tem7 = new HashMap<>();
+		Map<String, Object> rs = new HashMap<>();
 		List<String> lunch = service.getLunchs();
 		List<String> dinner = service.getDinners();
-		List<Map<String,Object>> rs0 = new ArrayList<Map<String,Object>>(); 
-		rs0.add(tem0);
-		rs0.add(tem1);
-		rs0.add(tem2);
-		rs0.add(tem3);
-		rs0.add(tem4);
-		rs0.add(tem5);
-		rs0.add(tem6);
-		rs0.add(tem7);
-		
 		int sum;
-		for(int i=0;i<8;i++) {
-			if(i>=0&&i<4) {
-				for(int j=0;j<lunch.size();j++) {
-					sum=service.getSum(i+"",lunch.get(j));
-					System.out.println(i+" "+lunch.get(j));
-					rs0.get(i).put(lunch.get(j), sum);
+		Map<String, Object> rs1 = new HashMap<>();
+		for (int i = 0; i < 8; i++) {
+			List<Map> tem = new ArrayList<>();
+			if (i >= 0 && i < 4) {
+				for (int j = 0; j < lunch.size(); j++) {
+					Map<String, Object> rs0 = new HashMap<>();
+					sum = service.getSum(i + "", lunch.get(j));
+//					System.out.println(i + " " + lunch.get(j));
+					rs0.put("name", lunch.get(j));
+					rs0.put("num", sum);
+					tem.add(rs0);
+				}
+			}else {
+				for (int j = 0; j < dinner.size(); j++) {
+					Map<String, Object> rs0 = new HashMap<>();
+					sum = service.getSum(i + "", dinner.get(j));
+//					System.out.println(i + " " + dinner.get(j));
+					rs0.put("name", dinner.get(j));
+					rs0.put("num", sum);
+					tem.add(rs0);
 				}
 			}
-			else {
-				for(int k=0;k<dinner.size();k++) {
-					sum=service.getSum(i+"",dinner.get(k));
-					System.out.println(i+" "+dinner.get(k));
-					rs0.get(i).put(dinner.get(k), sum);
-				}
-			}
-			System.out.println("i:"+i);
-		}
-		Map<String,Object> rs1 = new HashMap<>();
-		for(int f=0;f<8;f++) {
-			rs1.put(f+"",rs0.get(f));
+			String time = "time" + i;
+			rs1.put(time, tem);
 		}
 		rs.put("error_code", 0);
 		rs.put("data", rs1);

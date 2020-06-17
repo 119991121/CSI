@@ -58,7 +58,7 @@ public class User  implements Serializable{
 	public Date getCreatedDate() {
 		return createdDate;
 	}
-	@JsonFormat(pattern="yy:MM:dd",timezone="GMT+8")
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}

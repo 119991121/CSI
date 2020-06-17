@@ -32,7 +32,7 @@ public class Announcement {
 	public Date getCreatTime() {
 		return creatTime;
 	}
-	@JsonFormat(pattern="yy:MM:dd",timezone="GMT+8")
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	public void setCreatTime(Date creatTime) {
 		this.creatTime = creatTime;
 	}

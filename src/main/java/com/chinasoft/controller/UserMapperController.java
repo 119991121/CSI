@@ -90,12 +90,8 @@ public class UserMapperController {
 	public Object Select(@RequestBody Map<String,Object> request) {
 		User user = new User();
 		String name=(String) request.get("name");
-		String idCardNo=(String) request.get("idCardNo");
 		String positionName=(String) request.get("positionName");
-		String username=(String) request.get("username");
 		String departmentName=(String) request.get("departmentName");
-		user.setUsername(username);
-		user.setIdCardNo(idCardNo);
 		user.setName(name);
 		user.setPositionName(positionName);
 		user.setDepartmentName(departmentName);
@@ -105,6 +101,7 @@ public class UserMapperController {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");
 			rs.put("data", users);
+			System.out.println(users);
 		}else {
 			rs.put("error_code", 1);
 			rs.put("message", "查询失败");

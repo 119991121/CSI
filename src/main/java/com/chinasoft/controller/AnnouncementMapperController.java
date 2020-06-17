@@ -103,6 +103,7 @@ public class AnnouncementMapperController {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");
 			rs.put("data", announcements);
+			System.out.println(announcements);
 			return rs;
 		}else {
 			rs.put("error_code", 1);

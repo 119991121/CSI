@@ -42,7 +42,7 @@ public class FileMapperController {
 	@ResponseBody
 	public Object Insert(@RequestParam("fileUpload") MultipartFile fileUpload, String name, String des, Integer userID) throws IOException {
 
-		Map<String, Object> results = new HashMap<>();
+Map<String, Object> results = new HashMap<>();
 		
 		/*
 		 * 将MultiperFile类型转化为java.io.File类型准备上传 method1:不需要本地文件进行暂存，这里无法使用
@@ -56,11 +56,17 @@ public class FileMapperController {
 			results.put("error_code", 3);
 			return results;
 		}
+		String originalFilename = fileUpload.getOriginalFilename();
+		String[] splitKey = originalFilename.split("\\.");
+		String type = splitKey[splitKey.length-1];
+		String objectKey = name+"."+type;
+
 		java.io.File filetemp = new java.io.File("/WEB-INF/file/filetemp");
 		FileUtils.copyInputStreamToFile(fileUpload.getInputStream(), filetemp);
 
+		
 		// 将文件上传到腾讯云
-		client.uploadFile(filetemp, fileUpload.getOriginalFilename());
+		client.uploadFile(filetemp, objectKey);
 
 		// 初始化File
 		File file = new File();
@@ -82,11 +88,10 @@ public class FileMapperController {
 		file.setDes((String)request.get("des"));
 		file.setHerf(fileUpload.getOriginalFilename());
 		*/
-		
 		file.setUserID(userID);
 		file.setDate(date);
 		file.setDes(des);
-		file.setHerf(fileUpload.getOriginalFilename());
+		file.setHerf(objectKey);
 
 		// 将File插入到数据库
 		if(service.insert(file)==1) {
