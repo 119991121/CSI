@@ -226,7 +226,6 @@ Map<String, Object> results = new HashMap<>();
 	public Object Update(@RequestBody Map<String, Object> request) throws IOException {
 
 		Map<String, Object> results = new HashMap<>();
-		
 		String name = (String)request.get("name");
 		List<File> fileBefore = service.selectByName(name);
 		
@@ -267,6 +266,7 @@ Map<String, Object> results = new HashMap<>();
 
 			return results;
 		}else {
+			System.out.println("fail");
 			results.put("message", "修改失败");
 			results.put("error_code", 4);
 
