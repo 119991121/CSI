@@ -120,62 +120,6 @@ public class OrderingMapperController {
 
 	}
 
-	@RequestMapping(value = "/updateOrdering", method = RequestMethod.POST)
-	@ResponseBody
-	// int orderingID, String new_dishName,int new_time.
-	public Object updateOrdering(@RequestBody Map<String, Object> request) {
-		//该功能已经合并到添加订单
-		Map<String, Object> results = new HashMap<>();
-
-		int orderingID = (int) request.get("orderingID");
-		List<Ordering> oldOrderings = service.selectByID(orderingID);
-
-		if (oldOrderings.isEmpty()) {
-			results.put("error_code", 1);
-			results.put("message", "该订单已经不存在，请重新选择。");
-			return results;
-		}
-
-		Ordering oldOrdering = oldOrderings.get(0);
-		Ordering ordering = new Ordering();
-		ordering.setOrderingID(orderingID);
-		ordering.setDate(new Date());
-		
-		int time = (int) request.get("new_time");
-		if (oldOrdering.getTime() != time) {
-			if(!timeList.contains(time)) {
-				results.put("error_code", 3);
-				results.put("message", "输入时间段不在已知范围内");
-				return results;
-			}
-			if (service.nowTimeNum(time) >= 50) {
-				results.put("error_code", 2);
-				results.put("message", "该时间段预约人数达到上限，请另选时间段");
-				return results;
-			}
-			ordering.setTime(time);
-		}else {
-			ordering.setTime(-1);
-		}
-		
-		String dishName = (String) request.get("new_dishName");
-		// 这里也需要判断一下今天有没有这个菜
-		if (dishName!=null&&!dishName.equals("")&&!dishName.equals(oldOrdering.getDishName())) {
-			ordering.setDishName(dishName);
-		}
-		
-		if(service.updateOrdering(ordering)==1) {
-			results.put("error_code", 0);
-			results.put("message", "修改成功");
-			return results;
-		}else {
-			results.put("error_code", 4);
-			results.put("message", "修改失败");
-			return results;
-		}
-
-	}
-	
 	@RequestMapping(value = "/selectAll", method = RequestMethod.POST)
 	@ResponseBody
 	public Object selectAll() {
@@ -263,7 +207,7 @@ public class OrderingMapperController {
 	    	}
 	    }
 	    for (int i = 0; i < dinner.size(); i++) {
-	    	String dishName = lunch.get(i);
+	    	String dishName = dinner.get(i);
 	    	if (dishName!=null) {
 	    		menu.setDishName(dishName);
 	    		menu.setTime(1);

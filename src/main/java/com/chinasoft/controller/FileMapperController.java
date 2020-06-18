@@ -292,10 +292,17 @@ Map<String, Object> results = new HashMap<>();
 		}
 		else {
 			List<File> files = service.select(select_key);
+			
+			for (File file : files) {
+				String user_name = userservice.selectNameById(file.getUserID());
+				file.setUser_name(user_name);
+			}
+			
 			if(files!=null&&files.size()!=0) {
 				results.put("message", "查询成功");
 				results.put("error_code", 0);
 				results.put("data", files);
+				
 			}
 			else {
 				results.put("message", "查询失败");

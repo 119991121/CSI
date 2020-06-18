@@ -153,11 +153,11 @@ public class PositionMapperController {
 			if(pos_name==null||departmentID==null) {
 				if(pos_name==null) {
 					rs.put("message", "职位不存在");
-					rs.put("error_code",3);
+					rs.put("error_code",4);
 				}
 				else {
 					rs.put("message", "部门不存在");
-					rs.put("error_code",3);
+					rs.put("error_code",5);
 				}
 			}else {
 				List<Position> p=service.selectByname(new_pos_name);
