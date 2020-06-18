@@ -22,7 +22,7 @@ public interface UserMapper {
 
 	User selectByid(int user_id);
 
-	int getPosition_id(String positionName);
+	int getPosition_id(@Param("positionName")String positionName, @Param("departmentName")String departmentName);
 
 	int getDepartment_id(String departmentName);
 	

@@ -115,7 +115,7 @@
 	</select>
 	
 	<select id="getPosition_id" parameterType="String" resultType="int">
-		select positionID from position where  positionName = #{positionName}
+		select positionID from position natural join department where  positionName = #{positionName} and departmentName = #{departmentName}
 	</select>
 	
 	<select id="getDepartment_id" parameterType="String" resultType="int">

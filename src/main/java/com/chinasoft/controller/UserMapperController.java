@@ -161,7 +161,7 @@ public class UserMapperController {
 		
 		int position_id=0;
 		if(positionName!=null&&!positionName.equals("")) {
-			position_id=service.getPosition_id(positionName);
+			position_id=service.getPosition_id(positionName,departmentName);
 		}
 		int department_id=0;
 		if(positionName!=null&&!positionName.equals("")) {

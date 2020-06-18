@@ -58,8 +58,8 @@ public class UserMapperServiceImpl implements UserMapperService {
 	}
 	
 	@Override
-	public int getPosition_id(String positionName) {
-		int position_id = mapper.getPosition_id(positionName);
+	public int getPosition_id(String positionName, String departmentName) {
+		int position_id = mapper.getPosition_id(positionName,departmentName);
 		return position_id;
 	}
 

@@ -231,7 +231,7 @@ public class OrderingMapperController {
 		if(sum!=0) {
 			List<String> lunch = service.getLunchs();
 			List<String> dinner = service.getDinners();
-			if(lunch.size()!=0&&dinner.size()!=0) {
+			if(lunch.size()!=0||dinner.size()!=0) {
 				Map<String,Object> rs1 = new HashMap<>();
 				rs1.put("lunch", lunch);
 				rs1.put("dinner", dinner);	
@@ -239,7 +239,7 @@ public class OrderingMapperController {
 				rs.put("data", rs1);
 			}	
 			else {
-				rs.put("error_code", 1);
+				rs.put("error_code", 2);
 				rs.put("message", "查询失败");
 			}
 		}
