@@ -21,21 +21,23 @@
 		announcement a left join user u on user_id=userID
 		where a.name like concat('%', #{select_key}, '%') 
 		or content like concat('%', #{select_key}, '%') 
-		order by creatTime
+		order by a.creatTime desc , a.name desc
 	</select>
 	
 	<select id="selectByid" parameterType="com.chinasoft.pojo.Announcement" resultType="com.chinasoft.pojo.Announcement">
 		select * from announcement where announcementID = #{announcementID}
+		order by creatTime desc , name desc
 	</select>
 	
 	<select id="selectByName" parameterType="String" resultType="com.chinasoft.pojo.Announcement">
 		select * from announcement where name = #{name}
+		order by creatTime desc , name desc
 	</select>
 	
 	<select id="selectAll" resultType="com.chinasoft.pojo.Announcement">
 		select * from 
-		announcement left join user on user_id=userID
-		order by creatTime
+		announcement a left join user u on user_id=userID
+		order by a.creatTime desc , a.name desc
 	</select>
 	
 	<select id="checkUsername" parameterType="String" resultType="User">

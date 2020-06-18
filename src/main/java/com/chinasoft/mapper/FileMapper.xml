@@ -38,12 +38,14 @@
 	<!-- 通过fileId查询herf -->
 	<select id="selectFileByID" resultType="file"
 		parameterType="int">
-		select * from file where fileID=#{fileId};
+		select * from file where fileID=#{fileId}
+		order by date desc , name desc;
 	</select>
 	
 	<select id="selectFileByName" resultType="file"
 		parameterType="String">
-		select * from file where name=#{name};
+		select * from file where name=#{name}
+		order by date desc , name desc;
 	</select>
 
 	<!-- 通过name查询file表 -->
@@ -51,12 +53,12 @@
 		select * from file where
 			name like concat('%', #{select_key}, '%')
 			or des like concat('%', #{select_key}, '%')
-			order by date
+			order by date desc , name desc
 	</select>
 
 	<!-- 查询file表全部信息 -->
 	<select id="selectFileAll" resultType="file">
-		select * from file;
+		select * from file order by date desc , name desc;
 	</select>
 
 </mapper>
