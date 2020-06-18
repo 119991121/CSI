@@ -56,7 +56,7 @@ public class OrderingMapperController {
 		//在新增订单之前，先将该用户的订单全部删除
 		service.deleteAllByName(user_name);
 		//获取前端传递参数time并检验合法性
-		int time = (int) request.get("time");
+		int time = Integer.valueOf((String) request.get("time"));
 		if(!timeList.contains(time)) {
 			results.put("error_code", 3);
 			results.put("message", "输入时间段不在已知范围内");

@@ -238,6 +238,7 @@ public class UserMapperController {
 			rs.put("error_code", 0);
 			rs.put("message", "请求成功");
 			rs.put("data", user1);
+			System.out.println(user1);
 		}else {
 			user1=service.selectByName(username);
 			if(user1!=null) {
@@ -256,6 +257,7 @@ public class UserMapperController {
 	@ResponseBody
 	public Object EditPassword(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
+		System.out.println(request);
 		String newPassword=(String) request.get("newPassword");
 		String oldPassword=(String) request.get("oldPassword");
 		String username=(String) request.get("username");

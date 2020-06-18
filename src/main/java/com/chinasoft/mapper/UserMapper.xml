@@ -20,11 +20,17 @@
 	</delete>
 	
 	<select id="selectByName" parameterType="String" resultType="User">
-		select * from user where username=#{username}
+		select * from user u
+		left join department d on u.department_id = d.departmentID
+			left join position p on u.position_id = p.positionID
+			where username=#{username}
 	</select>
 	
 	<select id="selectByid" parameterType="int" resultType="User">
-		select * from user where user_id=#{user_id}
+		select * from user u
+		left join department d on u.department_id = d.departmentID
+			left join position p on u.position_id = p.positionID 
+		where user_id=#{user_id}
 	</select>
 	
 	<select resultType="User" id="selectUser" parameterType="User">
@@ -59,7 +65,10 @@
 	</select>
 	
 	<select id="login" parameterType="String" resultType="User">
-		select * from user where username = #{username} and password = #{password}
+		select * from user u
+		left join department d on u.department_id = d.departmentID
+			left join position p on u.position_id = p.positionID
+		where username = #{username} and password = #{password}
 	</select>
 	
 	<update id="updateUser" parameterType="com.chinasoft.pojo.User">

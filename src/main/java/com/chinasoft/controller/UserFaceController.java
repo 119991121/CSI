@@ -110,10 +110,6 @@ public class UserFaceController {
 
 		String image = (String )map.get("file");
 		
-		System.out.println("准备登录");
-		
-		System.out.println(map);
-		
 		Map<String,Object> result = new HashMap<>();
 
         
@@ -137,16 +133,23 @@ public class UserFaceController {
             		result.put("messege", "人脸未注册");
             		return result;
             	}else if(code.equals(String.valueOf(0))){
-            		result.put("error_code", 0);
-                	result.put("messege", "登录成功");
+            		
                 	JSONObject json1 = (JSONObject) search.get("result");
                 	JSONArray userlist = (JSONArray) json1.get("user_list");
                 	JSONObject json2 = (JSONObject) userlist.get(0);
                 	int user_id = Integer.valueOf((String) json2.get("user_id"));
                 	System.out.println(user_id);
                 	User user = service.selectByid(user_id);
-                	result.put("data",user);
-                	return result;
+                	if(user!=null) {
+                		result.put("error_code", 0);
+                    	result.put("messege", "登录成功");
+                    	result.put("data",user);
+                    	return result;
+                	}else {
+                		result.put("error_code", 5);
+                    	result.put("messege", "用户不存在");
+                    	return result;
+                	}
             	}else {
             		result.put("error_code", 4);
             		result.put("messege", "登录失败，请重新扫描");

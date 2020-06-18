@@ -42,7 +42,7 @@ public class FileMapperController {
 	@ResponseBody
 	public Object Insert(@RequestParam("fileUpload") MultipartFile fileUpload, String name, String des, Integer userID) throws IOException {
 
-Map<String, Object> results = new HashMap<>();
+			Map<String, Object> results = new HashMap<>();
 		
 		/*
 		 * 将MultiperFile类型转化为java.io.File类型准备上传 method1:不需要本地文件进行暂存，这里无法使用
