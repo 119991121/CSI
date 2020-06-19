@@ -90,9 +90,13 @@ public class UserMapperController {
 	public Object Select(@RequestBody Map<String,Object> request) {
 		User user = new User();
 		String name=(String) request.get("name");
-		String positionName=(String) request.get("positionName");
 		String departmentName=(String) request.get("departmentName");
+		String username=(String) request.get("username");
+		String positionName=(String) request.get("positionName");
+		String idCardNo=(String) request.get("idCardNo");
 		user.setName(name);
+		user.setUsername(username);
+		user.setIdCardNo(idCardNo);
 		user.setPositionName(positionName);
 		user.setDepartmentName(departmentName);
 		List<User> users =service.select(user);
@@ -101,7 +105,6 @@ public class UserMapperController {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");
 			rs.put("data", users);
-			System.out.println(users);
 		}else {
 			rs.put("error_code", 1);
 			rs.put("message", "查询失败");
@@ -147,37 +150,14 @@ public class UserMapperController {
 	@RequestMapping(value="/update",method= RequestMethod.POST)
 	@ResponseBody
 	public Object Update(@RequestBody Map<String,Object> request) {	
-		String S_groupId=(String) request.get("groupid");
-		System.out.println(S_groupId);
-		if(S_groupId==null||S_groupId.equals("")) {
-			S_groupId="0";
-		}
-		int groupId = Integer.parseInt(S_groupId);
-		
+		String S_groupId=(String) request.get("groupid");		
 		String positionName=(String) request.get("positionName");
 		String departmentName=(String) request.get("departmentName");
-		
-		System.out.println(departmentName);
-		
-		int position_id=0;
-		if(positionName!=null&&!positionName.equals("")) {
-			position_id=service.getPosition_id(positionName,departmentName);
-		}
-		int department_id=0;
-		if(positionName!=null&&!positionName.equals("")) {
-			department_id=service.getDepartment_id(departmentName);	
-		}
 		String username=(String) request.get("username");
 		String password=(String) request.get("password");
 		String phone=(String) request.get("phone");
 		String name=(String) request.get("name");
-		
 		String S_sex=(String) request.get("sex");
-		if(S_sex==null||S_sex.equals("")) {
-			S_sex="0";
-		}
-		int sex= Integer.parseInt(S_sex);
-		
 		String email=(String) request.get("email");
 		String education=(String) request.get("education");
 		String idCardNo=(String) request.get("idCardNo");
@@ -188,17 +168,27 @@ public class UserMapperController {
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setPhone(phone);
-		user.setGroupId(groupId);
+		if(S_groupId!=null||!S_groupId.equals("")) {
+			user.setGroupId(Integer.parseInt(S_groupId));
+		}
+		
 		user.setName(name);
-		user.setSex(sex);
+		if(S_sex!=null&&!S_sex.equals("")) {
+			user.setSex(Integer.parseInt(S_sex));
+		}
 		user.setEmail(email);
-		user.setPosition_id(position_id);
+		if(positionName!=null&&!positionName.equals("")) {
+			user.setPosition_id(service.getPosition_id(positionName,departmentName));
+		}
+		
 		user.setEducation(education);
 		user.setIdCardNo(idCardNo);
-		user.setDepartment_id(department_id);
+		if(departmentName!=null&&!departmentName.equals("")) {
+			user.setDepartment_id(service.getDepartment_id(departmentName));
+		}
 		user.setAddress(address);
 		user.setCreatedDate(createdDate);
-		System.out.println(user);
+		//System.out.println(user);
 		Map<String,Object> rs = new HashMap<>();
 		if(username==null||password.equals("")||username==null||password.equals("")) {
 			rs.put("data",null);
@@ -238,7 +228,6 @@ public class UserMapperController {
 			rs.put("error_code", 0);
 			rs.put("message", "请求成功");
 			rs.put("data", user1);
-			System.out.println(user1);
 		}else {
 			user1=service.selectByName(username);
 			if(user1!=null) {
@@ -257,7 +246,6 @@ public class UserMapperController {
 	@ResponseBody
 	public Object EditPassword(@RequestBody Map<String,Object> request) {
 		Map<String,Object> rs = new HashMap<>();
-		System.out.println(request);
 		String newPassword=(String) request.get("newPassword");
 		String oldPassword=(String) request.get("oldPassword");
 		String username=(String) request.get("username");

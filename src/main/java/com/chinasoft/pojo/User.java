@@ -6,29 +6,29 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class User  implements Serializable{
-	private int user_id;
+	private Integer user_id;
 	private String username;
 	private String password;
 	private String name;
-	private int groupId;
+	private Integer groupId;
 	private Date createdDate;
 	private String phone;
-	private int sex;
+	private Integer sex;
 	private String email;
-	private int position_id;
+	private Integer position_id;
 	private String positionName;
 	private String positionMessage;
 	private String education;
 	private String idCardNo;
-	private int department_id;
+	private Integer department_id;
 	private String departmentName;
 	private String departmentMessage;
 	private String address;
 	private String face_id;
-	public int getUser_id() {
+	public Integer getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(int user_id) {
+	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
 	public String getUsername() {
@@ -49,10 +49,10 @@ public class User  implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getGroupId() {
+	public Integer getGroupId() {
 		return groupId;
 	}
-	public void setGroupId(int groupId) {
+	public void setGroupId(Integer groupId) {
 		this.groupId = groupId;
 	}
 	public Date getCreatedDate() {
@@ -68,10 +68,10 @@ public class User  implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public int getSex() {
+	public Integer getSex() {
 		return sex;
 	}
-	public void setSex(int sex) {
+	public void setSex(Integer sex) {
 		this.sex = sex;
 	}
 	public String getEmail() {
@@ -80,10 +80,10 @@ public class User  implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getPosition_id() {
+	public Integer getPosition_id() {
 		return position_id;
 	}
-	public void setPosition_id(int position_id) {
+	public void setPosition_id(Integer position_id) {
 		this.position_id = position_id;
 	}
 	public String getPositionName() {
@@ -110,10 +110,10 @@ public class User  implements Serializable{
 	public void setIdCardNo(String idCardNo) {
 		this.idCardNo = idCardNo;
 	}
-	public int getDepartment_id() {
+	public Integer getDepartment_id() {
 		return department_id;
 	}
-	public void setDepartment_id(int department_id) {
+	public void setDepartment_id(Integer department_id) {
 		this.department_id = department_id;
 	}
 	public String getDepartmentName() {
@@ -144,9 +144,9 @@ public class User  implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public User(int user_id, String username, String password, String name, int groupId, Date createdDate, String phone,
-			int sex, String email, int position_id, String positionName, String positionMessage, String education,
-			String idCardNo, int department_id, String departmentName, String departmentMessage, String address,
+	public User(Integer user_id, String username, String password, String name, Integer groupId, Date createdDate, String phone,
+			Integer sex, String email, Integer position_id, String positionName, String positionMessage, String education,
+			String idCardNo, Integer department_id, String departmentName, String departmentMessage, String address,
 			String face_id) {
 		super();
 		this.user_id = user_id;

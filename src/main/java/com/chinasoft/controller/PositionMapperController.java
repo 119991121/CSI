@@ -74,7 +74,7 @@ public class PositionMapperController {
 		System.out.println(userNum);
 		if(userNum!=0) {
 			rs.put("error_code", 3);
-			rs.put("message", "该部门尚有员工");	
+			rs.put("message", "该职位尚有员工");	
 			return rs;
 		}
 		if(service.delete(pos_ids)!=0) {

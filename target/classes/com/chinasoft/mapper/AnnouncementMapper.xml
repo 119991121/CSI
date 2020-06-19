@@ -31,7 +31,6 @@
 	
 	<select id="selectByName" parameterType="String" resultType="com.chinasoft.pojo.Announcement">
 		select * from announcement where name = #{name}
-		order by creatTime desc , name desc
 	</select>
 	
 	<select id="selectAll" resultType="com.chinasoft.pojo.Announcement">

@@ -124,6 +124,7 @@ public class AnnouncementMapperController {
 			rs.put("error_code",1);
 		}else {
 			if(service.selectByName(name)==null) {
+				System.out.println(service.selectByName(name)+"        "+name);
 				rs.put("message", "公告不存在");
 				rs.put("error_code",2);
 			}else {

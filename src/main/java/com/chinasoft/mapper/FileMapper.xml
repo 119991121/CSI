@@ -39,13 +39,11 @@
 	<select id="selectFileByID" resultType="file"
 		parameterType="int">
 		select * from file where fileID=#{fileId}
-		order by date desc , name desc;
 	</select>
 	
 	<select id="selectFileByName" resultType="file"
 		parameterType="String">
 		select * from file where name=#{name}
-		order by date desc , name desc;
 	</select>
 
 	<!-- 通过name查询file表 -->

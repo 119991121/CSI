@@ -74,39 +74,38 @@
 	<update id="updateUser" parameterType="com.chinasoft.pojo.User">
 		update user
 		set password = #{password}
-		<if test='phone != null and phone!=""'>
+
 			,phone = #{phone}
-		</if>
-		<if test='groupId != 0'>
+
+
 			,groupId = #{groupId}
-		</if>
-		<if test='name != null and name!=""'>
+
+
 			,name = #{name}
-			</if>
-		<if test='sex != 0'>
+
+
 			,sex = #{sex}
-			</if>
-		<if test='email != null and email!=""'>
+
+
 			,email = #{email}
-			</if>
-		<if test='position_id != 0'>
+
 			,position_id = #{position_id}
-			</if>
-		<if test='education != null and education!=""'>
+
+
 			,education = #{education}
-			</if>
-		<if test='idCardNo != null and idCardNo!=""'>
+
+
 			,idCardNo = #{idCardNo}
-			</if>
-		<if test='department_id != 0'>
+
+
 			,department_id = #{department_id}
-			</if>
-		<if test='address != null and address!=""'>
+
+
 			,address = #{address}
-			</if>
-		<if test='createdDate != null'>
+
+
 			,createdDate = #{createdDate}
-			</if>
+
 		where username = #{username}
 	</update>
 	

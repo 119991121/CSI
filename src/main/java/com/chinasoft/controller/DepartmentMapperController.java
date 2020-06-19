@@ -128,7 +128,7 @@ public class DepartmentMapperController {
 		for(int i=0;i<department.size();i++) {
 			department.get(i).setDepartmentNum(service.getNum(department.get(i).getDepartmentID()));
 		}
-		System.out.println("1"+department);
+
 		if(department!=null&&department.size()!=0) {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");
@@ -149,7 +149,7 @@ public class DepartmentMapperController {
 		for(int i=0;i<department.size();i++) {
 			department.get(i).setDepartmentNum(service.getNum(department.get(i).getDepartmentID()));
 		}
-		System.out.println("1"+department);
+
 		if(department!=null&&department.size()!=0) {
 			rs.put("error_code", 0);
 			rs.put("message", "查询成功");
