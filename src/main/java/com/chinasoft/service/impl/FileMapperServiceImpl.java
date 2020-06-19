@@ -63,6 +63,13 @@ public class FileMapperServiceImpl implements FileMapperService{
 		List<File> files = mapper.selectFileByName(name);
 		return files;
 	}
+
+	@Override
+	public File selectone(String name) {
+		File file = mapper.selectone(name);
+		return file;
+	}
+
 	
 
 }

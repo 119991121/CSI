@@ -118,10 +118,12 @@ public class FileMapperController {
 		StringBuffer msg = new StringBuffer("以下文件不存在：");
 		int flag=0;
 		for(int i=0;i<fileName.size();i++) {
-			if(service.selectByName(fileName.get(i)).size()==0) {
+			List<File> lists = service.selectByName(fileName.get(i));
+			if(lists.size()==0) {
 				msg.insert(msg.length(), fileName.get(i)+"  ");
 				flag=1;
 			}
+			client.deleteFile(lists.get(0).getHerf());
 		}
 		if(flag==1) {
 			results.put("message", msg);
@@ -224,7 +226,7 @@ public class FileMapperController {
 	@ResponseBody
 	// String name,String new_doc_name, String new_doc_des, MultipartFile fileUpload
 	public Object Update(@RequestBody Map<String, Object> request) throws IOException {
-
+		
 		Map<String, Object> results = new HashMap<>();
 		String name = (String)request.get("name");
 		List<File> fileBefore = service.selectByName(name);
@@ -254,13 +256,21 @@ public class FileMapperController {
 		file.setUserID(userid);
 		
 		List<File> files = service.selectByName(new_doc_name);
-		if(!files.isEmpty()) {
+		if(!files.isEmpty() && !new_doc_name.equals(name)) {
 			results.put("message", "文件名重复");
 			results.put("error_code", 3);
 			return results;
 		}
 		
-		if(service.update(file)==1) {
+		File selectfile = service.selectone(name);
+		System.out.println(selectfile);
+		String[] s = selectfile.getHerf().split("\\.");
+		int i = s.length-1;
+		String newKey = new_doc_name+"."+s[i];
+		client.updateFile(selectfile.getHerf(), newKey);
+		file.setHerf(newKey);
+		
+		if(service.update(file)==1 && !name.equals(new_doc_name)) {
 			results.put("message", "修改成功");
 			results.put("error_code", 0);
 

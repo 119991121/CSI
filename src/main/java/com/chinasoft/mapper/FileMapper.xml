@@ -32,6 +32,7 @@
 		<if test="des != null">
 			,des=#{des}
 		</if>
+		,herf=#{herf}
 		where fileID=#{fileID};
 	</update>
 
@@ -57,6 +58,11 @@
 	<!-- 查询file表全部信息 -->
 	<select id="selectFileAll" resultType="file">
 		select * from file order by date desc , name desc;
+	</select>
+	
+	<select id="selectone" resultType="file"
+		parameterType="String">
+		select * from file where name=#{name}
 	</select>
 
 </mapper>

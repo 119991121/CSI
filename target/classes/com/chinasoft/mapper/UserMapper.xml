@@ -42,16 +42,16 @@
 			    p.positionName = #{positionName}
 			</if>
 			<if test='username != null and username !=""'>
-				and u.username = #{username}
+				and u.username like concat('%', #{username}, '%') 
 			</if>
 			<if test='idCardNo != null and idCardNo!=""'>
-				and u.idCardNo = #{idCardNo}
+				and u.idCardNo like concat('%', #{idCardNo}, '%') 
 			</if>
 			<if test='name != null and name!=""'>
-				and u.name = #{name}
+				and u.name like concat('%', #{name}, '%') 
 			</if>
 			<if test='departmentName != null and departmentName!=""'>
-				and d.departmentName = #{departmentName}
+				and d.departmentName like concat('%', #{departmentName}, '%') 
 			</if>
 		</trim>
 		order by u.username
