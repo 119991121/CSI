@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>管理员首页</title>
+		<!-- plugins:css -->
+		<link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+		<link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+		<!-- endinject -->
+		<!-- inject:css -->
+		<link rel="stylesheet" href="../../css/style.css">
+		<!-- endinject -->
+		<link rel="shortcut icon" href="../../images/favicon.png">
+		<!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.slim.js"></script>-->
+		<style>
+			.modifypassword {
+				width: 100%;
+			}
+		</style>
+		<style>
+			.div-height {
+				width: 400px;
+				height: 300px
+			}
+		</style>
+		<style>
+			.home img {
+				width: 2.1875rem;
+				height: 2.1875rem;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="container-scroller">
+			<!-- partial:partials/_navbar.html -->
+			<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+				<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+					<a class="navbar-brand brand-logo"><img src="../../images/logo.svg" alt="logo" /></a>
+					<a class="navbar-brand brand-logo-mini"><img src="../../images/logo-mini.svg" alt="logo" /></a>
+				</div>
+				<div class="navbar-menu-wrapper d-flex align-items-stretch">
+					<!-- <div class="search-field d-none d-md-block">
+			  <form class="d-flex align-items-center h-100" action="#">
+			    <div class="input-group">
+			      <div class="input-group-prepend bg-transparent">
+			          <i class="input-group-text border-0 mdi mdi-magnify"></i>                
+			      </div>
+			      <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+			    </div>
+			  </form>
+			</div> -->
+					<ul class="navbar-nav navbar-nav-right">
+						<li class="nav-item nav-profile dropdown">
+							<a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+								<div class="nav-profile-img">
+									<img id="touxiang" />
+									<span class="availability-status online"></span>
+								</div>
+								<div class="nav-profile-text">
+									<p class="mb-1 text-black" id="name"></p>
+								</div>
+							</a>
+							<div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+								<button type="button" class="dropdown-item " data-toggle="modal" data-target="#modifypassword">
+										<i class="mdi mdi-lock-outline mr-2 text-primary"></i>
+										修改密码
+									</button>
+								<div class="dropdown-divider"></div>
+								<button class="dropdown-item" href="../face/facereg.html" id="facereg">
+										<i class=" mdi mdi-image-filter-center-focus mr-2 text-primary"></i>
+										人脸注册
+									</button>
+							</div>
+						</li>
+						<li class="nav-item d-none d-lg-block">
+							<a class="nav-link home" href="index.html">
+								<img src="../../images/主页.png" />
+							</a>
+						</li>
+						<li class="nav-item d-none d-lg-block full-screen-link">
+							<a class="nav-link">
+								<i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+							</a>
+						</li>
+						<li class="nav-item nav-logout d-none d-lg-block">
+							<a class="nav-link" href="../login/login.html" id="logout">
+								<i class="mdi mdi-power"></i>
+							</a>
+						</li>
+					</ul>
+					<!-- <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+			  <span class="mdi mdi-menu"></span>
+			</button> -->
+				</div>
+			</nav>
+			<!-- partial -->
+			<div class="container-fluid page-body-wrapper">
+				<!-- partial:partials/_sidebar.html -->
+				<nav class="sidebar sidebar-offcanvas" id="sidebar">
+					<ul class="nav">
+						<li class="nav-item nav-profile">
+							<a href="#" class="nav-link">
+								<div class="nav-profile-image">
+									<img id="touxiang1" alt="profile">
+									<span class="login-status online"></span>
+									<!--change to offline or busy as needed-->
+								</div>
+								<div class="nav-profile-text d-flex flex-column">
+									<span class="font-weight-bold mb-2" id="name1"></span>
+									<span class="text-secondary text-small" id="occupation"></span>
+								</div>
+								<!--              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i> -->
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic1" aria-expanded="true" aria-controls="ui-basic1">
+								<span class="menu-title">用户管理</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic1" style="">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="../user/FindUser.html">用户查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../user/addUser.html">添加用户</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic2" aria-expanded="true" aria-controls="ui-basic2">
+								<span class="menu-title">部门管理</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic2" style="">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="../department/showAllDept.html">部门查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../department/addDept.html">添加部门</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic3" aria-expanded="true" aria-controls="ui-basic3">
+								<span class="menu-title">职位管理</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic3" style="">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="../position/showAllPos.html">职位查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../position/addPosition.html">添加职位</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic4" aria-expanded="true" aria-controls="ui-basic4">
+								<span class="menu-title">公告管理</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic4" style="">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="../announcement/selectNotice.html">公告查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../announcement/AddAnnouncement.html">添加公告</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic5" aria-expanded="true" aria-controls="ui-basic5">
+								<span class="menu-title">下载中心</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic5" style="">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="../document/showAllFile.html">文档查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../document/uploadDoc.html">上传文档</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="../order/ordermanage.html">
+								<span class="menu-title">订餐管理</span>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="main-panel">
+					<div class="content-wrapper">
+						<div class="row">
+							<div class="col-md-7 column">
+								<div class="grid-margin stretch-card">
+									<div class="card">
+										<div class="card-body">
+											<h4 class="card-title">通知公告</h4>
+											<form class="forms-sample">
+												<div style="overflow-y: scroll; height: 380px;" class="form-group">
+													<table class="table" id="show_notice_table">
+														<thead>
+														</thead>
+														<tbody id="shownotice">
+														</tbody>
+													</table>
+
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="grid-margin stretch-card">
+									<div class="card">
+										<div class="card-body">
+											<h4 class="card-title">文件下载</h4>
+											<form class="forms-sample">
+												<div style="overflow-y: scroll; height: 380px;" class="form-group">
+													<table class="table" id="show_file_table">
+														<thead>
+														</thead>
+														<tbody id="showfile">
+
+														</tbody>
+													</table>
+													<!--</div>-->
+												</div>
+
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!--管理员内容-->
+							<div class="col-md-5 grid-margin ml-auto stretch-card">
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">实时预约情况</h4>
+										<form class="forms-sample">
+											<div class="form-group">
+												<table class="table" id="order_table">
+													<tbody id="show_order_detail">
+													</tbody>
+												</table>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<!-- content-wrapper ends -->
+							<!-- partial:../../partials/_footer.html -->
+							<!-- partial -->
+						</div>
+						<div class="modal fade" id="modifypassword" tabindex="-1" role="dialog" 　　aria-labelledby="modifypasswordLabel" aria-hidden="true">
+
+							<div class="modal-dialog">
+								<div class="modal-content" style="background-color: white;width:100%;margin-left: 0%; margin-right: 0%;">
+									<div class="modal-header">
+										<h3 class="modal-title" id="myModalLabel">
+									<i class="mdi mdi-account-settings-variant"></i>
+									修改密码
+								</h3>
+										<!-- <button type="button" class="btn btn-link" data-dismiss="modal">
+									<i class="mdi mdi-close"></i>
+								</button> -->
+									</div>
+									<div class="modal-body">
+										<div class="form-group">
+											<div class="form-group">
+												<label for="JI_JOB_NAME" class="col-sm-3 control-label">当前密码：</label>
+												<div class="col-sm-9">
+													<input value="" type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="请输入您的当前密码">
+												</div>
+											</div>
+											<label for="JI_JOB_NAME" class="col-sm-3 control-label">新的密码：</label>
+											<div class="col-sm-9">
+												<input value="" type="password" name="newPassword" id="newPassword" class="form-control" placeholder="请输入您的新密码">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="JI_JOB_NAME" class="col-sm-3 control-label">确认密码：</label>
+											<div class="col-sm-9">
+												<input value="" type="password" name="newPasswordCon" id="newPasswordCon" class="form-control" placeholder="请确认您的新密码">
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-gradient-primary mr-2" id="subPassword">提交</button>
+											<button type="button" class="btn btn-light" id="Password_cancel" data-dismiss="modal">取消</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<footer class="footer">
+						<div class="d-sm-flex justify-content-center justify-content-sm-between">
+							<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="" target="_blank">BootstrapDash</a>.
+							All rights reserved. </span>
+						</div>
+					</footer>
+				</div>
+			</div>
+			<!-- main-panel ends -->
+		</div>
+		<!-- page-body-wrapper ends -->
+		<!-- container-scroller -->
+
+		<!-- 显示公告信息 -->
+		<div class="box box-info" id="Notice_detail_table" style="display: none">
+
+			<div class="row">
+				<div class="col-md-12 grid-margin stretch-card">
+					<div class="card">
+						<div class="card-body">
+
+							<form class="forms-sample">
+								<div class="form-group">
+									<label for="notice_name">公告标题</label>
+									<input type="text" class="form-control" readonly="readonly" id="notice_name" name="notice_name">
+								</div>
+
+								<div class="form-group">
+									<label for="notice_desc">内容</label>
+									<textarea class="form-control" readonly="readonly" id="notice_desc" rows="15"></textarea>
+								</div>
+
+								<div class="col-md-4 ml-auto">
+									<button type="button" class="btn btn-gradient-primary btn-md" id="notice_details_close">关闭</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		<!-- 下载文件表格 -->
+							<div class="box box-info" id="file_download_table" style="display: none">
+							<div class="box-header with-border">
+							</div>
+
+							<div class="row">
+								<div class="col-md-12 grid-margin stretch-card">
+									<div class="card">
+										<div class="card-body">
+
+											<form class="forms-sample">
+												<div class="form-group">
+													<label for="localpath">默认下载路径为“e:”</label>
+													<label for="localpath">可输入修改</label>
+													<input type="text" class="form-control" id="localpath" name="localpath" placeholder="e:盘">
+												</div>
+
+												<button type="button" class="btn btn-gradient-primary mr-2" id="file_download_sumbit">提交</button>
+												<button type="button" class="btn btn-light" id="file_download_cancel">取消</button>
+											</form>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+		
+
+		<!-- plugins:js -->
+		<script src="../../vendors/js/vendor.bundle.base.js"></script>
+		<script src="../../vendors/js/vendor.bundle.addons.js"></script>
+		<!-- endinject -->
+		<!-- Plugin js for this page-->
+		<!-- End plugin js for this page-->
+		<!-- inject:js -->
+		<script src="../../js/off-canvas.js"></script>
+		<script src="../../js/misc.js"></script>
+		<!-- endinject -->
+		<!-- Custom js for this page-->
+		<script src="../../js/dashboard.js"></script>
+		<!-- End custom js for this page-->
+		<script src="../../layer/layer.js"></script>
+		<script type="text/javascript" src="../../js/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../js/selectMultip.js"></script>
+		<script>
+			$(function() {
+				var globaldata1; //公告的全部数据
+				var globaldata2; //文件的全部数据
+				//公告栏
+				$.ajax({
+					type: "POST",
+					url: 'http://localhost:8080/CSI/announce/showAll',
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					async: false,
+					success: function(data) {
+						console.log(data);
+						if(data.error_code == 0) {
+							globaldata1 = data.data;
+							$("#notice_table tbody").empty();
+							var $tbody = $("#shownotice");
+							var notice = data.data;
+							$.each(notice, function(i, e) {
+								var $noticename = e.name;
+								var $ntcname = $noticename.substr(0, 15);
+								var $button_1 = document.createElement("a");
+								$button_1.text = "查看";
+								$button_1.className = "btn btn-xs btn-inverse-primary";
+								var $td1 = $("<td style='width: 60%'>").append($ntcname);
+								var $td2 = $("<td style='width: 25%'>").append(e.creatTime);
+								var $td3 = $("<td style='width: 15%'>").append($button_1);
+								var $tr = $("<tr>").append($td1)
+									.append($td2).append($td3);
+								$tbody.append($tr);
+							});
+						}
+					}
+				});
+
+				//文件栏
+				$.ajax({
+					type: "POST",
+					url: 'http://localhost:8080/CSI/file/selectFileAll',
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					async: false,
+					success: function(data) {
+						console.log(data);
+						if(data.error_code == 0) {
+							globaldata2 = data.data;
+							$("#showfile").empty();
+							var $tbody = $("#showfile");
+							var files = data.data;
+							$.each(files, function(i, e) {
+								var $filename = e.name;
+								var $fname = $filename.substr(0, 15);
+								var $button_1 = document.createElement("a");
+								$button_1.text = "预览";
+								$button_1.className = "btn btn-xs btn-inverse-info";
+								var $button_2 = document.createElement("a");
+								$button_2.text = "下载";
+								$button_2.className = "btn btn-xs btn-inverse-warning";
+								var $td1 = $("<td style='width: 55%'>").append($fname);
+								var $td2 = $("<td style='width: 35%'>").append(e.date);
+								var $td3 = $("<td style='width: 5%'>").append($button_1);
+								var $td4 = $("<td style='width: 5%'>").append($button_2);
+								var $tr = $("<tr>").append($td1)
+									.append($td2).append($td3).append($td4);
+								$tbody.append($tr);
+							});
+						}
+					}
+				});
+
+				$.ajax({
+					type: "POST",
+					url: 'http://localhost:8080/CSI/menu/showOrdering',
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					async: false,
+					success: function(data) {
+						if(data.error_code == 0) {
+							console.log(data.data)
+							var $tbody = $("#show_order_detail");
+							var time0 = data.data.time0;
+							var time1 = data.data.time1;
+							var time2 = data.data.time2;
+							var time3 = data.data.time3;
+							var time4 = data.data.time4;
+							var time5 = data.data.time5;
+							var time6 = data.data.time6;
+							var time7 = data.data.time7;
+							//var $tr = $("<tr>").append($("<td style='background-color: #E0FFFF;'>").html("<label>菜品</label>"))
+							//.append($("<td style='background-color: #E6E6FA;'>").html("<label>预约人数</label>"));
+
+							$tbody.append($("<tr>").html("<h4>11:00</h4>"));
+							$.each(time0, function(i, e) {
+								var $tr0 = $("<tr>");
+								$tr0.append($("<td>").html(e["name"]))
+									.append($("<td>").html(e["num"]));
+								$tbody.append($tr0);
+							});
+
+							$tbody.append($("<tr>").html("<h4>11:30</h4>"));
+							$.each(time1, function(i, e) {
+								var $tr1 = $("<tr>");
+								$tr1.append($("<td>").html(e["name"]))
+									.append($("<td>").html(e["num"]));
+								$tbody.append($tr1);
+							});
+
+							$tbody.append($("<tr>").html("<h4>12:00</h4>"));
+							$.each(time2, function(i, e) {
+								var $tr2 = $("<tr>");
+								$tr2.append($("<td>").html(e["name"]))
+									.append($("<td>").html(e["num"]));
+								$tbody.append($tr2);
+							});
+
+							$tbody.append($("<tr>").html("<h4>12:30</h4>"));
+							$.each(time3, function(i, e) {
+								var $tr3 = $("<tr>");
+								$tr3.append($("<td>").html(e["name"]))
+									.append($("<td>").html(e["num"]));
+								$tbody.append($tr3);
+							});
+
+							$tbody.append($("<tr>").html("<h4>17:30</h4>"));
+							$.each(time4, function(i, e) {
+								var $tr4 = $("<tr>");
+								$tr4.append($("<td>").html(e["name"]))
+									.append($("<td>").html(e["num"]));
+								$tbody.append($tr4);
+							});
+
+							$tbody.append($("<tr>").html("<h4>18:00</h4>"));
+							$.each(time5, function(i, e) {
+								var $tr5 = $("<tr>");
+								$tr5.append($("<td>").html(e["name"]))
+									.append($("<td>").html(e["num"]));
+								$tbody.append($tr5);
+							});
+
+							$tbody.append($("<tr>").html("<h4>18:30</h4>"));
+							$.each(time6, function(i, e) {
+								var $tr6 = $("<tr>");
+								$tr6.append($("<td>").html(e["name"]))
+									.append($("<td>").html(e["num"]));
+								$tbody.append($tr6);
+							});
+
+							$tbody.append($("<tr>").html("<h4>19:00</h4>"));
+							$.each(time7, function(i, e) {
+								var $tr7 = $("<tr>");
+								$tr7.append($("<td>").html(e["name"]))
+									.append($("<td>").html(e["num"]));
+								$tbody.append($tr7);
+							});
+
+						}
+					}
+				});
+
+				//下载文件
+				$(".content-wrapper").on("click", ".btn-inverse-warning", function() {
+					var $tr = $(this).parents("tr");
+					var name = $tr.find("td:eq(0)").html();
+					var herf;
+
+					for(i = 0; i < globaldata2.length; i++) {
+						if(globaldata2[i].name == name) {
+							herf = globaldata2[i].herf
+						}
+					}
+					
+					$("#localpath").val("e:")
+
+					layer.open({
+						type: 1,
+						title: '下载文件',
+						shadeClose: true,
+						shade: 0.5,
+						area: ['500px', '300px'],
+						content: $("#file_download_table")
+					})
+
+					$("#file_download_sumbit").click(function() {
+						var dataSend = {
+							localpath: $("#localpath").val(),
+							herf: herf
+						};
+						if($.trim($("#localpath").val()) == "") {
+							layer.msg('请选择路径！', {
+								icon: 2,
+								time: 2000 //2秒关闭（如果不配置，默认是3秒）
+							});
+						} else {
+							$.ajax({
+								type: "POST",
+								url: 'http://localhost:8080/CSI/file/downLoad',
+								data: JSON.stringify(dataSend),
+								contentType: "application/json; charset=utf-8",
+								dataType: "json",
+								async: false,
+								success: function(data) {
+									if(data.error_code == 0) {
+										layer.alert('下载成功！', {
+											icon: 1,
+											closeBtn: 0
+										}, function(index) {
+											layer.closeAll();
+											window.location.reload();
+										});
+
+									} else {
+										layer.alert('下载失败！', {
+											icon: 2,
+											closeBtn: 0
+										});
+									}
+								}
+							});
+						}
+					});
+					$("#file_download_cancel").click(function() {
+						layer.closeAll();
+					});
+				});
+
+				$(".content-wrapper").on("click", ".btn-inverse-info", function() {
+
+					var $tr = $(this).parents("tr");
+					var name = $tr.find("td:eq(0)").html();
+					var herf;
+
+					for(i = 0; i < globaldata2.length; i++) {
+						if(globaldata2[i].name == name) {
+							herf = globaldata2[i].herf
+						}
+					}
+					var index = herf.lastIndexOf(".");
+					var ext = herf.substr(index + 1);
+					console.log(ext)
+					if(['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf', 'txt'].indexOf(ext) != -1 || ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf', 'txt'].indexOf(ext.toLowerCase()) != -1)
+						window.open('http://dcsapi.com/?k=48002957336746393702934&url=' + 'https://filebed-1259719447.cos.ap-chengdu.myqcloud.com/' + herf)
+					else if(['jpg', 'png', 'jpeg', 'gif', 'bmp'].indexOf(ext) != -1 || ['jpg', 'png', 'jpeg', 'gif', 'bmp'].indexOf(ext.toLowerCase()) != -1)
+						window.open('https://filebed-1259719447.cos.ap-chengdu.myqcloud.com/' + herf)
+					else layer.alert('当前文件类型不支持预览！', {
+						icon: 2,
+						closeBtn: 0
+					});
+				});
+
+				//查看公告
+				$(".content-wrapper").on("click", ".btn-inverse-primary", function() {
+					var $tr = $(this).parents("tr");
+					var name = $tr.find("td:eq(0)").html();
+					var content;
+					for(i = 0; i < globaldata1.length; i++) {
+						if(globaldata1[i].name == name) {
+							content = globaldata1[i].content
+						}
+					}
+					$("#notice_name").val(name);
+					$("#notice_desc").val(content);
+
+					layer.open({
+						type: 1,
+						title: "<i class='mdi mdi-bulletin-board'></i>公告详情",
+						shadeClose: true,
+						shade: 0.5,
+						area: ['500px', '530px'],
+						content: $("#Notice_detail_table")
+					})
+
+					$("#notice_details_close").click(function() {
+						layer.closeAll();
+					});
+
+				});
+			});
+		</script>
+
+		<script>
+			$(function() {
+				if(sessionStorage.getItem("groupId") == 2)
+					location.href = '../index/index_user.html'
+				else if(sessionStorage.getItem("groupId") == null) {
+					location.href = '../login/login.html'
+				}
+				var sex = sessionStorage.getItem("sex");
+				if(sex == 1) {
+					touxiang = "../../images/faces/face2.jpg";
+				} else {
+					touxiang = "../../images/faces/face3.jpg"
+				}
+				$("#touxiang").attr("src", touxiang);
+				$("#touxiang1").attr("src", touxiang);
+				//var user_id = getUrlParam.param("userid");
+				var username = sessionStorage.getItem("username");
+				getData();
+				$("#subPassword").click(function() {
+					var newPassword = $("#newPassword").val()
+					var newPasswordCon = $("#newPasswordCon").val()
+					var oldPassword = $("#oldPassword").val()
+					if(typeof(oldPassword) == 'undefined' || oldPassword.trim() == "") {
+						//alert("当前密码不能为空");
+						layer.msg('当前密码不能为空！', {
+							icon: 2,
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+					} else if(typeof(newPassword) == 'undefined' || newPassword.trim() == "") {
+						//alert("新密码不能为空")
+						layer.msg('新密码不能为空！', {
+							icon: 2,
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+					} else if(typeof(newPasswordCon) == 'undefined' || newPasswordCon.trim() == "") {
+						//alert("确认密码不能为空");
+						layer.msg('确认密码不能为空！', {
+							icon: 2,
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+					} else if(newPassword.trim() != newPasswordCon.trim()) {
+						//alert("新密码与确认密码必须保持一致");
+						layer.msg('新密码与确认密码必须保持一致!', {
+							icon: 2,
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+					} else if(oldPassword.trim() == newPassword.trim()) {
+						//alert("新密码与原密码一致");
+						layer.msg('新密码与原密码一致!', {
+							icon: 2,
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+					} else {
+
+						var dataSend = {
+							username: username,
+							//username:"Tom",
+							oldPassword: oldPassword,
+							newPassword: newPassword
+						};
+						$.ajax({
+							type: "POST",
+							url: "http://localhost:8080/CSI/user/editPassword",
+							async: true,
+							data: JSON.stringify(dataSend),
+							contentType: "application/json; charset=utf-8",
+							dataType: "json",
+							error: function(data) {
+								//alert("消息", "出错了，请于管理员联系");
+								layer.msg('出错了，请与管理员联系!', {
+									icon: 2,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
+								});
+							},
+							success: function(data) {
+
+								if(data.error_code == 203) {
+									//alert("原密码输入错误！");
+									layer.msg('原密码输入错误！', {
+										icon: 2,
+										time: 2000 //2秒关闭（如果不配置，默认是3秒）
+									});
+								} else if(data.error_code == 0) {
+									window.location.replace("index.html");
+									localStorage.setItem("remember_password", newPassword);
+									sessionStorage.setItem("password", newPassword);
+									//alert("密码修改成功！");
+									layer.msg('密码修改成功！', {
+										icon: 1,
+										time: 2000 //2秒关闭（如果不配置，默认是3秒）
+									});
+								} else {
+									layer.msg('修改失败！', {
+										icon: 1,
+										time: 2000 //2秒关闭（如果不配置，默认是3秒）
+									});
+								}
+
+							},
+
+							error: function(data) {
+								layer.msg('稍后再试！', {
+									icon: 1,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
+								});
+							}
+						});
+					}
+				})
+				$("#logout").click(function() {
+					sessionStorage.removeItem("username");
+					sessionStorage.removeItem("name");
+					sessionStorage.removeItem("userid");
+					sessionStorage.removeItem("groupId");
+					sessionStorage.removeItem("positionName");
+					sessionStorage.removeItem("password");
+					sessionStorage.removeItem("sex");
+
+				})
+				$("#facereg").click(function() {
+					var searchUrl = encodeURI("../face/facereg.html"); //使用encodeURI编码
+					location.href = searchUrl;
+				});
+
+				function getData() {
+					$('#name').text(sessionStorage.getItem("name"));
+					$('#name1').text(sessionStorage.getItem("name"));
+					if(sessionStorage.getItem("groupId") == "1") {
+						$('#occupation').text("管理员");
+					} else {
+						$('#occupation').text(sessionStorage.getItem("positionName"));
+					}
+				}
+
+			});
+		</script>
+	</body>
+
+</html>

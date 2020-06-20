@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>用户管理</title>
+		<!-- plugins:css -->
+		<link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+		<link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+		<!-- endinject -->
+		<!-- inject:css -->
+		<link rel="stylesheet" href="../../css/style.css">
+		<!-- endinject -->
+		<link rel="shortcut icon" href="../../images/favicon.png">
+		<style>
+			.modifypassword {
+				width: 100%;
+			}
+			
+			.home img {
+				width: 2.1875rem;
+				height: 2.1875rem;
+			}
+		</style>
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="container-scroller">
+			<!-- partial:../../partials/_navbar.html -->
+			<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+				<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+					<a class="navbar-brand brand-logo"><img src="../../images/logo.svg" alt="logo"></a>
+					<a class="navbar-brand brand-logo-mini"><img src="../../images/logo-mini.svg" alt="logo"></a>
+				</div>
+				<div class="navbar-menu-wrapper d-flex align-items-stretch">
+					<!-- <div class="search-field d-none d-md-block">
+			      <form class="d-flex align-items-center h-100" action="#">
+			        <div class="input-group">
+			          <div class="input-group-prepend bg-transparent">
+			              <i class="input-group-text border-0 mdi mdi-magnify"></i>                
+			          </div>
+			          <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+			        </div>
+			      </form>
+			    </div> -->
+					<ul class="navbar-nav navbar-nav-right">
+						<li class="nav-item nav-profile dropdown">
+							<a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+								<div class="nav-profile-img">
+									<img id="touxiang" alt="image">
+									<span class="availability-status online"></span>
+								</div>
+								<div class="nav-profile-text">
+									<p class="mb-1 text-black" id="name"></p>
+								</div>
+							</a>
+							<div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown" data-toggle="modal" data-target="#modifypassword">
+								<button type="button" class="dropdown-item ">
+			   				<i class="mdi mdi-lock-outline mr-2 text-primary"></i>
+			   				修改密码
+			   			</button>
+								<div class="dropdown-divider"></div>
+								<button class="dropdown-item" href="../face/facereg.html" id="facereg">
+			   				<i class=" mdi mdi-image-filter-center-focus mr-2 text-primary"></i>
+			   				人脸注册
+			   			</button>
+							</div>
+						</li>
+						<li class="nav-item d-none d-lg-block">
+							<a class="nav-link home" href="../index/index.html">
+								<img src="../../images/主页.png" />
+							</a>
+						</li>
+						<li class="nav-item d-none d-lg-block full-screen-link">
+							<a class="nav-link">
+								<i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+							</a>
+						</li>
+						<li class="nav-item nav-logout d-none d-lg-block">
+							<a class="nav-link" href="../login/login.html" id="logout">
+								<i class="mdi mdi-power"></i>
+							</a>
+						</li>
+					</ul>
+					<!-- <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+			      <span class="mdi mdi-menu"></span>
+			    </button> -->
+				</div>
+			</nav>
+			<!-- partial -->
+			<div class="container-fluid page-body-wrapper">
+				<!-- partial:../partials/_sidebar.html -->
+				<nav class="sidebar sidebar-offcanvas" id="sidebar">
+					<ul class="nav">
+						<li class="nav-item nav-profile">
+							<a href="#" class="nav-link">
+								<div class="nav-profile-image">
+									<img id="touxiang1" alt="profile">
+									<span class="login-status online"></span>
+									<!--change to offline or busy as needed-->
+								</div>
+								<div class="nav-profile-text d-flex flex-column">
+									<span class="font-weight-bold mb-2" id="name1"></span>
+									<span class="text-secondary text-small" id="occupation"></span>
+								</div>
+								<!--              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i> -->
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+								<span class="menu-title">用户管理</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic1" style="">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="FindUser.html">用户查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="addUser.html">添加用户</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+								<span class="menu-title">部门管理</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic2" style="">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="../department/showAllDept.html">部门查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../department/addDept.html">添加部门</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
+								<span class="menu-title">职位管理</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic3" style="">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="../position/showAllPos.html">职位查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../position/addPosition.html">添加职位</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic4">
+								<span class="menu-title">公告管理</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic4" style="">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="../announcement/selectNotice.html">公告查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../announcement/AddAnnouncement.html">添加公告</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
+								<span class="menu-title">下载中心</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic5" style="">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="../document/showAllFile.html">文档查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../document/uploadDoc.html">上传文档</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="../order/ordermanage.html">
+								<span class="menu-title">订餐管理</span>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+						</li>
+					</ul>
+				</nav>
+
+				<!-- partial -->
+				<div class="main-panel">
+					<!--描述：查询框-->
+					<div class="content-wrapper">
+						<div class="page-header">
+							<h3 class="page-title">用户管理</h3>
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">
+										<a href="pages/showAllUser.html">用户管理</a>
+									</li>
+									<li class="breadcrumb-item active" aria-current="page">用户查询</li>
+								</ol>
+							</nav>
+						</div>
+						<div class="row">
+							<div class="col-md-12 grid-margin stretch-card">
+								<div class="card">
+									<div class="card-body">
+
+										<form action="" method="post">
+
+											<div class="row">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<div class="col-md-3">
+													<div class="form-group row">
+														<div class="input-group">
+															<input type="text" class="form-control" id="InputName" placeholder="姓名" aria-label="姓名" aria-describedby="basic-addon2">
+														</div>
+													</div>
+												</div>&nbsp;&nbsp;&nbsp;
+												<div class="col-md-3">
+													<div class="form-group row">
+														<div class="input-group">
+															<input type="text" class="form-control" id="InputUsername" placeholder="用户名" aria-label="用户名" aria-describedby="basic-addon2">
+														</div>
+													</div>
+												</div>&nbsp;&nbsp;&nbsp;
+
+												<div class="col-md-3">
+													<div class="form-group row">
+														<div class="input-group">
+															<input type="text" class="form-control" id="InputIdCardNo" placeholder="身份证号" aria-label="用户名" aria-describedby="basic-addon2">
+														</div>
+													</div>
+												</div>&nbsp;&nbsp;&nbsp;
+
+											</div>
+
+											<div class="row">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<div class="col-md-3">
+
+													<div class="form-group row">
+
+														<select class="form-control" id="InputDepartment" οnchange="getvalue(this)">
+															<option value="">--请选择部门名称--</option>
+
+														</select>
+													</div>
+
+												</div>&nbsp;&nbsp;&nbsp;
+
+												<div class="col-md-3">
+													<div class="form-group row">
+
+														<select class="form-control" id="InputPosition" οnchange="getvalue(this)">
+															<option value="">--请选择职位名称--</option>
+
+														</select>
+													</div>
+												</div>
+												&nbsp;&nbsp;&nbsp;&nbsp;
+												<div class="col-md-3">
+													<div class="form-group row">
+														<div class="input-group-append">
+															<button type="button" class="btn btn-sm btn-outline-primary" id="select">搜索</button>&nbsp;&nbsp;&nbsp;
+															<button type="button" class="btn btn-sm btn-outline-danger" id="user_delete_all_btn">批量删除</button>
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+
+										<table class="table table-striped" id="users_table" style="word-break:break-all; word-wrap:break-all;">
+											<thead style='text-align: center;'>
+												<tr>
+													<th style="width: 5%;">
+														<input type="checkbox" name="checkAll" id="checkAll">
+													</th>
+													<th style="width: 10%;">
+														用户名
+													</th>
+													<th style="width: 10%;">
+														姓名
+													</th>
+													<th style="width: 10%;">
+														权限
+													</th>
+													<th style="width: 15%;">
+														邮箱
+													</th>
+													<th style="width: 15%;">
+														职位
+													</th>
+													<th style="width: 15%;">
+														部门
+													</th>
+													<th align="center" style="width: 20%;">操作</th>
+												</tr>
+											</thead>
+											<tbody id="con" style='text-align: center;'>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- content-wrapper ends -->
+					<!-- partial:../../partials/_footer.html -->
+					<!-- partial -->
+				</div>
+				<!-- main-panel ends -->
+			</div>
+			<!-- page-body-wrapper ends -->
+		</div>
+
+		<!-- 修改用户信息表格 -->
+		<div class="box box-info" id="user_modify_table" style="display: none">
+
+			<div class="row">
+				<div class="col-12 grid-margin">
+					<div class="card">
+						<div class="card-body">
+
+							<form class="form-sample">
+
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">用户名</label>
+											<div class="col-sm-9">
+												<input type="text" readonly="readonly" class="form-control" id="new_username" name="new_username" style="width:210px;height:38px;">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-2">
+										<div class="form-group row">
+											<label class="col-form-label">姓名</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="new_name" name="new_name" placeholder="姓名" style="width:100px;height:38px;">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group row">
+											<label class="col-form-label">性别</label>
+											<div class="col-sm-9">
+												<select class="form-control" id="new_sex" οnchange="getvalue(this)" style="width:80px;height:38px;">
+													<option value="1">女</option>
+													<option value="2">男</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">身份证号</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="new_idCardNo" name="new_idCardNo" placeholder="身份证号" style="width:210px;height:38px;">
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">密码</label>
+											<div class="col-sm-9">
+												<input type="password" readonly="readonly" class="form-control" id="new_password" name="new_password" style="width:225px;height:38px;">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">手机号码</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="new_phone" name="new_phone" placeholder="手机号码" style="width:185px;height:38px;">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">学历</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="new_education" name="new_education" placeholder="学历" style="width:240px;height:38px;">
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">电子邮箱</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="new_email" name="new_email" placeholder="电子邮箱" style="width:185px;height:38px;">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">部门</label>
+											<div class="col-sm-9">
+												<select class="form-control" id="new_subordinate_dept" οnchange="getvalue(this)" style="width:225px;height:38px;">
+
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">职位</label>
+											<div class="col-sm-9">
+												<select class="form-control" id="new_subordinate_pos" οnchange="getvalue(this)" style="width:225px;height:38px;">
+
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group row">
+											<label class="col-form-label">联系地址</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="new_address" name="new_address" placeholder="联系地址" style="width:350px;height:38px;">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group row">
+											<label class="col-sm-3 col-form-label">用户属性</label>
+											<div class="col-sm-3">
+												<div class="form-check">
+													<label class="form-check-label">
+					             <input type="radio" class="form-check-input" name="new_groupId" id="new_groupId1" value="1">
+					             管理员
+					           <i class="input-helper"></i></label>
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<div class="form-check">
+													<label class="form-check-label">
+					             <input type="radio" class="form-check-input" name="new_groupId" id="new_groupId2" value="2">
+					             职员
+					           <i class="input-helper"></i></label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="col-md-8 ml-auto">
+									<button type="button" class="btn btn-gradient-primary mr-2" id="user_update_sumbit">提交</button>
+									<button type="button" class="btn btn-light" id="user_update_cancel">取消</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- 查看用户详细信息信息表格 -->
+		<div class="box box-info" id="user_details_table" style="display: none">
+
+			<div class="row">
+				<div class="col-12 grid-margin">
+					<div class="card">
+						<div class="card-body">
+
+							<form class="form-sample">
+
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">用户名</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="username" name="username" style="width:210px;height:38px;">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group row">
+											<label class="col-form-label">姓名</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="Xname" name="Xname" style="width:100px;height:38px;">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group row">
+											<label class="col-form-label">性别</label>
+											<div class="col-sm-9">
+												<select class="form-control" id="sex" name="sex" οnchange="getvalue(this)" style="width:80px;height:38px;">
+													<option value="1">女</option>
+													<option value="2">男</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">身份证号</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="idCardNo" name="idCardNo" style="width:210px;height:38px;">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">密码</label>
+											<div class="col-sm-9">
+												<input type="password" class="form-control" id="password" name="password" style="width:225px;height:38px;">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">手机号码</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="phone" name="phone" style="width:185px;height:38px;">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">学历</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="education" name="education" style="width:240px;height:38px;">
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">电子邮箱</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="email" name="email" style="width:185px;height:38px;">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">部门</label>
+											<div class="col-sm-9">
+												<select class="form-control" id="subordinate_dept" name="subordinate_dept" οnchange="getvalue(this)" style="width:225px;height:38px;">
+
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">职位</label>
+											<div class="col-sm-9">
+												<select class="form-control" id="subordinate_pos" name="subordinate_pos" οnchange="getvalue(this)" style="width:225px;height:38px;">
+
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group row">
+											<label class="col-form-label">联系地址</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="address" name="address" style="width:500px;height:38px;">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-4">
+										<div class="form-group row">
+											<label class="col-form-label">建档日期</label>
+											<div class="col-sm-9">
+												<input type="text" class="form-control" id="createdDate" name="createdDate" style="width:210px;height:38px;">
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group row">
+											<label class="col-sm-3 col-form-label">用户属性</label>
+											<div class="col-sm-3">
+												<div class="form-check">
+													<label class="form-check-label">
+					            <input type="radio" class="form-check-input" name="groupId" id="groupId1" value="1">
+					            管理员
+					          <i class="input-helper"></i></label>
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<div class="form-check">
+													<label class="form-check-label">
+					            <input type="radio" class="form-check-input" name="groupId" id="groupId2" value="2">
+					            职员
+					          <i class="input-helper"></i></label>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-2 ml-auto">
+										<button type="button" class="btn btn-gradient-primary btn-md" id="user_details_close">关闭</button>
+									</div>
+
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="modal fade" id="modifypassword" tabindex="-1" role="dialog" 　　aria-labelledby="modifypasswordLabel" aria-hidden="true">
+
+			<div class="modal-dialog">
+				<div class="modal-content" style="background-color: white;width:100%;margin-left: 0%; margin-right: 0%;">
+					<div class="modal-header">
+						<h3 class="modal-title" id="myModalLabel">
+							<i class="mdi mdi-account-settings-variant"></i>
+							修改密码
+						</h3>
+						<!-- <button type="button" class="btn btn-link" data-dismiss="modal">
+							<i class="mdi mdi-close"></i>
+						</button> -->
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="form-group">
+								<label for="JI_JOB_NAME" class="col-sm-3 control-label">当前密码：</label>
+								<div class="col-sm-9">
+									<input value="" type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="请输入您的当前密码">
+								</div>
+							</div>
+							<label for="JI_JOB_NAME" class="col-sm-3 control-label">新的密码：</label>
+							<div class="col-sm-9">
+								<input value="" type="password" name="newPassword" id="newPassword" class="form-control" placeholder="请输入您的新密码">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="JI_JOB_NAME" class="col-sm-3 control-label">确认密码：</label>
+							<div class="col-sm-9">
+								<input value="" type="password" name="newPasswordCon" id="newPasswordCon" class="form-control" placeholder="请确认您的新密码">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-gradient-primary mr-2" id="subPassword">提交</button>
+							<button type="button" class="btn btn-light" id="Password_cancel" data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- container-scroller -->
+		<!-- plugins:js -->
+		<script src="../../vendors/js/vendor.bundle.base.js"></script>
+		<script src="../../vendors/js/vendor.bundle.addons.js"></script>
+		<!-- endinject -->
+		<!-- inject:js -->
+		<script src="../../js/off-canvas.js"></script>
+		<script src="../../js/misc.js"></script>
+		<!-- endinject -->
+		<!-- Custom js for this page-->
+		<script src="../../js/file-upload.js"></script>
+		<!-- End custom js for this page-->
+		<script src="../../layer/layer.js"></script>
+
+		<script type="text/javascript">
+			$(function() {
+				if(sessionStorage.getItem("groupId") == 2)
+					location.href = '../index/index_user.html'
+				else if(sessionStorage.getItem("groupId")==null){
+					location.href = '../login/login.html'
+				}
+				$.ajax({
+					type: "POST",
+					url: 'http://localhost:8080/CSI/dept/showAllDept', //请求controller方法   
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					async: false, //同步请求，注意此字段    
+					success: function(data) {
+						if(data.error_code == 0) {
+							var dl = data.data;
+							$.each(dl, function(i, e) {
+								$("#InputDepartment").append("<option value='" + e["departmentName"] + "'>" + e["departmentName"] + "</option>");
+
+							});
+						}
+					},
+					
+					error: function(data){
+						layer.alert("稍后再试！");
+					}
+				});
+
+				$("#InputDepartment").change(function() {
+
+					$("#InputPosition").empty();
+
+					var option = $("<option>").val("").text("--请选择职位名称--");
+					$("#InputPosition").append(option);
+					var dataSend = {
+						select_key: "",
+						departmentName: $("#InputDepartment").val()
+					};
+					console.log(dataSend);
+					if($.trim($("#InputDepartment").val()) == "") {
+
+					} else {
+						$.ajax({
+							type: "POST",
+							url: 'http://localhost:8080/CSI/pos/selectPosResult', //请求controller方法   
+							data: JSON.stringify(dataSend),
+							contentType: "application/json; charset=utf-8",
+							dataType: "json",
+							async: false, //同步请求，注意此字段    
+							success: function(data) {
+								if(data.error_code == 0) {
+									var dl = data.data;
+									$.each(dl, function(i, e) {
+										$("#InputPosition").append("<option value='" + e["positionName"] + "'>" + e["positionName"] + "</option>");
+
+									});
+								}
+							},
+					
+					error: function(data){
+						layer.alert("稍后再试！");
+					}
+						});
+					}
+				});
+
+				var sex = sessionStorage.getItem("sex");
+				if(sex == 1) {
+					touxiang = "../../images/faces/face2.jpg";
+				} else {
+					touxiang = "../../images/faces/face3.jpg"
+				}
+				$("#touxiang").attr("src", touxiang);
+				$("#touxiang1").attr("src", touxiang);
+				getData();
+				if(!window.sessionStorage) {
+					alert("浏览器支持sessionstorage");
+				} else {
+					var storage = window.sessionStorage;
+					var username = storage.getItem("username");
+				}
+
+				var globaldata;
+
+				$.ajax({
+					type: "POST",
+					url: 'http://localhost:8080/CSI/user/showall',
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					async: false,
+					success: function(data) {
+						console.log(data);
+						if(data.error_code == 0) {
+							globaldata = data.data
+							var $tbody = $("#con");
+							$("#users_table tbody").empty();
+							var user = data.data;
+							$.each(user, function(i, e) {
+								var checkBoxId = $("<td><input type='checkbox' class='check_item'/></td>");
+								var $tr = $("<tr>").append(checkBoxId)
+									.append($("<td>").html(e["username"]))
+									.append($("<td>").html(e["name"]))
+
+								if(e["groupId"] == 1) {
+
+									$tr.append($("<td>管理员</td>"))
+								} else {
+
+									$tr.append($("<td>职员</td>"))
+								}
+
+								$tr.append($("<td>").html(e["email"]))
+								$tr.append($("<td>").html(e["positionName"]))
+								$tr.append($("<td>").html(e["departmentName"]));
+								var $button_1 = document.createElement("a");
+								$button_1.text = "修改";
+								$button_1.className = "btn btn-xs btn-inverse-primary";
+								var $button_2 = document.createElement("a");
+								$button_2.text = "删除";
+								$button_2.className = "btn btn-xs btn-inverse-danger";
+								var $button_3 = document.createElement("a");
+								$button_3.text = "查看";
+								$button_3.className = "btn btn-xs btn-inverse-warning";
+								var $td = $("<td>").append($button_1).append($button_2).append($button_3);
+								$tr.append($td);
+								$tbody.append($tr);
+							});
+						}
+					},
+					error: function(data) {
+						layer.alert("稍后再试！");
+					}
+				});
+
+				function getData() {
+					$('#name').text(sessionStorage.getItem("name"));
+					$('#name1').text(sessionStorage.getItem("name"));
+					if(sessionStorage.getItem("groupId") == "1") {
+						$('#occupation').text("管理员");
+					} else {
+						$('#occupation').text(sessionStorage.getItem("positionName"));
+					}
+				}
+
+				$("#logout").click(function() {
+					sessionStorage.removeItem("username");
+					sessionStorage.removeItem("name");
+					sessionStorage.removeItem("userid");
+					sessionStorage.removeItem("groupId");
+					sessionStorage.removeItem("positionName");
+					sessionStorage.removeItem("password");
+					sessionStorage.removeItem("sex");
+
+				})
+
+				$("#select").click(function() {
+					var position = $("#InputPosition").val();
+					var name = $("#InputName").val();
+					var username = $("#InputUsername").val();
+					var department = $("#InputDepartment").val();
+					var idCardNo = $("#InputIdCardNo").val();
+
+					var dataSend = {
+						positionName: position,
+						name: name,
+						username: username,
+						departmentName: department,
+						idCardNo: idCardNo.toString()
+					};
+
+					console.log(dataSend);
+					if($.trim(position) == "" && $.trim(name) == "" && $.trim(username) == "" && $.trim(department) == "" && $.trim(idCardNo) == "") {
+						layer.msg('请输入查询条件', {
+							icon: 2,
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+					} else {
+						$.ajax({
+							type: "POST",
+							//url: 'user/selectUser',
+							url: 'http://localhost:8080/CSI/user/selectUser',
+							data: JSON.stringify(dataSend),
+							contentType: "application/json; charset=utf-8",
+							dataType: "json",
+							async: false,
+							success: function(data) {
+								console.log(data);
+								if(data.error_code == 0) {
+									globaldata = data.data
+									var $tbody = $("#con");
+									$("#users_table tbody").empty();
+									var user = data.data;
+									$.each(user, function(i, e) {
+										var checkBoxId = $("<td><input type='checkbox' class='check_item'/></td>");
+										var $tr = $("<tr>").append(checkBoxId)
+											.append($("<td>").html(e["username"]))
+											.append($("<td>").html(e["name"]))
+
+										if(e["groupId"] == 1) {
+
+											$tr.append($("<td>管理员</td>"))
+										} else {
+
+											$tr.append($("<td>职员</td>"))
+										}
+
+										$tr.append($("<td>").html(e["email"]))
+										$tr.append($("<td>").html(e["positionName"]))
+										$tr.append($("<td>").html(e["departmentName"]));
+										var $button_1 = document.createElement("a");
+										$button_1.text = "修改";
+										$button_1.className = "btn btn-xs btn-inverse-primary";
+										var $button_2 = document.createElement("a");
+										$button_2.text = "删除";
+										$button_2.className = "btn btn-xs btn-inverse-danger";
+										var $button_3 = document.createElement("a");
+										$button_3.text = "查看";
+										$button_3.className = "btn btn-xs btn-inverse-warning";
+										var $td = $("<td>").append($button_1).append($button_2).append($button_3);
+										$tr.append($td);
+										$tbody.append($tr);
+									});
+								} else {
+									layer.alert("暂无用户信息！", {
+										icon: 2,
+										closeBtn: 0
+									}, function(index) {
+										window.location.reload();
+									});
+								}
+							},
+							error: function(data) {
+								layer.alert("稍后再试！", {
+									icon: 2,
+									closeBtn: 0
+								})
+							}
+						});
+					}
+				});
+
+				//查看
+				$(".content-wrapper").on("click", ".btn-inverse-warning", function() {
+					if(sessionStorage.getItem("groupId") == 2&&sessionStorage.getItem("username")!=username) {
+						 
+						layer.alert('没有操作权限！', {
+							icon: 2,
+							closeBtn: 0
+						}, function(index) {
+							layer.closeAll();
+							location.href = '../index/index_user.html'
+						});
+						
+					}else{
+						
+					
+					$("#subordinate_dept").empty();
+					$("#subordinate_pos").empty();
+					$.ajax({
+						type: "POST",
+						url: 'http://localhost:8080/CSI/dept/showAllDept', //请求controller方法   
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						async: false, //同步请求，注意此字段    
+						success: function(data) {
+							if(data.error_code == 0) {
+								var dl = data.data;
+								$.each(dl, function(i, e) {
+									$("#subordinate_dept").append("<option value='" + e["departmentName"] + "'>" + e["departmentName"] + "</option>");
+									console.log(e["departmentName"])
+								});
+							}
+						},
+						error: function(data) {
+							layer.alert("稍后再试！");
+						}
+					});
+					$.ajax({
+						type: "POST",
+						url: 'http://localhost:8080/CSI/pos/showAllPos', //请求controller方法   
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						async: false, //同步请求，注意此字段    
+						success: function(data) {
+							if(data.error_code == 0) {
+								var dl = data.data;
+								$.each(dl, function(i, e) {
+									$("#subordinate_pos").append("<option value='" + e["positionName"] + "'>" + e["positionName"] + "</option>");
+
+								});
+							}
+						},
+						error: function(data) {
+
+							layer.alert("稍后再试！");
+						}
+					});
+
+					var $tr = $(this).parents("tr");
+
+					var username = $tr.find("td:eq(1)").html();
+
+					var user;
+					for(i = 0; i < globaldata.length; i++) {
+						if(globaldata[i].username == username) {
+							user = globaldata[i]
+						}
+					}
+					$("#username").val(user.username);
+					$("#username").attr("readonly", "readonly");
+					$("#Xname").val(user.name);
+					$("#Xname").attr("readonly", "readonly");
+					$("#sex").val(user.sex);
+					$('#sex').attr("disabled", "disabled");
+					$("#password").val(user.password);
+					$("#password").attr("readonly", "readonly");
+					$("#idCardNo").val(user.idCardNo);
+					$("#idCardNo").attr("readonly", "readonly");
+					if(user.groupId == 1) {
+						$("#groupId1").prop("checked", true);
+						$("#groupId2").attr("disabled", "disabled");
+					} else {
+						$("#groupId2").prop("checked", true);
+						$("#groupId1").attr("disabled", "disabled");
+					}
+					$("#phone").val(user.phone);
+					$("#phone").attr("readonly", "readonly");
+					$("#email").val(user.email);
+					$("#email").attr("readonly", "readonly");
+					$("#subordinate_dept").val(user.departmentName);
+					$('#subordinate_dept').attr("disabled", "disabled");
+					$("#subordinate_pos").val(user.positionName);
+					$('#subordinate_pos').attr("disabled", "disabled");
+					$("#education").val(user.education);
+					$("#education").attr("readonly", "readonly");
+					$("#address").val(user.address);
+					$("#address").attr("readonly", "readonly");
+					$("#createdDate").val(user.createdDate);
+					$("#createdDate").attr("readonly", "readonly");
+
+					layer.open({
+						type: 1,
+						title: "<i class='mdi mdi-account'></i>查看用户详细信息",
+						shadeClose: true,
+						shade: 0.5,
+						area: ['1000px', '500px'],
+						content: $("#user_details_table")
+					})
+
+					$("#user_details_close").click(function() {
+						layer.closeAll();
+					});
+				}
+				});
+
+				// 修改用户信息
+				$(".content-wrapper").on("click", ".btn-inverse-primary", function() {
+					var $tr = $(this).parents("tr");
+					
+					var username = $tr.find("td:eq(1)").html();
+					
+					var user;
+					if(sessionStorage.getItem("groupId") == 2&&sessionStorage.getItem("username")!=username) {
+						 
+						layer.alert('没有操作权限！', {
+							icon: 2,
+							closeBtn: 0
+						}, function(index) {
+							layer.closeAll();
+							location.href = '../index/index_user.html'
+						});
+						
+					}else{
+					
+					for(i = 0; i < globaldata.length; i++) {
+						if(globaldata[i].username == username) {
+							user = globaldata[i]
+						}
+					}
+					$("#new_subordinate_dept").empty();
+					var option = $("<option>").val("").text("--请选择部门名称--");
+					$("#new_subordinate_dept").append(option);
+					$.ajax({
+						type: "POST",
+						url: 'http://localhost:8080/CSI/dept/showAllDept', //请求controller方法   
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						async: false, //同步请求，注意此字段    
+						success: function(data) {
+							if(data.error_code == 0) {
+								var dl = data.data;
+								$.each(dl, function(i, e) {
+									$("#new_subordinate_dept").append("<option value='" + e["departmentName"] + "'>" + e["departmentName"] + "</option>");
+
+								});
+							}
+						},
+						error: function(data) {
+							layer.alert("稍后再试！");
+						}
+					});
+					if(user.departmentName != "") {
+
+						$("#new_subordinate_pos").empty();
+
+						var option = $("<option>").val("").text("--请选择职位名称--");
+						$("#new_subordinate_pos").append(option);
+						var dataSend = {
+							select_key: "",
+							departmentName: user.departmentName
+						};
+						console.log(dataSend);
+						$.ajax({
+							type: "POST",
+							url: 'http://localhost:8080/CSI/pos/selectPosResult', //请求controller方法   
+							data: JSON.stringify(dataSend),
+							contentType: "application/json; charset=utf-8",
+							dataType: "json",
+							async: false, //同步请求，注意此字段    
+							success: function(data) {
+								if(data.error_code == 0) {
+									var dl = data.data;
+									$.each(dl, function(i, e) {
+										$("#new_subordinate_pos").append("<option value='" + e["positionName"] + "'>" + e["positionName"] + "</option>");
+
+									});
+								} 
+							},
+							error: function(data) {
+								layer.alert("稍后再试！");
+							}
+						});
+
+					}
+
+					$("#new_username").val(user.username);
+
+					$("#new_name").val(user.name);
+
+					$("#new_sex").val(user.sex);
+
+					$("#new_password").val(user.password);
+
+					$("#new_idCardNo").val(user.idCardNo);
+
+					if(user.groupId == 1) {
+						$("#new_groupId1").prop("checked", true);
+
+					} else {
+						$("#new_groupId2").prop("checked", true);
+
+					}
+					$("#new_phone").val(user.phone);
+
+					$("#new_email").val(user.email);
+
+					$("#new_subordinate_dept").val(user.departmentName);
+
+					$("#new_subordinate_pos").val(user.positionName);
+
+					$("#new_education").val(user.education);
+
+					$("#new_address").val(user.address);
+
+					layer.open({
+						type: 1,
+						title: "<i class='mdi mdi-account-settings-variant'></i>修改用户信息",
+						shadeClose: true,
+						shade: 0.5,
+						area: ['1000px', '500px'],
+						content: $("#user_modify_table")
+					})
+
+					$("#new_subordinate_dept").change(function() {
+
+						$("#new_subordinate_pos").empty();
+
+						var option = $("<option>").val("").text("--请选择职位名称--");
+						$("#new_subordinate_pos").append(option);
+						var dataSend = {
+							select_key: "",
+							departmentName: $("#new_subordinate_dept").val()
+						};
+						console.log(dataSend);
+						if($.trim($("#new_subordinate_dept").val()) == "") {
+
+						} else {
+							$.ajax({
+								type: "POST",
+								url: 'http://localhost:8080/CSI/pos/selectPosResult', //请求controller方法   
+								data: JSON.stringify(dataSend),
+								contentType: "application/json; charset=utf-8",
+								dataType: "json",
+								async: false, //同步请求，注意此字段    
+								success: function(data) {
+									if(data.error_code == 0) {
+										var dl = data.data;
+										$.each(dl, function(i, e) {
+											$("#new_subordinate_pos").append("<option value='" + e["positionName"] + "'>" + e["positionName"] + "</option>");
+
+										});
+									}
+								},
+								error: function(data) {
+									layer.alert("稍后再试！")
+								}
+							});
+						}
+					});
+
+					$("#user_update_sumbit").click(function() {
+						var dataSend = {
+							username: username,
+							name: $("#new_name").val(),
+							sex: $("#new_sex").val(),
+							password: $("#new_password").val(),
+							idCardNo: $("#new_idCardNo").val(),
+							groupid: $('input[name="new_groupId"]:checked').val(),
+							phone: $("#new_phone").val(),
+							email: $("#new_email").val(),
+							departmentName: $("#new_subordinate_dept").val(),
+							positionName: $("#new_subordinate_pos").val(),
+							education: $("#new_education").val(),
+							address: $("#new_address").val()
+
+						};
+
+						console.log(dataSend);
+						$.ajax({
+							type: "POST",
+							url: 'http://localhost:8080/CSI/user/update',
+							data: JSON.stringify(dataSend),
+							contentType: "application/json; charset=utf-8",
+							dataType: "json",
+							async: false,
+							success: function(data) {
+								if(data.error_code == 0) {
+									layer.alert('修改成功！', {
+										icon: 1,
+										closeBtn: 0
+									}, function(index) {
+										layer.closeAll();
+										window.location.reload();
+									});
+
+								} else if(data.error_code == 1) {
+									layer.alert('信息不全！', {
+										icon: 2,
+										closeBtn: 0
+									});
+								} else if(data.error_code == 2) {
+									layer.alert('用户不存在！', {
+										icon: 2,
+										closeBtn: 0
+									});
+								} else if(data.error_code == 3) {
+									layer.alert('修改失败！', {
+										icon: 2,
+										closeBtn: 0
+									});
+								}
+							},
+							error: function(data) {
+								layer.alert('稍后再试！', {
+									icon: 2,
+									closeBtn: 0
+								});
+							}
+						});
+
+					});
+					$("#user_update_cancel").click(function() {
+						layer.closeAll();
+					});
+				}
+				});
+			
+			});
+		</script>
+		<!-- 删除 -->
+		<script type="text/javascript">
+			$(function() {
+				$("#checkAll").click(function() {
+					$(".check_item").prop("checked", $(this).prop("checked"));
+				});
+				$(document).on("click", ".check_item", function() {
+					var flag = $(".check_item:checked").length == $(".check_item").length;
+					$("#checkAll").prop("checked", flag);
+				});
+				//单个删除
+				$(".content-wrapper").on("click", ".btn-inverse-danger", function() {
+					if(sessionStorage.getItem("groupId") == 2) {
+						 
+						layer.alert('没有操作权限！', {
+							icon: 2,
+							closeBtn: 0
+						}, function(index) {
+							layer.closeAll();
+							location.href = '../index/index_user.html'
+						});
+						
+					}else{
+					var $tr = $(this).parents("tr");
+					var username = $tr.find("td:eq(1)").html();
+					var usernames = new Array();
+					usernames.push(username);
+					var dataSend = {
+						username: usernames
+					};
+					console.log(dataSend);
+
+					layer.confirm('确定删除用户' + '"' + username + '"?', {
+						icon: 3,
+						title: '提示'
+					}, function(index) {
+						$.ajax({
+							type: "POST",
+							url: 'http://localhost:8080/CSI/user/delete',
+							data: JSON.stringify(dataSend),
+							contentType: "application/json; charset=utf-8",
+							dataType: "json",
+							async: false,
+							success: function(data) {
+								if(data.error_code == 0) {
+									layer.alert('删除成功', {
+										icon: 1,
+										closeBtn: 0
+									}, function(index) {
+										layer.closeAll();
+										window.location.reload();
+									});
+								} else {
+									layer.alert('删除失败', {
+										icon: 2,
+										closeBtn: 0
+									});
+								}
+							},
+							error: function(data) {
+								layer.alert("稍后再试！", {
+									icon: 2,
+									closeBtn: 0
+								});
+							}
+						});
+						layer.close(index);
+
+					});
+				}
+				});
+				//批量删除
+				$("#user_delete_all_btn").click(function() {
+					if(sessionStorage.getItem("groupId") == 2) {
+						 
+						layer.alert('没有操作权限！', {
+							icon: 2,
+							closeBtn: 0
+						}, function(index) {
+							layer.closeAll();
+							location.href = '../index/index_user.html'
+						});
+						
+					}else{
+					var del_unames = new Array();
+					$.each($(".check_item:checked"), function() {
+						del_unames.push($(this).parents("tr").find("td:eq(1)").text());
+
+					});
+					if(del_unames.length == 0) {
+						layer.msg('请选择需要批量删除的用户！', {
+							icon: 2,
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+
+					} else {
+						var dataSend = {
+							username: del_unames
+						}
+						console.log(dataSend)
+
+						layer.confirm('确定删除这些用户吗?', {
+							icon: 3,
+							title: '提示'
+						}, function(index) {
+							//发送ajax请求
+							$.ajax({
+								url: "http://localhost:8080/CSI/user/delete",
+								type: "POST",
+								data: JSON.stringify(dataSend),
+								contentType: "application/json; charset=utf-8",
+								dataType: "json",
+								async: false,
+								success: function(data) {
+									if(data.error_code == 0) {
+										layer.alert('删除成功', {
+											icon: 1,
+											closeBtn: 0
+										}, function(index) {
+											layer.closeAll();
+											window.location.reload();
+										});
+									} else {
+										layer.alert('删除失败', {
+											icon: 2,
+											closeBtn: 0
+										});
+									}
+								},
+								error: function(data) {
+									layer.alert('稍后再试！', {
+										icon: 2,
+										closeBtn: 0
+									});
+								}
+							});
+						});
+					}
+				}
+				});
+
+			});
+		</script>
+
+		<script>
+			$("#facereg").click(function() {
+				var searchUrl = encodeURI("../face/facereg.html"); //使用encodeURI编码
+				console.log(searchUrl)
+				//location.href = searchUrl;
+			});
+			$("#subPassword").click(function() {
+				var newPassword = $("#newPassword").val()
+				var newPasswordCon = $("#newPasswordCon").val()
+				var oldPassword = $("#oldPassword").val()
+				if(typeof(oldPassword) == 'undefined' || oldPassword.trim() == "") {
+					//alert("当前密码不能为空");
+					layer.msg('当前密码不能为空！', {
+						icon: 2,
+						time: 2000 //2秒关闭（如果不配置，默认是3秒）
+					});
+				} else if(typeof(newPassword) == 'undefined' || newPassword.trim() == "") {
+					//alert("新密码不能为空")
+					layer.msg('新密码不能为空！', {
+						icon: 2,
+						time: 2000 //2秒关闭（如果不配置，默认是3秒）
+					});
+				} else if(typeof(newPasswordCon) == 'undefined' || newPasswordCon.trim() == "") {
+					//alert("确认密码不能为空");
+					layer.msg('确认密码不能为空！', {
+						icon: 2,
+						time: 2000 //2秒关闭（如果不配置，默认是3秒）
+					});
+				} else if(newPassword.trim() != newPasswordCon.trim()) {
+					//alert("新密码与确认密码必须保持一致");
+					layer.msg('新密码与确认密码必须保持一致!', {
+						icon: 2,
+						time: 2000 //2秒关闭（如果不配置，默认是3秒）
+					});
+				} else if(oldPassword.trim() == newPassword.trim()) {
+					//alert("新密码与原密码一致");
+					layer.msg('新密码与原密码一致!', {
+						icon: 2,
+						time: 2000 //2秒关闭（如果不配置，默认是3秒）
+					});
+				} else {
+					
+					username = sessionStorage.getItem("username")
+
+					var dataSend = {
+						username: username,
+						//username:"Tom",
+						oldPassword: oldPassword,
+						newPassword: newPassword
+					};
+					$.ajax({
+						type: "POST",
+						url: "http://localhost:8080/CSI/user/editPassword",
+						async: true,
+						data: JSON.stringify(dataSend),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						error: function(data) {
+							//alert("消息", "出错了，请于管理员联系");
+							layer.msg('出错了，请与管理员联系!', {
+								icon: 2,
+								time: 2000 //2秒关闭（如果不配置，默认是3秒）
+							});
+						},
+						success: function(data) {
+
+							if(data.error_code == 203) {
+								//alert("原密码输入错误！");
+								layer.msg('原密码输入错误！', {
+									icon: 2,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
+								});
+							} else if(data.error_code == 0) {
+								window.location.replace("../index/index.html");
+								localStorage.setItem("remember_password", newPassword);
+								sessionStorage.setItem("password", newPassword);
+								//alert("密码修改成功！");
+								layer.msg('密码修改成功！', {
+									icon: 1,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
+								});
+							} else {
+								layer.msg('修改失败！', {
+									icon: 1,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
+								});
+							}
+
+						}
+					});
+				}
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>员工首页</title>
+		<!-- plugins:css -->
+		<link rel="stylesheet" href="../../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+		<link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+		<!-- endinject -->
+		<!-- inject:css -->
+		<link rel="stylesheet" href="../../css/style.css">
+		<!-- endinject -->
+		<link rel="shortcut icon" href="../../images/favicon.png">
+		<!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.slim.js"></script>-->
+		<style>
+			.modifypassword {
+				width: 100%;
+			}
+		</style>
+		<style>
+			.div-height {
+				width: 400px;
+				height: 300px
+			}
+		</style>
+		<style>
+			.modifypassword {
+				width: 100%;
+			}
+			
+			.home img {
+				width: 2.1875rem;
+				height: 2.1875rem;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="container-scroller">
+			<!-- partial:partials/_navbar.html -->
+			<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+				<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+					<a class="navbar-brand brand-logo" ><img src="../../images/logo.svg" alt="logo"></a>
+					<a class="navbar-brand brand-logo-mini"><img src="../../images/logo-mini.svg" alt="logo"></a>
+				</div>
+				<div class="navbar-menu-wrapper d-flex align-items-stretch">
+					<!-- <div class="search-field d-none d-md-block">
+		      <form class="d-flex align-items-center h-100" action="#">
+		        <div class="input-group">
+		          <div class="input-group-prepend bg-transparent">
+		              <i class="input-group-text border-0 mdi mdi-magnify"></i>                
+		          </div>
+		          <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+		        </div>
+		      </form>
+		    </div> -->
+					<ul class="navbar-nav navbar-nav-right">
+						<li class="nav-item nav-profile dropdown">
+							<a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+								<div class="nav-profile-img">
+									<img id="touxiang" alt="image">
+									<span class="availability-status online"></span>
+								</div>
+								<div class="nav-profile-text">
+									<p class="mb-1 text-black" id="name"></p>
+								</div>
+							</a>
+							<div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown" data-toggle="modal" data-target="#modifypassword">
+								<button type="button" class="dropdown-item " id="modify">
+		   				<i class="mdi mdi-lock-outline mr-2 text-primary"></i>
+		   				修改信息
+		   			</button>
+								<div class="dropdown-divider"></div>
+								<button class="dropdown-item" href="../face/facereg.html" id="facereg">
+		   				<i class=" mdi mdi-image-filter-center-focus mr-2 text-primary"></i>
+		   				人脸注册
+		   			</button>
+							</div>
+						</li>
+						<li class="nav-item d-none d-lg-block">
+							<a class="nav-link home" href="../index/index_user.html">
+								<img src="../../images/主页.png" />
+							</a>
+						</li>
+						<li class="nav-item d-none d-lg-block full-screen-link">
+							<a class="nav-link">
+								<i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+							</a>
+						</li>
+						<li class="nav-item nav-logout d-none d-lg-block">
+							<a class="nav-link" href="../login/login.html" id="logout">
+								<i class="mdi mdi-power"></i>
+							</a>
+						</li>
+					</ul>
+					<!-- <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+		      <span class="mdi mdi-menu"></span>
+		    </button> -->
+				</div>
+			</nav>
+			<!-- partial -->
+			<div class="container-fluid page-body-wrapper">
+				<!-- partial:partials/_sidebar.html -->
+				<nav class="sidebar sidebar-offcanvas" id="sidebar">
+					<ul class="nav">
+						<li class="nav-item nav-profile">
+							<a href="#" class="nav-link">
+								<div class="nav-profile-image">
+									<img id="touxiang1" alt="profile">
+									<span class="login-status online"></span>
+									<!--change to offline or busy as needed-->
+								</div>
+								<div class="nav-profile-text d-flex flex-column">
+									<span class="font-weight-bold mb-2" id="name1"></span>
+									<span class="text-secondary text-small" id="occupation"></span>
+								</div>
+								<!--              <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i> -->
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+								<span class="menu-title">信息查询</span>
+								<i class="menu-arrow"></i>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+							<div class="collapse" id="ui-basic2">
+								<ul class="nav flex-column sub-menu">
+									<li class="nav-item">
+										<a class="nav-link" href="../employee/showAllDept.html">部门查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../employee/showAllPos.html">职位查询</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="../employee/FindUser.html">员工查询</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="../employee/selectNotice.html">
+								<span class="menu-title">公告查询</span>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="../employee/showAllFile.html">
+								<span class="menu-title">下载中心</span>
+								<i class="mdi mdi-crosshairs-gps menu-icon"></i>
+							</a>
+						</li>
+
+						</li>
+					</ul>
+				</nav>
+				<div class="main-panel">
+					<div class="content-wrapper">
+						<div class="row">
+							<div class="col-md-7 column">
+								<div class="grid-margin stretch-card">
+									<div class="card">
+										<div class="card-body">
+											<h4 class="card-title">通知公告</h4>
+											<form class="forms-sample">
+												<div style="overflow-y: scroll; height: 300px;" class="form-group">
+													<table class="table" id="show_notice_table">
+														<thead>
+														</thead>
+														<tbody id="shownotice">
+														</tbody>
+													</table>
+
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="grid-margin stretch-card">
+									<div class="card">
+										<div class="card-body">
+											<h4 class="card-title">文件下载</h4>
+											<form class="forms-sample">
+												<div style="overflow-y: scroll; height: 300px;" class="form-group">
+													<table class="table" id="show_file_table">
+														<thead>
+														</thead>
+														<tbody id="showfile">
+
+														</tbody>
+													</table>
+													<!--</div>-->
+												</div>
+
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-5 grid-margin ml-auto stretch-card">
+								<div class="card">
+									<div class="card-body">
+										<h4 class="card-title">今日菜单</h4>
+										<form class="forms-sample">
+											<div class="form-group">
+												<table class="table" id="lunch_table">
+													<thead>
+
+													</thead>
+													<tbody id="showLunch">
+
+													</tbody>
+												</table>
+												<table class="table" id="dinner_table">
+													<thead>
+
+													</thead>
+													<tbody id="showDinner">
+
+													</tbody>
+												</table>
+											</div>
+											<div class="form-group">
+												<h4 class="card-title">预约信息</h4>
+												<!--<label for="menu_table">预约信息</label>-->
+												<table class="table" id="order_dish_table">
+													<thead>
+
+													</thead>
+													<tbody id="showorderdish">
+
+													</tbody>
+												</table>
+												<table class="table" id="order_opertation_table">
+													<thead>
+													</thead>
+													<tbody id="showoperation">
+													</tbody>
+												</table>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<!-- content-wrapper ends -->
+							<!-- partial:../../partials/_footer.html -->
+							<!-- partial -->
+						</div>
+						<!-- 修改用户信息表格 -->
+						<div class="box box-info" id="user_modify_table" style="display: none">
+						
+							<div class="row">
+								<div class="col-12 grid-margin">
+									<div class="card">
+										<div class="card-body">
+						
+											<form class="form-sample">
+						
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group row">
+															<label class="col-form-label">用户名</label>
+															<div class="col-sm-9">
+																<input type="text" readonly="readonly" class="form-control" id="new_username" name="new_username" style="width:210px;height:38px;">
+															</div>
+														</div>
+													</div>
+						
+													<div class="col-md-2">
+														<div class="form-group row">
+															<label class="col-form-label">姓名</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="new_name" name="new_name" placeholder="姓名" style="width:100px;height:38px;">
+															</div>
+														</div>
+													</div>
+													<div class="col-md-2">
+														<div class="form-group row">
+															<label class="col-form-label">性别</label>
+															<div class="col-sm-9">
+																<select class="form-control" id="new_sex" οnchange="getvalue(this)" style="width:80px;height:38px;">
+																	<option value="1">女</option>
+																	<option value="2">男</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="form-group row">
+															<label class="col-form-label">身份证号</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="new_idCardNo" name="new_idCardNo" placeholder="身份证号" style="width:210px;height:38px;">
+															</div>
+														</div>
+													</div>
+						
+												</div>
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group row">
+															<label class="col-form-label">密码</label>
+															<div class="col-sm-9">
+																<input type="password" class="form-control" id="new_password" name="new_password" style="width:225px;height:38px;">
+															</div>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="form-group row">
+															<label class="col-form-label">手机号码</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="new_phone" name="new_phone" placeholder="手机号码" style="width:185px;height:38px;">
+															</div>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="form-group row">
+															<label class="col-form-label">学历</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="new_education" name="new_education" placeholder="学历" style="width:240px;height:38px;">
+															</div>
+														</div>
+													</div>
+						
+												</div>
+						
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group row">
+															<label class="col-form-label">电子邮箱</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="new_email" name="new_email" placeholder="电子邮箱" style="width:185px;height:38px;">
+															</div>
+														</div>
+													</div>
+						
+													<div class="col-md-4">
+														<div class="form-group row">
+															<label class="col-form-label">部门</label>
+															<div class="col-sm-9">
+																<select class="form-control" id="new_subordinate_dept" οnchange="getvalue(this)" style="width:225px;height:38px;">
+						
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="form-group row">
+															<label class="col-form-label">职位</label>
+															<div class="col-sm-9">
+																<select class="form-control" id="new_subordinate_pos" οnchange="getvalue(this)" style="width:225px;height:38px;">
+						
+																</select>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group row">
+															<label class="col-form-label">联系地址</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="new_address" name="new_address" placeholder="联系地址" style="width:350px;height:38px;">
+															</div>
+														</div>
+													</div>
+						
+													<div class="col-md-6">
+														<div class="form-group row">
+															<label class="col-sm-3 col-form-label">用户属性</label>
+															<div class="col-sm-3">
+																<div class="form-check">
+																	<label class="form-check-label">
+						             <input type="radio" class="form-check-input" name="new_groupId" id="new_groupId1" value="1">
+						             管理员
+						           <i class="input-helper"></i></label>
+																</div>
+															</div>
+															<div class="col-sm-4">
+																<div class="form-check">
+																	<label class="form-check-label">
+						             <input type="radio" class="form-check-input" name="new_groupId" id="new_groupId2" value="2">
+						             职员
+						           <i class="input-helper"></i></label>
+																</div>
+															</div>
+														</div>
+													</div>
+						
+												</div>
+												<div class="col-md-8 ml-auto">
+													<button type="button" class="btn btn-gradient-primary mr-2" id="user_update_sumbit">提交</button>
+													<button type="button" class="btn btn-light" id="user_update_cancel">取消</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+						
+							</div>
+						</div>
+						
+						<footer class="footer">
+							<div class="d-sm-flex justify-content-center justify-content-sm-between">
+								<span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="" target="_blank">BootstrapDash</a>.
+							All rights reserved. </span>
+							</div>
+						</footer>
+					</div>
+				</div>
+				<!-- main-panel ends -->
+			</div>
+			<!-- page-body-wrapper ends -->
+			<!-- container-scroller -->
+
+			<!-- 下载文件表格 -->
+							<div class="box box-info" id="file_download_table" style="display: none">
+							<div class="box-header with-border">
+							</div>
+
+							<div class="row">
+								<div class="col-md-12 grid-margin stretch-card">
+									<div class="card">
+										<div class="card-body">
+
+											<form class="forms-sample">
+												<div class="form-group">
+													<label for="localpath">默认下载路径为“e:”</label>
+													<label for="localpath">可输入修改</label>
+													<input type="text" class="form-control" id="localpath" name="localpath" placeholder="e:盘">
+												</div>
+
+												<button type="button" class="btn btn-gradient-primary mr-2" id="file_download_sumbit">提交</button>
+												<button type="button" class="btn btn-light" id="file_download_cancel">取消</button>
+											</form>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+			<!-- 预约用餐表格 -->
+			<div class="box box-info" id="order_add_table" style="display: none">
+				
+
+				<div class="row">
+					<div class="col-md-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+
+								<form class="forms-sample">
+
+									<div class="form-group">
+										<label for="new_time">用餐时间</label>
+										<select class="form-control" id="eatTime">
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="new_time">菜单</label>
+										<table class="table" id="select_dish_table">
+											<thead>
+											</thead>
+											<tbody id="showselectedDish">
+											</tbody>
+										</table>
+
+										<!--<select multip id="InputDishName" class="form-control">
+
+									</select>-->
+									</div>
+
+									<button type="button" class="btn btn-gradient-primary mr-2" id="order_add_sumbit">提交</button>
+									<button type="button" class="btn btn-light" id="order_add_cancel">取消</button>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- 显示公告信息 -->
+			<div class="box box-info" id="Notice_detail_table" style="display: none">
+
+				<div class="row">
+					<div class="col-md-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+
+								<form class="forms-sample">
+									<div class="form-group">
+										<label for="notice_name">公告标题</label>
+										<input type="text" class="form-control" readonly="readonly" id="notice_name" name="notice_name">
+									</div>
+
+									<div class="form-group">
+										<label for="notice_desc">内容</label>
+										<textarea class="form-control" readonly="readonly" id="notice_desc" rows="15"></textarea>
+									</div>
+
+									<div class="col-md-4 ml-auto">
+										<button type="button" class="btn btn-gradient-primary btn-md" id="notice_details_close">关闭</button>
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- plugins:js -->
+			<script src="../../vendors/js/vendor.bundle.base.js"></script>
+			<script src="../../vendors/js/vendor.bundle.addons.js"></script>
+			<!-- endinject -->
+			<!-- Plugin js for this page-->
+			<!-- End plugin js for this page-->
+			<!-- inject:js -->
+			<script src="../../js/off-canvas.js"></script>
+			<script src="../../js/misc.js"></script>
+			<!-- endinject -->
+			<!-- Custom js for this page-->
+			<script src="../../js/dashboard.js"></script>
+			<!-- End custom js for this page-->
+			<script src="../../layer/layer.js"></script>
+			<script type="text/javascript" src="../../js/jquery-3.4.1.min.js"></script>
+			<script type="text/javascript" src="../../js/bootstrap.bundle.min.js"></script>
+			<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+			<script type="text/javascript" src="../../js/selectMultip.js"></script>
+
+			<!-- 修改用户信息 -->
+			<script>
+				
+				$(function() {
+				 	$("#modify").click(function() {
+					var username = sessionStorage.getItem("username");
+					var password = sessionStorage.getItem("password");
+			
+					var dataSend = {
+						username: username,
+						password: password
+					}
+			
+					var user;
+					$.ajax({
+						data: JSON.stringify(dataSend),
+						type: "POST",
+						url: 'http://localhost:8080/CSI/user/login', //请求controller方法   
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						async: false, //同步请求，注意此字段    
+						success: function(data) {
+							if(data.error_code == 0) {
+								user = data.data;
+							}
+						}
+					});
+			
+					$("#new_subordinate_dept").empty();
+					var option = $("<option>").val("").text("--请选择部门名称--");
+					$("#new_subordinate_dept").append(option);
+					$.ajax({
+						type: "POST",
+						url: 'http://localhost:8080/CSI/dept/showAllDept', //请求controller方法   
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						async: false, //同步请求，注意此字段    
+						success: function(data) {
+							if(data.error_code == 0) {
+								var dl = data.data;
+								$.each(dl, function(i, e) {
+									$("#new_subordinate_dept").append("<option value='" + e["departmentName"] + "'>" + e["departmentName"] + "</option>");
+			
+								});
+							}
+						},
+						error: function(data) {
+							layer.alert("稍后再试！");
+						}
+					});
+					if(user.departmentName != "") {
+			
+						$("#new_subordinate_pos").empty();
+			
+						var option = $("<option>").val("").text("--请选择职位名称--");
+						$("#new_subordinate_pos").append(option);
+						var dataSend = {
+							select_key: "",
+							departmentName: user.departmentName
+						};
+						console.log(dataSend);
+						$.ajax({
+							type: "POST",
+							url: 'http://localhost:8080/CSI/pos/selectPosResult', //请求controller方法   
+							data: JSON.stringify(dataSend),
+							contentType: "application/json; charset=utf-8",
+							dataType: "json",
+							async: false, //同步请求，注意此字段    
+							success: function(data) {
+								if(data.error_code == 0) {
+									var dl = data.data;
+									$.each(dl, function(i, e) {
+										$("#new_subordinate_pos").append("<option value='" + e["positionName"] + "'>" + e["positionName"] + "</option>");
+			
+									});
+								}
+							},
+							error: function(data) {
+								layer.alert("稍后再试！");
+							}
+						});
+					}
+						$("#new_username").val(user.username);
+			
+						$("#new_name").val(user.name);
+			
+						$("#new_sex").val(user.sex);
+			
+						$("#new_password").val(user.password);
+			
+						$("#new_idCardNo").val(user.idCardNo);
+			
+						if(user.groupId == 1) {
+							$("#new_groupId1").prop("checked", true);
+							$("#new_groupId2").attr("disabled", "disabled");
+						} else {
+							$("#new_groupId2").prop("checked", true);
+							$("#new_groupId1").attr("disabled", "disabled");
+						}
+						$("#new_phone").val(user.phone);
+			
+						$("#new_email").val(user.email);
+			
+						$("#new_subordinate_dept").val(user.departmentName);
+						$('#new_subordinate_dept').attr("disabled", "disabled");
+						$("#new_subordinate_pos").val(user.positionName);
+						$('#new_subordinate_pos').attr("disabled", "disabled");
+						$("#new_education").val(user.education);
+			
+						$("#new_address").val(user.address);
+			
+						layer.open({
+							type: 1,
+							title: "<i class='mdi mdi-account-settings-variant'></i>修改用户信息",
+							shadeClose: true,
+							shade: 0.5,
+							area: ['1000px', '500px'],
+							content: $("#user_modify_table")
+						})
+			
+						$("#new_subordinate_dept").change(function() {
+			
+							$("#new_subordinate_pos").empty();
+			
+							var option = $("<option>").val("").text("--请选择职位名称--");
+							$("#new_subordinate_pos").append(option);
+							var dataSend = {
+								select_key: "",
+								departmentName: $("#new_subordinate_dept").val()
+							};
+							console.log(dataSend);
+							if($.trim($("#new_subordinate_dept").val()) == "") {
+			
+							} else {
+								$.ajax({
+									type: "POST",
+									url: 'http://localhost:8080/CSI/pos/selectPosResult', //请求controller方法   
+									data: JSON.stringify(dataSend),
+									contentType: "application/json; charset=utf-8",
+									dataType: "json",
+									async: false, //同步请求，注意此字段    
+									success: function(data) {
+										if(data.error_code == 0) {
+											var dl = data.data;
+											$.each(dl, function(i, e) {
+												$("#new_subordinate_pos").append("<option value='" + e["positionName"] + "'>" + e["positionName"] + "</option>");
+			
+											});
+										}
+									},
+									error: function(data) {
+										layer.alert("稍后再试！")
+									}
+								});
+							}
+						});
+						
+				
+						$("#user_update_sumbit").click(function() {
+							var dataSend = {
+								username: username,
+								name: $("#new_name").val(),
+								sex: $("#new_sex").val(),
+								password: $("#new_password").val(),
+								idCardNo: $("#new_idCardNo").val(),
+								groupid: $('input[name="new_groupId"]:checked').val(),
+								phone: $("#new_phone").val(),
+								email: $("#new_email").val(),
+								departmentName: $("#new_subordinate_dept").val(),
+								positionName: $("#new_subordinate_pos").val(),
+								education: $("#new_education").val(),
+								address: $("#new_address").val()
+			
+							};
+			
+							console.log(dataSend);
+							$.ajax({
+								type: "POST",
+								url: 'http://localhost:8080/CSI/user/update',
+								data: JSON.stringify(dataSend),
+								contentType: "application/json; charset=utf-8",
+								dataType: "json",
+								async: false,
+								success: function(data) {
+									if(data.error_code == 0) {
+											sessionStorage.setItem("username", data.data.username);
+											sessionStorage.setItem("name", data.data.name);
+											sessionStorage.setItem("userid", data.data.user_id);
+											sessionStorage.setItem("groupId", data.data.groupId);
+											sessionStorage.setItem("positionName", data.data.positionName);
+											sessionStorage.setItem("password", data.data.password);
+											sessionStorage.setItem("sex", data.data.sex);
+											if(localStorage.getItem("remember_username")==data.data.username){
+												localStorage.setItem("remember_password",data.data.password)
+											}
+										layer.alert('修改成功！', {
+											icon: 1,
+											closeBtn: 0
+										}, function(index) {
+											layer.closeAll();
+											window.location.reload();
+										});
+			
+									} else if(data.error_code == 1) {
+										layer.alert('信息不全！', {
+											icon: 2,
+											closeBtn: 0
+										});
+									} else if(data.error_code == 2) {
+										layer.alert('用户不存在！', {
+											icon: 2,
+											closeBtn: 0
+										});
+									} else if(data.error_code == 3) {
+										layer.alert('修改失败！', {
+											icon: 2,
+											closeBtn: 0
+										});
+									}
+								},
+								error: function(data) {
+									layer.alert('稍后再试！', {
+										icon: 2,
+										closeBtn: 0
+									});
+								}
+							});
+			
+						});
+						$("#user_update_cancel").click(function() {
+							layer.closeAll();
+						});
+					
+					})
+				})
+			</script>
+			
+			<script>
+				var sex = sessionStorage.getItem("sex");
+				if(sex == 1) {
+					touxiang = "../../images/faces/face2.jpg";
+				} else {
+					touxiang = "../../images/faces/face3.jpg"
+				}
+				$("#touxiang").attr("src", touxiang);
+				$("#touxiang1").attr("src", touxiang);
+
+				function getData() {
+					$('#name').text(sessionStorage.getItem("name"));
+					$('#name1').text(sessionStorage.getItem("name"));
+					if(sessionStorage.getItem("groupId") == "1") {
+						$('#occupation').text("管理员");
+					} else {
+						$('#occupation').text(sessionStorage.getItem("positionName"));
+					}
+				}
+				$("#logout").click(function() {
+					sessionStorage.removeItem("username");
+					sessionStorage.removeItem("name");
+					sessionStorage.removeItem("userid");
+					sessionStorage.removeItem("groupId");
+					sessionStorage.removeItem("positionName");
+					sessionStorage.removeItem("password");
+					sessionStorage.removeItem("sex");
+
+				})
+				$("#facereg").click(function() {
+					var username = sessionStorage.getItem("username");
+					var searchUrl = encodeURI("../face/facereg.html?username=" + username); //使用encodeURI编码
+					location.href = searchUrl;
+				});
+			</script>
+			<script>
+				$(function() {
+					if(sessionStorage.getItem("groupId") == 1)
+						location.href = '../index/index.html'
+					else if(sessionStorage.getItem("groupId") == null) {
+						location.href = '../login/login.html'
+					}
+					console.log(sessionStorage)
+
+					getData();
+					var globaldata1; //公告的全部数据
+					var globaldata2; //文件的全部数据
+					//公告栏
+					$.ajax({
+						type: "POST",
+						url: 'http://localhost:8080/CSI/announce/showAll',
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						async: false,
+						success: function(data) {
+							console.log(data);
+							if(data.error_code == 0) {
+								globaldata1 = data.data;
+								$("#notice_table tbody").empty();
+								var $tbody = $("#shownotice");
+								var notice = data.data;
+								$.each(notice, function(i, e) {
+									var $noticename = e.name;
+									var $ntcname = $noticename.substr(0, 15);
+									var $button_1 = document.createElement("a");
+									$button_1.text = "查看";
+									$button_1.className = "btn btn-xs btn-inverse-primary";
+									var $td1 = $("<td style='width: 60%'>").append($ntcname);
+									var $td2 = $("<td style='width: 25%'>").append(e.creatTime);
+									var $td3 = $("<td style='width: 15%'>").append($button_1);
+									var $tr = $("<tr>").append($td1)
+										.append($td2).append($td3);
+									$tbody.append($tr);
+								});
+							} else {
+								var $tbody = $("#shownotice");
+								var $td1 = $("<td style='width: 60%'>").append("暂无公告！");
+								var $tr = $("<tr>").append($td1)
+								$tbody.append($tr);
+							}
+						}
+					});
+
+					//文件栏
+					$.ajax({
+						type: "POST",
+						url: 'http://localhost:8080/CSI/file/selectFileAll',
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						async: false,
+						success: function(data) {
+							console.log(data);
+							if(data.error_code == 0) {
+								globaldata2 = data.data;
+								$("#showfile").empty();
+								var $tbody = $("#showfile");
+								var files = data.data;
+								$.each(files, function(i, e) {
+									var $filename = e.name;
+									var $fname = $filename.substr(0, 15);
+									var $button_1 = document.createElement("a");
+									$button_1.text = "预览";
+									$button_1.className = "btn btn-xs btn-inverse-info";
+									var $button_2 = document.createElement("a");
+									$button_2.text = "下载";
+									$button_2.className = "btn btn-xs btn-inverse-warning";
+									var $td1 = $("<td style='width: 55%'>").append($fname);
+									var $td2 = $("<td style='width: 35%'>").append(e.date);
+									var $td3 = $("<td style='width: 5%'>").append($button_1);
+									var $td4 = $("<td style='width: 5%'>").append($button_2);
+									var $tr = $("<tr>").append($td1)
+										.append($td2).append($td3).append($td4);
+									$tbody.append($tr);
+								});
+							} else {
+								var $tbody = $("#showfile");
+								var $td1 = $("<td style='width: 60%'>").append("暂无文件！");
+								var $tr = $("<tr>").append($td1)
+								$tbody.append($tr);
+							}
+						}
+					});
+
+					//菜单栏 今日菜单
+					var currentTime = new Date();
+					var hour = currentTime.getHours();
+					var minute = currentTime.getMinutes();
+					$.ajax({
+						type: "POST",
+						url: 'http://localhost:8080/CSI/menu/showAll',
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						async: false,
+						success: function(data) {
+							console.log(data);
+							if(data.error_code == 0) {
+								$("#lunch_table tbody").empty();
+								$("#dinner_table tbody").empty();
+								var $tbodyl = $("#showLunch");
+								var $tbodyd = $("#showDinner");
+								var deals = data.data;
+								var $dishNameOptL = deals.lunch;
+								var $dishNameOptD = deals.dinner;
+								$("#select_dish_table tbody").empty();
+								if(hour < 12 || (hour == 12 && minute < 30)) {
+									for(var i = 0; i < $dishNameOptL.length; i++) {
+										var $tbodysd = $("#showselectedDish");
+										var $checkBox = document.createElement("input");
+										$checkBox.setAttribute("type", "checkbox");
+										$checkBox.setAttribute("value", $dishNameOptL[i]);
+										$checkBox.setAttribute("class", "box_");
+										var $tdbox = $("<td>").append($checkBox).append($dishNameOptL[i]);
+										$tbodysd.append($tdbox);
+									}
+								} else {
+									for(var i = 0; i < $dishNameOptD.length; i++) {
+										var $tbodysd = $("#showselectedDish");
+										var $checkBox = document.createElement("input");
+										$checkBox.setAttribute("type", "checkbox");
+										$checkBox.setAttribute("value", $dishNameOptD[i]);
+										$checkBox.setAttribute("class", "box_");
+										var $tdbox = $("<td>").append($checkBox).append($dishNameOptD[i]);
+										$tbodysd.append($tdbox);
+									}
+								}
+								console.log(deals.lunch)
+								if(deals.lunch.length == 0) {
+									var $trl = $("<tr>").append("<p>午餐暂未发布</p>");
+									$tbodyl.append($trl);
+								} else {
+									var $dishNameL = deals.lunch;
+									if($dishNameL.length > 0) {
+										var $trl = $("<tr>").append($("<td>").html("<b>午餐</b>"));
+										//var $tdl = $("<td style='width: 70%;'>");
+										for(var i = 0; i < $dishNameL.length; i++) {
+											var $dishNameShow = $("<td>").append($dishNameL[i]);
+											$trl.append($dishNameShow);
+										}
+										$tbodyl.append($trl);
+									}
+								}
+								if(deals.dinner.length == 0) {
+									var $trd = $("<tr>").append("<p>晚餐暂未发布</p>");
+									$tbodyd.append($trd);
+								} else {
+									var $dishNameD = deals.dinner;
+									if($dishNameD.length > 0) {
+										var $trd = $("<tr>").append($("<td>").html("<b>晚餐</b>"));
+										//var $tdd = $("<td style='width: 70%;'>");
+										for(var i = 0; i < $dishNameD.length; i++) {
+											var $dishNameShow = $("<td>").append($dishNameD[i]);
+											$trd.append($dishNameShow);
+										}
+										$tbodyd.append($trd);
+									}
+								}
+							} else if(data.error_code == 1) {
+								$("#lunch_table tbody").empty();
+								$("#dinner_table tbody").empty();
+								var $tbodyl = $("#showLunch");
+								var $tr = $("<tr>").append("<p>菜单暂未发布</p>");
+								$tbodyl.append($tr);
+							} else {
+								layer.alert("菜单内容加载失败！");
+							}
+						}
+					});
+
+					//预约信息展示
+					var currentTime = new Date();
+					var hour = currentTime.getHours();
+					var minute = currentTime.getMinutes();
+					if(hour < 12 || (hour == 12 && minute <= 30)) {
+						var timecode = 0;
+					} else {
+						var timecode = 1;
+					}
+					var username = sessionStorage.getItem("username");
+					var dataSend = {
+						username: username,
+						timecode: timecode
+					};
+					console.log(dataSend);
+					$.ajax({
+						type: "POST",
+						url: 'http://localhost:8080/CSI/menu/selectByUserName',
+						data: JSON.stringify(dataSend),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						async: false,
+						success: function(data) {
+							console.log(data);
+							if(data.error_code == 0) {
+								$("#order_dish_table tbody").empty();
+								$("#order_opertation_table tbody").empty();
+								var $tbodydish = $("#showorderdish");
+								var $tbodyoper = $("#showoperation");
+								var orders = data.data;
+								var $dishtime = orders.time;
+								console.log($dishtime)
+								if($dishtime == 0) {
+									var $trtime = $("<tr>").append($("<td style='width: 50%;'>").html("<b>用餐时间</b>")).append($("<td style='width: 50%;'>").html("11:00"));
+								} else if($dishtime == 1) {
+									var $trtime = $("<tr>").append($("<td style='width: 50%;'>").html("<b>用餐时间</b>")).append($("<td style='width: 50%;'>").html("11:30"));
+								} else if($dishtime == 2) {
+									var $trtime = $("<tr>").append($("<td style='width: 50%;'>").html("<b>用餐时间</b>")).append($("<td style='width: 50%;'>").html("12:00"));
+								} else if($dishtime == 3) {
+									var $trtime = $("<tr>").append($("<td style='width: 50%;'>").html("<b>用餐时间</b>")).append($("<td style='width: 50%;'>").html("12:30"));
+								} else if($dishtime == 4) {
+									var $trtime = $("<tr>").append($("<td style='width: 50%;'>").html("<b>用餐时间</b>")).append($("<td style='width: 50%;'>>").html("17:30"));
+								} else if($dishtime == 5) {
+									var $trtime = $("<tr>").append($("<td style='width: 50%;'>").html("<b>用餐时间</b>")).append($("<td style='width: 50%;'>").html("18:00"));
+								} else if($dishtime == 6) {
+									var $trtime = $("<tr>").append($("<td style='width: 50%;'>").html("<b>用餐时间</b>")).append($("<td style='width: 50%;'>").html("18:30"));
+								} else if($dishtime == 7) {
+									var $trtime = $("<tr>").append($("<td style='width: 50%;'>").html("<b>用餐时间</b>")).append($("<td style='width: 50%;'>").html("19:00"));
+								} else {
+									layer.alert("用餐时间加载失败！");
+								}
+								var $dishName = orders.dishName;
+								var $tr1 = $("<tr>").append($("<td>").html("<b>菜单</b>"));
+								var $tr2 = $("<tr>");
+								if($dishName.length > 0) {
+									for(var i = 0; i < $dishName.length; i++) {
+										$str1 = $dishName[i]; //这里就是list里面的值
+										$tr2.append($("<td>").html($str1));
+									}
+								}
+								var $button_1 = document.createElement("a");
+								$button_1.text = "修改预约";
+								$button_1.className = "btn btn-xs btn-inverse-danger";
+								var $button_2 = document.createElement("a");
+								$button_2.text = "取消预约";
+								$button_2.className = "btn btn-xs btn-inverse-dark";
+								var $tdb1 = $("<td>").append($button_1);
+								var $tdb2 = $("<td>").append($button_2);
+								var $troper = $("<tr>").append($tdb1).append($tdb2);
+								$tbodydish.append($trtime).append($tr1).append($tr2);
+								$tbodyoper.append($troper);
+							} else if(data.error_code == 2) {
+								$("#order_dish_table tbody").empty();
+								$("#order_opertation_table tbody").empty();
+								var $tbodydish = $("#showorderdish");
+								var $tbodyoper = $("#showoperation");
+								var $button_3 = document.createElement("a");
+								$button_3.text = "预约";
+								$button_3.className = "btn btn-xs btn-inverse-danger";
+								var $tdb = $("<td>").append($button_3);
+								var tbodyDinner = document.getElementById("showDinner").innerHTML;
+								if($.trim(tbodyDinner) == "") {
+									var $tr = $("<tr>").append($("<td>").html("菜单暂未发布，不可预约"));
+								} else {
+									var $tr = $("<tr>").append($("<td>").html("尚未预约")).append($tdb);
+								}
+								$tbodydish.append($tr);
+							} else if(data.error_code == 1) {
+								layer.alert("查询时间错误！");
+							} else {
+								layer.alert("预约信息查询失败!");
+							}
+						}
+					});
+					//下载文件
+					$(".content-wrapper").on("click", ".btn-inverse-warning", function() {
+						var $tr = $(this).parents("tr");
+						var name = $tr.find("td:eq(0)").html();
+						var herf;
+
+						for(i = 0; i < globaldata2.length; i++) {
+							if(globaldata2[i].name == name) {
+								herf = globaldata2[i].herf
+							}
+						}
+						
+						$("#localpath").val("e:")
+
+						layer.open({
+							type: 1,
+							title: '下载文件',
+							shadeClose: true,
+							shade: 0.5,
+							area: ['500px', '300px'],
+							content: $("#file_download_table")
+						})
+
+						$("#file_download_sumbit").click(function() {
+							var dataSend = {
+								localpath: $("#localpath").val(),
+								herf: herf
+							};
+							if($.trim($("#localpath").val()) == "") {
+								layer.msg('请选择路径！', {
+									icon: 2,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
+								});
+							} else {
+								$.ajax({
+									type: "POST",
+									url: 'http://localhost:8080/CSI/file/downLoad',
+									data: JSON.stringify(dataSend),
+									contentType: "application/json; charset=utf-8",
+									dataType: "json",
+									async: false,
+									success: function(data) {
+										if(data.error_code == 0) {
+											layer.alert('下载成功！', {
+												icon: 1,
+												closeBtn: 0
+											}, function(index) {
+												layer.closeAll();
+												window.location.reload();
+											});
+
+										} else {
+											layer.alert('下载失败！', {
+												icon: 2,
+												closeBtn: 0
+											});
+										}
+									}
+								});
+							}
+						});
+						$("#file_download_cancel").click(function() {
+							layer.closeAll();
+						});
+					});
+
+					$(".content-wrapper").on("click", ".btn-inverse-info", function() {
+
+						var $tr = $(this).parents("tr");
+						var name = $tr.find("td:eq(0)").html();
+						var herf;
+
+						for(i = 0; i < globaldata2.length; i++) {
+							if(globaldata2[i].name == name) {
+								herf = globaldata2[i].herf
+							}
+						}
+						var index = herf.lastIndexOf(".");
+						var ext = herf.substr(index + 1);
+						console.log(ext)
+						if(['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf', 'txt'].indexOf(ext) != -1 || ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf', 'txt'].indexOf(ext.toLowerCase()) != -1)
+							window.open('http://dcsapi.com/?k=48002957336746393702934&url=' + 'https://filebed-1259719447.cos.ap-chengdu.myqcloud.com/' + herf)
+						else if(['jpg', 'png', 'jpeg', 'gif','bmp'].indexOf(ext) != -1 || ['jpg', 'png', 'jpeg', 'gif','bmp'].indexOf(ext.toLowerCase()) != -1)
+							window.open('https://filebed-1259719447.cos.ap-chengdu.myqcloud.com/' + herf)
+						else layer.alert('当前文件类型不支持预览！', {
+							icon: 2,
+							closeBtn: 0
+						});
+					});
+					//取消预约
+					$(".content-wrapper").on("click", ".btn-inverse-dark", function() {
+						var user_name = sessionStorage.getItem("username");
+						var dataSend = {
+							user_name: user_name
+						};
+						console.log(dataSend);
+
+						layer.confirm('确定取消订单?', {
+							icon: 3,
+							title: '提示'
+						}, function(index) {
+							$.ajax({
+								type: "POST",
+								url: 'http://localhost:8080/CSI/menu/deleteOrdering',
+								data: JSON.stringify(dataSend),
+								contentType: "application/json; charset=utf-8",
+								dataType: "json",
+								async: false,
+								success: function(data) {
+									if(data.error_code == 0) {
+										layer.alert('取消成功', {
+											icon: 1,
+											closeBtn: 0
+										}, function(index) {
+											layer.closeAll();
+											window.location.reload();
+										});
+									} else if(data.error_code == 1) {
+										layer.alert('该用户没有下单,可能已经删除。', {
+											icon: 2,
+											closeBtn: 0
+										});
+									} else if(data.error_code == 2) {
+										layer.alert('取消预约失败', {
+											icon: 2,
+											closeBtn: 0
+										});
+									} else if(data.error_code == 3) {
+										layer.alert('输入user_name为空', {
+											icon: 2,
+											closeBtn: 0
+										});
+									}
+								},
+								error: function(data) {
+									layer.alert(data.message, {
+										icon: 2,
+										closeBtn: 0
+									});
+								}
+							});
+							layer.close(index);
+						});
+					});
+					//订餐
+					$(".content-wrapper").on("click", ".btn-inverse-danger", function() {
+						//var sltopt = document.getElementsByClassName("box_");
+						var user_name = sessionStorage.getItem("username");
+						layer.open({
+							type: 1,
+							title: '订餐',
+							shadeClose: true,
+							shade: 0.5,
+							area: ['500px', '400px'],
+							content: $("#order_add_table")
+						})
+
+						$("#order_add_sumbit").click(function() {
+							var selectopt = document.getElementById("eatTime");
+							var dishtimeslt = selectopt.value; //获取option的value
+							var choiceselect = $("input[class='box_']:checked").length;
+							var sltopt = $("input[class='box_']:checked");
+							var dishName = new Array();
+							sltopt.each(function() {
+								dishName.push($(this).val());
+							});
+							if(choiceselect == 0) {
+								layer.msg('请选择菜品！', {
+									icon: 2,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
+								});
+							} else if($.trim(dishtimeslt) == "") {
+								layer.msg('请选择时间！', {
+									icon: 2,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
+								});
+							} else {
+								var dataSend = {
+									user_name: user_name,
+									time: dishtimeslt,
+									dishName: dishName
+								};
+								console.log(dataSend);
+								$.ajax({
+									type: "POST",
+									url: 'http://localhost:8080/CSI/menu/addOrdering',
+									data: JSON.stringify(dataSend),
+									contentType: "application/json; charset=utf-8",
+									dataType: "json",
+									async: false,
+									success: function(data) {
+										if(data.error_code == 0) {
+											layer.alert('预约成功！', {
+												icon: 1,
+												closeBtn: 0
+											}, function(index) {
+												layer.closeAll();
+												window.location.reload();
+											});
+										} else if(data.error_code == 1) {
+											layer.alert('该时间段预约人数达到上限，请另选时间段', {
+												icon: 2,
+												closeBtn: 0
+											});
+										} else if(data.error_code == 2) {
+											layer.alert('没有输入user_name', {
+												icon: 2,
+												closeBtn: 0
+											});
+										} else if(data.error_code == 3) {
+											layer.alert('输入时间段不在已知范围内', {
+												icon: 2,
+												closeBtn: 0
+											});
+										} else {
+											layer.alert('预约失败！', {
+												icon: 2,
+												closeBtn: 0
+											});
+										}
+									}
+								});
+
+							}
+						});
+						$("#order_add_cancel").click(function() {
+							layer.closeAll();
+						});
+
+					});
+					//查看公告
+					$(".content-wrapper").on("click", ".btn-inverse-primary", function() {
+						var $tr = $(this).parents("tr");
+						var name = $tr.find("td:eq(0)").html();
+						var content;
+						for(i = 0; i < globaldata1.length; i++) {
+							if(globaldata1[i].name == name) {
+								content = globaldata1[i].content
+							}
+						}
+						$("#notice_name").val(name);
+						$("#notice_desc").val(content);
+
+						layer.open({
+							type: 1,
+							title: "<i class='mdi mdi-bulletin-board'></i>公告详情",
+							shadeClose: true,
+							shade: 0.5,
+							area: ['500px', '530px'],
+							content: $("#Notice_detail_table")
+						})
+
+						$("#notice_details_close").click(function() {
+							layer.closeAll();
+						});
+
+					});
+				});
+			</script>
+			<script>
+				$(function() {
+					var currentTime = new Date();
+					var hour = currentTime.getHours();
+					var minute = currentTime.getMinutes();
+					var ddl = $("#eatTime");
+					if(document.getElementById("showDinner").innerHTML == "") {
+						$("#eatTime").append("<option value='-1'>--现在不可预约--</option>");
+					} else {
+						if(hour < 11) {
+							$("#eatTime").append("<option value='0'>--11:00--</option>").append("<option value='1'>--11:30--</option>").append("<option value='2'>--12:00--</option>").append("<option value='3'>--12:30--</option>");
+						} else if(hour == 11 && minute < 30) {
+							$("#eatTime").append("<option value='1'>--11:30--</option>").append("<option value='2'>--12:00--</option>").append("<option value='3'>--12:30--</option>");
+						} else if(hour == 11 && minute >= 30) {
+							$("#eatTime").append("<option value='2'>--12:00--</option>").append("<option value='3'>--12:30--</option>");
+						} else if(hour == 12 && minute < 30) {
+							$("#eatTime").append("<option value='3'>--12:30--</option>");
+						} else if((hour == 12 && minute >= 30) || (hour >= 13 && hour < 17) || (hour == 17 && minute < 30)) {
+							$("#eatTime").append("<option value='4'>--17:30--</option>").append("<option value='5'>--18:00--</option>").append("<option value='6'>--18:30--</option>").append("<option value='7'>--19:00--</option>");
+						} else if(hour == 17 && minute >= 30) {
+							$("#eatTime").append("<option value='5'>--18:00--</option>").append("<option value='6'>--18:30--</option>").append("<option value='7'>--19:00--</option>");
+						} else if(hour == 18 && minute < 30) {
+							$("#eatTime").append("<option value='6'>--18:30--</option>").append("<option value='7'>--19:00--</option>");
+						} else if(hour == 18 && minute >= 30) {
+							$("#eatTime").append("<option value='7'>--19:00--</option>");
+						} else {
+							$("#eatTime").append("<option value='-1'>--现在不可预约--</option>");
+						}
+					}
+				});
+			</script>
+
+	</body>
+
+</html>
