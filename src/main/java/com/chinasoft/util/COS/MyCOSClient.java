@@ -8,6 +8,8 @@ import com.qcloud.cos.COSClient;
 import com.qcloud.cos.exception.CosClientException;
 import com.qcloud.cos.exception.CosServiceException;
 import com.qcloud.cos.model.Bucket;
+import com.qcloud.cos.model.COSObject;
+import com.qcloud.cos.model.COSObjectInputStream;
 import com.qcloud.cos.model.COSObjectSummary;
 import com.qcloud.cos.model.GetObjectRequest;
 import com.qcloud.cos.model.ListObjectsRequest;
@@ -63,6 +65,18 @@ public class MyCOSClient {
 		ObjectMetadata dowObjectMeta = client.getObject(getObjectRequest, downFile);
 		
 		return dowObjectMeta;
+		
+	}
+	
+	public void updateFile(String oldKey, String newKey) {
+		
+		String bucketName = "filebed-1259719447";
+		
+		GetObjectRequest getObjectRequest = new GetObjectRequest(bucketName,oldKey);
+		COSObject cosObject = client.getObject(getObjectRequest);
+		COSObjectInputStream cosInputStream = cosObject.getObjectContent();
+		client.putObject(bucketName, newKey, cosInputStream, cosObject.getObjectMetadata());
+		deleteFile(oldKey);
 		
 	}
 	

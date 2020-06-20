@@ -22,4 +22,6 @@ public interface FileMapperService {
 	
 	List<File> selectWithID(int fileId);
 	
+	File selectone(String name);
+	
 }
